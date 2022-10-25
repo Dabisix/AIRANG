@@ -39,11 +39,13 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @Autowired
     AuthService authService;
 
     @Autowired
     JwtTokenProvider jwtTokenProvider;
 
+    //회원가입
     @NoJwt
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@RequestBody User user) {
@@ -52,6 +54,7 @@ public class UserController {
         return new ResponseEntity<String>(FAIL, HttpStatus.NOT_ACCEPTABLE);
     }
 
+    //로그인
     @NoJwt
     @PostMapping
     public ResponseEntity<Map<String, Object>> login(@RequestBody User user) {
@@ -71,7 +74,7 @@ public class UserController {
                         .user(loginUser)
                         .refreshToken(refreshToken)
                         .build();
-                System.out.println("dafasfs");
+
                 if(authService.findUser(id).isPresent()) {
                     Auth alreadyAuth = authService.findUser(user.getEmail()).get();
                     authService.delete(alreadyAuth);
@@ -101,6 +104,7 @@ public class UserController {
         return new ResponseEntity<Map<String, Object>>(resultMap, status);
     }
 
+    //임시 비밀번호 발급
     @NoJwt
     @PostMapping("/mail")
     public ResponseEntity<String> sendMail(@RequestBody Map<String, String> request) throws SQLException {
@@ -111,6 +115,7 @@ public class UserController {
         return new ResponseEntity<String>("메일 전송 실패", HttpStatus.NOT_FOUND);
     }
 
+    //유저 정보 수정
     @PutMapping
     public ResponseEntity<String> updateInfo(@RequestHeader(value = "access-token") String request, @RequestBody UserNewInfo info) {
         String email = jwtTokenProvider.getUserID(request);
@@ -120,6 +125,7 @@ public class UserController {
         return new ResponseEntity<String>("정보 업데이트 실패", HttpStatus.NOT_FOUND);
     }
 
+    //유저 삭제
     @PatchMapping
     public ResponseEntity<?> deleteUser(@RequestHeader(value = "access-token") String request) {
         String userEmail = jwtTokenProvider.getUserID(request);
@@ -131,6 +137,7 @@ public class UserController {
         else return new ResponseEntity<String>(FAIL, HttpStatus.NOT_FOUND);
     }
 
+    //유저정보
     @GetMapping
     public ResponseEntity<?> getInfo(@RequestHeader(value = "access-token") String request) {
         String email = jwtTokenProvider.getUserID(request);
@@ -142,6 +149,7 @@ public class UserController {
         return new ResponseEntity<String>(FAIL, HttpStatus.NOT_FOUND);
     }
 
+    //이메일 중복검사
     @PostMapping("/id")
     public ResponseEntity<?> checkDuplication(@RequestBody Map<String, String> request) {
         String email = request.get("email");

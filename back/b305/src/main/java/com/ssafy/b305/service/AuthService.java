@@ -14,7 +14,7 @@ public class AuthService {
     AuthRepository authRepository;
 
     public Optional<Auth> findUser(String email) {
-        System.out.println(email);
+        System.out.println("email" + email);
         return authRepository.findByuser_email(email);
     }
 
