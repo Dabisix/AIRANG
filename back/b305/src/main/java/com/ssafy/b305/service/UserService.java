@@ -45,11 +45,10 @@ public class UserService {
 
         }
 
-
         return result;
     }
 
-    public User findUserById(String email) {
+    public User findUserByEmail(String email) {
         Optional<User> user = userRepository.findByEmail(email);
         if(user.isPresent())
             return user.get();
@@ -68,7 +67,7 @@ public class UserService {
         return result;
     }
 
-    public String login(User user) throws SQLException {
+    public String login(User user){
         Optional<User> oUser = userRepository.findByEmail(user.getEmail());
 
         // 해당 id의 user가 있으면
@@ -100,7 +99,7 @@ public class UserService {
             pwd += charSet[idx];
         }
 
-        User user = findUserById(userId);
+        User user = findUserByEmail(userId);
 
         String hashPw = BCrypt.hashpw(pwd, BCrypt.gensalt());
 

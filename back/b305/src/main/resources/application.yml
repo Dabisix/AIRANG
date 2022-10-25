@@ -1,8 +1,22 @@
-# version 3 : add schema creater
+# version 4 : add mail sender
+logging:
+  level:
+    root: info
 
 spring:
+  mail:
+    host: smtp.gmail.com
+    port: 465
+    username: seoeun546@gmail.com
+    password: eyeyilsmdhdvgxvw
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+
   jpa:
-    open-in-view: false
     hibernate:
       ddl-auto: update
 
@@ -27,8 +41,8 @@ server:
     context-path: /api
   encoding:
     charset: UTF-8
-  port: 8080
+  port: 8081
 
 secret:
-  access: Access
-  refresh: Refresh
+  access: AiRangAccess
+  refresh: AiRangRefresh

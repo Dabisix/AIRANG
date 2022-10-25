@@ -58,10 +58,12 @@ public class UserController {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = null;
         String id = user.getEmail();
+
         try {
             String result = userService.login(user);
             if (result.equals(id)) {
-                User loginUser = userService.findUserById(result);
+
+                User loginUser = userService.findUserByEmail(result);
                 String accessToken = jwtTokenProvider.createAccessToken(user.getEmail());
                 String refreshToken = jwtTokenProvider.createRefreshToken(user.getEmail());
 
@@ -69,11 +71,12 @@ public class UserController {
                         .user(loginUser)
                         .refreshToken(refreshToken)
                         .build();
-
-                if(authService.findUser(user.getEmail()).isPresent()) {
+                System.out.println("dafasfs");
+                if(authService.findUser(id).isPresent()) {
                     Auth alreadyAuth = authService.findUser(user.getEmail()).get();
                     authService.delete(alreadyAuth);
                 }
+
                 authService.save(auth);
 
                 resultMap.put("token", TokenResponse.builder()
@@ -92,18 +95,17 @@ public class UserController {
 
             }
         } catch (Exception e) {
-//            logger.error("로그인 실패 : {}", e);
-//            resultMap.put("message", e.getMessage());
+            resultMap.put("message", e.getMessage());
             status = HttpStatus.NOT_MODIFIED;
         }
         return new ResponseEntity<Map<String, Object>>(resultMap, status);
     }
 
     @NoJwt
-    @GetMapping("/mail")
+    @PostMapping("/mail")
     public ResponseEntity<String> sendMail(@RequestBody Map<String, String> request) throws SQLException {
         String email = request.get("email");
-        if(userService.findUserById(email) != null && userService.makeTmpPw(email) != "") {
+        if(userService.findUserByEmail(email) != null && userService.makeTmpPw(email) != "") {
             return new ResponseEntity<String>("메일 전송 성공", HttpStatus.OK);
         }
         return new ResponseEntity<String>("메일 전송 실패", HttpStatus.NOT_FOUND);
@@ -140,7 +142,7 @@ public class UserController {
         return new ResponseEntity<String>(FAIL, HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/id")
+    @PostMapping("/id")
     public ResponseEntity<?> checkDuplication(@RequestBody Map<String, String> request) {
         String email = request.get("email");
         User user = userService.myPage(email);
