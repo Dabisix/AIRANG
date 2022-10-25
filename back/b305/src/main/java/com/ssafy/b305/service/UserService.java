@@ -105,7 +105,7 @@ public class UserService {
         String hashPw = BCrypt.hashpw(pwd, BCrypt.gensalt());
 
         user.setPw(hashPw);
-//        updateUser(user);
+        userRepository.save(user);
 
         //메일 생성
         Mail mail = mailService.createMail(pwd, user.getEmail());
@@ -124,7 +124,7 @@ public class UserService {
             if(newInfo.getName() != "")
                 u.setName(newInfo.getName());
             if(newInfo.getPw() != "")
-                u.setPw(newInfo.getPw());
+                u.setPw(BCrypt.hashpw(newInfo.getPw(), BCrypt.gensalt()));
 
             userRepository.save(u);
 

@@ -39,9 +39,6 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @Autowired
-    MailService mailService;
-
     AuthService authService;
 
     @Autowired
@@ -104,7 +101,8 @@ public class UserController {
 
     @NoJwt
     @GetMapping("/mail")
-    public ResponseEntity<String> sendMail(@RequestBody String email) throws SQLException {
+    public ResponseEntity<String> sendMail(@RequestBody Map<String, String> request) throws SQLException {
+        String email = request.get("email");
         if(userService.findUserById(email) != null && userService.makeTmpPw(email) != "") {
             return new ResponseEntity<String>("메일 전송 성공", HttpStatus.OK);
         }
@@ -143,7 +141,8 @@ public class UserController {
     }
 
     @GetMapping("/id")
-    public ResponseEntity<?> checkDuplication(@RequestBody String email) {
+    public ResponseEntity<?> checkDuplication(@RequestBody Map<String, String> request) {
+        String email = request.get("email");
         User user = userService.myPage(email);
 
         if(user != null)

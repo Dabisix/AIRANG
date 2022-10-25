@@ -75,15 +75,6 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    // Request의 Header에서 token 값을 가져옵니다. "X-AUTH-TOKEN" : "TOKEN값'
-//    public String resolveAccessToken(HttpServletRequest request) {
-//        return request.getHeader("access-token");
-//    }
-
-//    public String resolveRefreshToken(HttpServletRequest request) {
-//        return request.getHeader("refresh-token");
-//    }
-
 
     public Claims getClaimsFormToken(String token) {
         return Jwts.parser()
@@ -142,19 +133,6 @@ public class JwtTokenProvider {
         return userId;
     }
 
-//    public int getUserNum(String jwt) {
-//        String userId = getUserID(jwt);
-//
-//        Optional<User> oUser = userRepository.findByUserId(userId);
-//        if (!oUser.isPresent()) {
-//            return -1;
-//        }
-//
-//        int userNum = oUser.get().getUserNum();
-//        return userNum;
-//    }
-
-
     private byte[] generateKey() {
         byte[] key = null;
         try {
@@ -170,8 +148,7 @@ public class JwtTokenProvider {
     }
 
     public TokenResponse issueAccessToken(String request){
-        String accessToken; //= resolveAccessToken(request);
-//        String refreshToken = request;
+        String accessToken;
 
         //accessToken이 만료됐고 refreshToken이 맞으면 accessToken을 새로 발급(refreshToken의 내용을 통해서)
         if(isValidRefreshToken(request)){     //들어온 Refresh 토큰이 유효한지
@@ -198,7 +175,6 @@ public class JwtTokenProvider {
 
         return TokenResponse.builder()
                 .ACCESS_TOKEN(accessToken)
-//                .REFRESH_TOKEN(refreshToken)
                 .build();
     }
 }
