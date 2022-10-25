@@ -7,11 +7,9 @@ import com.ssafy.b305.domain.entity.Auth;
 import com.ssafy.b305.domain.entity.User;
 import com.ssafy.b305.jwt.JwtTokenProvider;
 import com.ssafy.b305.service.AuthService;
+
 import com.ssafy.b305.service.MailService;
 import com.ssafy.b305.service.UserService;
-import com.sun.org.apache.regexp.internal.RE;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +42,6 @@ public class UserController {
     @Autowired
     MailService mailService;
 
-    @Autowired
     AuthService authService;
 
     @Autowired

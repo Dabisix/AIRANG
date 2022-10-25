@@ -1,0 +1,34 @@
+# version 3 : add schema creater
+
+spring:
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/b305?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8
+    username: ssafy
+    password: ssafy
+
+    mvc:
+      hiddenmethod:
+        filter:
+          enabled: true
+
+  # Swagger
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+server:
+  servlet:
+    context-path: /api
+  encoding:
+    charset: UTF-8
+  port: 8080
+
+secret:
+  access: Access
+  refresh: Refresh

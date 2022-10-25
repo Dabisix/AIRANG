@@ -1,5 +1,6 @@
 package com.ssafy.b305.service;
 
+
 import com.ssafy.b305.domain.entity.Mail;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
@@ -43,3 +44,4 @@ public class MailService {
         mailSender.send(mailMessage);
     }
 }
+
