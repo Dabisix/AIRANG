@@ -127,7 +127,7 @@ public class UserController {
 
     //유저 삭제
     @PatchMapping
-    public ResponseEntity<?> deleteUser(@RequestHeader(value = "access-token") String request) {
+    public ResponseEntity<?> withdraw(@RequestHeader(value = "access-token") String request) {
         String userEmail = jwtTokenProvider.getUserID(request);
 
         boolean cnt = userService.deleteUser(userEmail);
