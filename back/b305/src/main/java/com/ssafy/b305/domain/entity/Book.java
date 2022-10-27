@@ -24,6 +24,16 @@ public class Book {
     @Column
     private String author;
 
-    @Column(columnDefinition = "TEXT")
-    private String story;
+    @Column(columnDefinition = "MEDIUMTEXT")
+    private String k_content;
+
+    @Column(columnDefinition = "MEDIUMTEXT")
+    private String e_content;
+
+    @Column
+    private int cnt;
+
+    @Column
+    private boolean a_flag;
+
 }
