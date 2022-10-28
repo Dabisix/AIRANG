@@ -56,11 +56,6 @@ public class SignIn : MonoBehaviour
 
                 alertMsg.text = "환영합니다.";
                 //Invoke("ChangeScene", 1.25f); //메인씬으로 이동시켜야함
-                //if (PlayerPrefs.HasKey("refreshToken"))
-                //{
-                //    Debug.Log("리프레쉬 : "+PlayerPrefs.GetString("refreshToken"));
-                //    Debug.Log("액세스 : "+PlayerPrefs.GetString("accessToken"));
-                //}
             }
             else if((string)json["message"] == "pwErr")
             {
