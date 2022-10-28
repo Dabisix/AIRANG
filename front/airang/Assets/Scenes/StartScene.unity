@@ -727,7 +727,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9aa9ca01b3feac34daf6b6e15b9f4a3f, type: 3}
+  m_Script: {fileID: 11500000, guid: b19d8268ee84086428e7da6c0b732481, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   subCameras:
@@ -752,6 +752,20 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -3857137799350494021, guid: 45274fe0af6068a4aafd29cadc5005e8, type: 3}
+--- !u!114 &1132933420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1132933413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 680d5e422e589df4d9e0d9fd327df8b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  my_camera: {fileID: 963194229}
+  doorOpen: {fileID: 2146210723}
 --- !u!1 &1223254274 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3935115783816502843, guid: 9e4e7894a2649c44e9c3ec0ba92f8a69, type: 3}
@@ -769,8 +783,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06bbabc55a12fbe4d8f5c97987364adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  my_camera: {fileID: 0}
-  doorOpen: {fileID: 0}
 --- !u!1001 &1501971266
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1173,7 +1185,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1964215680}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.28, y: 5.04, z: 15.48}
+  m_LocalPosition: {x: -1.57, y: 5.04, z: 15.67}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
