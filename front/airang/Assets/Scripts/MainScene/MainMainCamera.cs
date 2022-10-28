@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class MainMainCamera : MonoBehaviour
 {
-    public GameObject userBookListCanvas;
     public Camera[] subCameras;
     public void MainMoveCamera(int index)
     {
@@ -29,11 +28,7 @@ public class MainMainCamera : MonoBehaviour
         // 만약에 인덱스가 0일때 서브카메라 위치까지 간다면, canvas Active를 true로 해주자.
         if (this.gameObject.transform.position == subCameras[0].transform.position)
         {
-            // 이러면 Canvas를 setActive로 해줘야맞는거임.
-            userBookListCanvas.SetActive(true);
-
-
-
+            // 이떄뭘해주지?
         }
     }
 
