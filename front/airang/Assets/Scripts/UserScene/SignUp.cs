@@ -4,14 +4,6 @@ using TMPro;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
-// User 객체 만들기
-public class User
-{
-    public string email;
-    public string name;
-    public string pw;
-}
-
 public class SignUp : MonoBehaviour
 {
     private const string URL = "http://localhost:8081/api/";
@@ -27,18 +19,6 @@ public class SignUp : MonoBehaviour
     public TextMeshProUGUI confirmMsg;
     public TextMeshProUGUI alertMsg;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     // 중복확인 버튼 눌렀을때
     public void ConfirmBtn()
     {
@@ -53,7 +33,7 @@ public class SignUp : MonoBehaviour
     // 이메일 중복검사
     IEnumerator ConfirmEmailCo() {
         Debug.Log(idInput.text);
-        User user = new User { email = idInput.text };
+        User.UserController user = new User.UserController { email = idInput.text };
 
         string jsonData = JsonUtility.ToJson(user); // 데이터 json으로 바꾸고
         if (IsEmail(idInput.text)) //이메일 형식 맞을때
@@ -106,7 +86,7 @@ public class SignUp : MonoBehaviour
     IEnumerator SignUpCo()
     {
         // 입력값 넣어서 User 객체 새로 만들기
-        User user = new User
+        User.UserController user = new User.UserController
         {
             email = idInput.text,
             name = nameInput.text,
