@@ -15,7 +15,7 @@ public class SearchPw : MonoBehaviour
 
     public void SendPwBtn()
     {
-        alertMsg.text = "¸ŞÀÏÀ» È®ÀÎÇÏ´Â Áß ÀÔ´Ï´Ù.";
+        alertMsg.text = "ë©”ì¼ì„ í™•ì¸í•˜ëŠ” ì¤‘ ì…ë‹ˆë‹¤.";
         alertPanel.gameObject.SetActive(true);
         StartCoroutine(SendPwBtnCo());
     }
@@ -34,15 +34,13 @@ public class SearchPw : MonoBehaviour
         yield return request.SendWebRequest();
 
         Debug.Log(request.downloadHandler.text);
-        if(request.downloadHandler.text == "¸ŞÀÏ Àü¼Û ¼º°ø")
+        if(!request.isHttpError)
         {
-            alertMsg.text = "ÀÓ½Ã ºñ¹Ğ¹øÈ£°¡ ¹ß±ŞµÇ¾ú½À´Ï´Ù! \n ¸ŞÀÏÀ» È®ÀÎÇØÁÖ¼¼¿ä.";
-
+            alertMsg.text = "ì„ì‹œ ë¹„ë°€ë²ˆí˜¸ê°€ \n ë°œê¸‰ë˜ì—ˆìŠµë‹ˆë‹¤! \n ë©”ì¼ì„ í™•ì¸í•´ì£¼ì„¸ìš”.";
         }
         else
         {
-            alertMsg.text = "°¡ÀÔµÇÁö ¾ÊÀº ÀÌ¸ŞÀÏÀÔ´Ï´Ù \n È¸¿ø°¡ÀÔÀ» ÇØÁÖ¼¼¿ä.";
-
+            alertMsg.text = "ê°€ì…ë˜ì§€ ì•Šì€ ì´ë©”ì¼ì…ë‹ˆë‹¤ \n íšŒì›ê°€ì…ì„ í•´ì£¼ì„¸ìš”.";
         }
         request.Dispose();
     }

@@ -1347,9 +1347,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 304389898227869646, guid: b9bb0540abec81f4981dfb591195ec04, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 821198451832413253, guid: b9bb0540abec81f4981dfb591195ec04, type: 3}
       propertyPath: m_Name
       value: AppSettingButtonPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 821198451832413253, guid: b9bb0540abec81f4981dfb591195ec04, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4962433828830478592, guid: b9bb0540abec81f4981dfb591195ec04, type: 3}
       propertyPath: m_SortingOrder
