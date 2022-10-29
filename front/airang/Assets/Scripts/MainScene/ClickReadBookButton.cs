@@ -7,7 +7,7 @@ public class ClickReadBookButton : MonoBehaviour
 {
     public MainMainCamera my_camera;
 
-    void goCameraMyDesk()
+    public void goCameraMyDesk()
 	{
         my_camera.MainMoveCamera(1);
 	}
