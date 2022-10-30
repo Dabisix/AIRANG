@@ -7,9 +7,9 @@ using UnityEngine;
 public class SavedData
 {
     // 저장할 데이터 포맷
-    public List<string> books = new List<string>();
+    public List<Book> books = new List<Book>();
 
-    public List<string> Books
+    public List<Book> Books
     {
         get => books;
     }
@@ -45,7 +45,6 @@ public class FileManager : MonoBehaviour
             }
         }
     }
-
 
     public SavedData loadData()
     {
