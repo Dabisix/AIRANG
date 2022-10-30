@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.XR.ARFoundation;
 
-public class ARInitAnchors : MonoBehaviour
+public class InitializeAnchor : MonoBehaviour
 {
     public Button m_Button;
     public ARSessionOrigin m_ARSession_Origin;
