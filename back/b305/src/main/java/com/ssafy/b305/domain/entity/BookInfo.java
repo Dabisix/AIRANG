@@ -14,7 +14,7 @@ public class BookInfo {
     private String title;
     private Timestamp date;
 
-    protected BookInfo (Long bId, String title){
+    public BookInfo(Long bId, String title){
         this.bId = bId;
         this.title = title;
         this.date = new Timestamp(System.currentTimeMillis());
