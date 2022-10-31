@@ -15,7 +15,7 @@ public class SearchPw : MonoBehaviour
 
     public void SendPwBtn()
     {
-        alertMsg.text = "¸ŞÀÏÀ» È®ÀÎÇÏ´Â Áß ÀÔ´Ï´Ù.";
+        alertMsg.text = "ë©”ì¼ì„ í™•ì¸í•˜ëŠ” ì¤‘ ì…ë‹ˆë‹¤.";
         alertPanel.gameObject.SetActive(true);
         StartCoroutine(SendPwBtnCo());
     }
@@ -24,27 +24,25 @@ public class SearchPw : MonoBehaviour
     {
         User.UserController user = new User.UserController { email = emailInput.text };
         string jsonData = JsonUtility.ToJson(user);
-        UnityWebRequest request = UnityWebRequest.Post(URL + "user/mail", jsonData);
-
-        byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(jsonData);
-        request.uploadHandler = new UploadHandlerRaw(jsonToSend);
-        request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
-        request.SetRequestHeader("Content-Type", "application/json");
-
-        yield return request.SendWebRequest();
-
-        Debug.Log(request.downloadHandler.text);
-        if(request.downloadHandler.text == "¸ŞÀÏ Àü¼Û ¼º°ø")
+        using (UnityWebRequest request = UnityWebRequest.Post(URL + "user/mail", jsonData))
         {
-            alertMsg.text = "ÀÓ½Ã ºñ¹Ğ¹øÈ£°¡ ¹ß±ŞµÇ¾ú½À´Ï´Ù! \n ¸ŞÀÏÀ» È®ÀÎÇØÁÖ¼¼¿ä.";
+            byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(jsonData);
+            request.uploadHandler = new UploadHandlerRaw(jsonToSend);
+            request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
 
-        }
-        else
-        {
-            alertMsg.text = "°¡ÀÔµÇÁö ¾ÊÀº ÀÌ¸ŞÀÏÀÔ´Ï´Ù \n È¸¿ø°¡ÀÔÀ» ÇØÁÖ¼¼¿ä.";
+            yield return request.SendWebRequest();
 
+            Debug.Log(request.downloadHandler.text);
+            if(!request.isHttpError)
+            {
+                alertMsg.text = "ì„ì‹œ ë¹„ë°€ë²ˆí˜¸ê°€ \n ë°œê¸‰ë˜ì—ˆìŠµë‹ˆë‹¤! \n ë©”ì¼ì„ í™•ì¸í•´ì£¼ì„¸ìš”.";
+            }
+            else
+            {
+                alertMsg.text = "ê°€ì…ë˜ì§€ ì•Šì€ ì´ë©”ì¼ì…ë‹ˆë‹¤ \n íšŒì›ê°€ì…ì„ í•´ì£¼ì„¸ìš”.";
+            }
         }
-        request.Dispose();
     }
 
 }
