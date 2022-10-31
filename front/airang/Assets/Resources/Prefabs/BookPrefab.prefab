@@ -256,8 +256,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3511188908666141520}
-        m_TargetAssemblyTypeName: AppSettingButton, Assembly-CSharp
+      - m_Target: {fileID: 3830235793808827873}
+        m_TargetAssemblyTypeName: BookPrefabButtonScripts, Assembly-CSharp
         m_MethodName: openAppSettingPrefab
         m_Mode: 1
         m_Arguments:
@@ -578,7 +578,7 @@ GameObject:
   - component: {fileID: 2023553302291920711}
   - component: {fileID: 4499371225750304292}
   - component: {fileID: 3714406293199468129}
-  - component: {fileID: 3511188908666141520}
+  - component: {fileID: 3830235793808827873}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -671,7 +671,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &3511188908666141520
+--- !u!114 &3830235793808827873
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -680,7 +680,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6632460837654334472}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6381463e2f08e844c8216178b4300d96, type: 3}
+  m_Script: {fileID: 11500000, guid: 02a174a2b50d84a4b9f2aaedb9f0c96e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6823113945315510510
@@ -803,7 +803,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8750826767515562346}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3830235793808827873}
+        m_TargetAssemblyTypeName: BookPrefabButtonScripts, Assembly-CSharp
+        m_MethodName: goBack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6930426592689803550
 GameObject:
   m_ObjectHideFlags: 0
@@ -1000,7 +1012,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2351637169348586280}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3830235793808827873}
+        m_TargetAssemblyTypeName: BookPrefabButtonScripts, Assembly-CSharp
+        m_MethodName: goNext
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8718419033779724007
 GameObject:
   m_ObjectHideFlags: 0
