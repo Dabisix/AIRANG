@@ -4,18 +4,27 @@ using UnityEngine;
 
 public class AnimationTest : MonoBehaviour
 {
-    public AnimationCurve curve;
+    public AnimationCurve turtleCurve;
+    public Transform turtleTransform;
 
-    Vector3 startPos;
-    Vector3 targetPos;
+    public AnimationCurve rabbitCurve;
+    public Transform rabbitTransform;
+
+    Vector3 turtleStartPos;
+    Vector3 turtleTargetPos;
+    Vector3 rabbitStartPos;
+    Vector3 rabbitTargetPos;
     float timer = 0.0f;
     float duration = 10f;
 
     // Start is called before the first frame update
     void Start()
     {
-        startPos = new Vector3(50, 0, 0);
-        targetPos = new Vector3(0, 0, 10);
+        turtleStartPos = turtleTransform.position;
+        turtleTargetPos = turtleStartPos + new Vector3(-4, 0.5f, 0);
+
+        rabbitStartPos = rabbitTransform.position;
+        rabbitTargetPos = rabbitStartPos + new Vector3(7.5f, 0, 0);
     }
 
     // Update is called once per frame
@@ -23,6 +32,28 @@ public class AnimationTest : MonoBehaviour
     {
         timer += Time.deltaTime;
         float percentage = timer / duration;
-        transform.position = Vector3.Lerp(startPos, targetPos, percentage);
+        turtleTransform.position = Vector3.Lerp(turtleStartPos, turtleTargetPos, percentage);
+        if(rabbitTransform.position == rabbitTargetPos)
+        {
+
+            Debug.Log("∏∏≥µ¿∏¥œ±Ó ∏ÿ√‚∞≈¿”");
+            PauseGame();
+        }
+        Invoke("JumpRabbit", 0.5f);
+    }
+
+    private void JumpRabbit()
+    {
+        Debug.Log("≈‰≥¢ øÚ¡˜¿Œ¥Ÿ");
+        timer += Time.deltaTime;
+        float percentage = timer / duration;
+        rabbitTransform.position = Vector3.Lerp(rabbitStartPos, rabbitTargetPos, percentage);
+
+    }
+
+    void PauseGame()
+    {
+        Time.timeScale = 0.1f;
+        Time.timeScale = 0;
     }
 }
