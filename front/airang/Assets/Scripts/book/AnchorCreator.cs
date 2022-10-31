@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
@@ -8,15 +9,10 @@ using UnityEngine.XR.ARSubsystems;
 [RequireComponent(typeof(ARPlaneManager))]
 public class AnchorCreator : MonoBehaviour
 {
-    // 고정될 game object Prefab
-    [SerializeField]
-    GameObject m_AnchorPrefab;
-
-    // C# 에서의 getter, setter
-    public GameObject AnchorPrefab
+    public void loadContentPrefab()
     {
-        get => m_AnchorPrefab;
-        set => m_AnchorPrefab = value;
+        RemoveAllAnchors();
+        m_AnchorPrefab = BookManager.getInstance().Content;
     }
 
     // 모든 Anchor를 삭제
@@ -25,13 +21,9 @@ public class AnchorCreator : MonoBehaviour
         // Anchor와 인스턴스화된 Object 모두 삭제
         foreach (var anchor in m_AnchorPoints)
             Destroy(anchor);
-        foreach (var obj in m_RendedObjects)
-            Destroy(obj);
-        m_RendedObjects.Clear();
         m_AnchorPoints.Clear();
 
-        // 다시 플레인 디텍션 활성화
-        TogglePlaneDetection();
+        Destroy(m_RendedObject);
     }
 
     void Awake()
@@ -41,7 +33,11 @@ public class AnchorCreator : MonoBehaviour
         m_AnchorManager = GetComponent<ARAnchorManager>();
         m_PlaneManager = GetComponent<ARPlaneManager>();
         m_AnchorPoints = new List<ARAnchor>();
-        m_RendedObjects = new List<GameObject>();
+    }
+
+    private void Start()
+    {
+        loadContentPrefab();
     }
 
     void Update()
@@ -58,6 +54,8 @@ public class AnchorCreator : MonoBehaviour
             var hitTrackableId = s_Hits[0].trackableId;
             var hitPlane = m_PlaneManager.GetPlane(hitTrackableId);
 
+
+
             // Plane 정보를 가져오고 anchor를 생성, 그 Anchor위에 Prefab을 생성함
             var anchor = m_AnchorManager.AttachAnchor(hitPlane, hitPose);
             var created = Instantiate(m_AnchorPrefab, anchor.transform);
@@ -69,7 +67,7 @@ public class AnchorCreator : MonoBehaviour
             else
             {
                 m_AnchorPoints.Add(anchor);
-                m_RendedObjects.Add(created);
+                m_RendedObject = created;
                 TogglePlaneDetection();
             }
         }
@@ -88,7 +86,9 @@ public class AnchorCreator : MonoBehaviour
 
     static List<ARRaycastHit> s_Hits = new List<ARRaycastHit>();
     List<ARAnchor> m_AnchorPoints;
-    List<GameObject> m_RendedObjects;
+    GameObject m_AnchorPrefab;
+    GameObject m_RendedObject;
+
     ARRaycastManager m_RaycastManager;
     ARAnchorManager m_AnchorManager;
     ARPlaneManager m_PlaneManager;
