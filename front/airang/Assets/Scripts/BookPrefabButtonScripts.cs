@@ -37,12 +37,14 @@ public class BookPrefabButtonScripts : MonoBehaviour
     //go before page
     public void goBack()
     {
-
+        BookManager.getInstance().CurPage -= 1;
+        BookManager.getInstance().changeScene();
     }
 
     //go next page
     public void goNext()
     {
-
+        BookManager.getInstance().CurPage += 1;
+        BookManager.getInstance().changeScene();
     }
 }

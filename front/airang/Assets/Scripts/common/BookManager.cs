@@ -105,9 +105,9 @@ public class BookManager : MonoBehaviour
         string next_scene_name = this.gameObject.scene.name;
         
         if (cur_book.UseAR[cur_page]) // use AR
-            next_scene_name = "ARBookScene_test";
+            next_scene_name = "ARBookScene";
         else // not use AR
-            next_scene_name = "BookScene_test";
+            next_scene_name = "BookScene";
 
         Debug.Log("changeScene " + cur_page);
         SceneManager.LoadScene(next_scene_name);
