@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Networking;
@@ -35,39 +35,39 @@ public class SignIn : MonoBehaviour
             //json 형식으로 바꾸기
             string jsonData = JsonUtility.ToJson(user);
 
-            UnityWebRequest request = UnityWebRequest.Post(URL + "user", jsonData);
-
-            byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(jsonData);
-            request.uploadHandler = new UploadHandlerRaw(jsonToSend);
-            request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
-            request.SetRequestHeader("Content-Type", "application/json");
-
-            yield return request.SendWebRequest();
-            JObject json = JObject.Parse(request.downloadHandler.text); //string Json으로 변환
-            Debug.Log(json["message"]);
-            if ((string)json["message"] == "success")
+            using (UnityWebRequest request = UnityWebRequest.Post(URL + "user", jsonData))
             {
-                Debug.Log("액세스토큰 : " + (string)json["token"]["access_TOKEN"]);
-                Debug.Log("리프레쉬토큰 : "+ (string)json["token"]["refresh_TOKEN"]);
+                byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(jsonData);
+                request.uploadHandler = new UploadHandlerRaw(jsonToSend);
+                request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+                request.SetRequestHeader("Content-Type", "application/json");
 
-                // 데이터 저장
-                PlayerPrefs.SetString("refreshToken", (string)json["token"]["refresh_TOKEN"]);
-                PlayerPrefs.SetString("accessToken", (string)json["token"]["access_TOKEN"]);
+                yield return request.SendWebRequest();
+                JObject json = JObject.Parse(request.downloadHandler.text); //string Json으로 변환
+                Debug.Log(json["message"]);
+                if ((string)json["message"] == "success")
+                {
+                    Debug.Log("액세스토큰 : " + (string)json["token"]["access_TOKEN"]);
+                    Debug.Log("리프레쉬토큰 : "+ (string)json["token"]["refresh_TOKEN"]);
 
-                alertMsg.text = "환영합니다.";
-                //Invoke("ChangeScene", 1.25f); //메인씬으로 이동시켜야함
-            }
-            else if((string)json["message"] == "pwErr")
-            {
-                alertMsg.text = "비밀번호가 \n 일치하지 않습니다.";
-            }
-            else
-            {
-                alertMsg.text = "아이디가 \n 일치하지 않습니다.";
-            }
-            alertObject.gameObject.SetActive(true);
+                    // 데이터 저장
+                    PlayerPrefs.SetString("refreshToken", (string)json["token"]["refresh_TOKEN"]);
+                    PlayerPrefs.SetString("accessToken", (string)json["token"]["access_TOKEN"]);
 
-            request.Dispose();
+                    alertMsg.text = "환영합니다.";
+                    //Invoke("ChangeScene", 1.25f); //메인씬으로 이동시켜야함
+                }
+                else if((string)json["message"] == "pwErr")
+                {
+                    alertMsg.text = "비밀번호가 \n 일치하지 않습니다.";
+                }
+                else
+                {
+                    alertMsg.text = "아이디가 \n 일치하지 않습니다.";
+                }
+                alertObject.gameObject.SetActive(true);
+
+            }
         }
         else
         {

@@ -116,6 +116,10 @@ public class UserService {
     }
 
     public int updateUser(String email, UserNewInfo newInfo) {
+        System.out.println("userService의 updateUser입니다");
+
+        System.out.println(newInfo.toString());
+
         Optional<User> oUser = userRepository.findByEmail(email);
 
         if (oUser.isPresent()) {
