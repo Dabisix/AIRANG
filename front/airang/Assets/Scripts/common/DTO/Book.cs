@@ -9,12 +9,15 @@ public class Book
     private int checkpoint_page;
     private int total_pages;
 
-    public Book(int book_id, string book_name, int total_pages)
+    private List<bool> use_ar;
+
+    public Book(int book_id, string book_name, int total_pages, List<bool> use_ar)
     {
         this.book_id = book_id;
         this.book_name = book_name;
         this.checkpoint_page = 1;
         this.total_pages = total_pages;
+        this.use_ar = use_ar;
     }
 
     public int BookId
@@ -39,6 +42,11 @@ public class Book
     {
         get => total_pages;
         set => total_pages = value;
+    }
+
+    public List<bool> UseAR
+    {
+        get => use_ar;
     }
 }
    
