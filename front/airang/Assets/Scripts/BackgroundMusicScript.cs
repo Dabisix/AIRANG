@@ -31,6 +31,8 @@ public class BackgroundMusicScript : MonoBehaviour
     }
     public void toggleBGM()
     {
+        audioSource.mute = toggle.isOn;
+        /*
         if (toggle.isOn)
         {
             audioSource.Stop();
@@ -38,5 +40,6 @@ public class BackgroundMusicScript : MonoBehaviour
         {
             audioSource.Play();
         }
+        */
     }
 }
