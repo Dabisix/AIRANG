@@ -24,25 +24,25 @@ public class SearchPw : MonoBehaviour
     {
         User.UserController user = new User.UserController { email = emailInput.text };
         string jsonData = JsonUtility.ToJson(user);
-        UnityWebRequest request = UnityWebRequest.Post(URL + "user/mail", jsonData);
-
-        byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(jsonData);
-        request.uploadHandler = new UploadHandlerRaw(jsonToSend);
-        request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
-        request.SetRequestHeader("Content-Type", "application/json");
-
-        yield return request.SendWebRequest();
-
-        Debug.Log(request.downloadHandler.text);
-        if(!request.isHttpError)
+        using (UnityWebRequest request = UnityWebRequest.Post(URL + "user/mail", jsonData))
         {
-            alertMsg.text = "임시 비밀번호가 \n 발급되었습니다! \n 메일을 확인해주세요.";
+            byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(jsonData);
+            request.uploadHandler = new UploadHandlerRaw(jsonToSend);
+            request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
+
+            yield return request.SendWebRequest();
+
+            Debug.Log(request.downloadHandler.text);
+            if(!request.isHttpError)
+            {
+                alertMsg.text = "임시 비밀번호가 \n 발급되었습니다! \n 메일을 확인해주세요.";
+            }
+            else
+            {
+                alertMsg.text = "가입되지 않은 이메일입니다 \n 회원가입을 해주세요.";
+            }
         }
-        else
-        {
-            alertMsg.text = "가입되지 않은 이메일입니다 \n 회원가입을 해주세요.";
-        }
-        request.Dispose();
     }
 
 }
