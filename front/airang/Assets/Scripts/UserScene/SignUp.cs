@@ -15,9 +15,11 @@ public class SignUp : MonoBehaviour
     public GameObject signupObject;
     public GameObject confirmObject;
     public GameObject alertObject;
+    public GameObject signinCanvas;
 
     public TextMeshProUGUI confirmMsg;
     public TextMeshProUGUI alertMsg;
+
 
     private bool isConfirmed; // 중복확인 했는지 상태
     private void Awake()
@@ -166,7 +168,8 @@ public class SignUp : MonoBehaviour
         {
             Debug.Log(request.downloadHandler.text);
             alertMsg.text = "회원가입이 완료되었습니다 😊";
-            Invoke("ChangeScene", 1.25f);
+            
+            Invoke("changeCanvas", 1.25f);
             request.Dispose();
 
         }
@@ -178,9 +181,15 @@ public class SignUp : MonoBehaviour
 
     }
 
-    private void ChangeScene()
+    /*private void ChangeScene()
     {
         SceneManager.LoadScene("SignInScene");
+    }*/
+
+    private void changeCanvas()
+	{
+        gameObject.SetActive(false);
+        signinCanvas.SetActive(true);
     }
 
     private void AlertBubbleTime()

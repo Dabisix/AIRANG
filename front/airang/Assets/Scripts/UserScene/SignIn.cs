@@ -7,9 +7,10 @@ using Newtonsoft.Json.Linq;
 
 public class SignIn : MonoBehaviour
 {
+    public StartMainCamera my_camera;
     public TMP_InputField idInputField;
     public TMP_InputField pwInputField;
-
+    public DoorOpen doorOpen;
     public GameObject alertObject;
     public TextMeshProUGUI alertMsg;
 
@@ -56,6 +57,9 @@ public class SignIn : MonoBehaviour
 
                     alertMsg.text = "환영합니다.";
                     //Invoke("ChangeScene", 1.25f); //메인씬으로 이동시켜야함
+                    Invoke("openDoor", 2.7f);
+                    my_camera.StartMoveCamera(1);
+                    gameObject.SetActive(false);
                 }
                 else if((string)json["message"] == "pwErr")
                 {
@@ -88,5 +92,11 @@ public class SignIn : MonoBehaviour
     public void SearchPwBtn()
     {
         SceneManager.LoadScene("SearchPwScene");
+    }
+
+
+    private void openDoor()
+    {
+        doorOpen.openDoor();
     }
 }
