@@ -6,6 +6,21 @@ public class ClickMainCanvasButton : MonoBehaviour
 {
     public MainMainCamera my_camera;
     public GameObject[] navigation;
+    public GameObject searchBar;
+    private bool isSearch = false;
+    public void clickSearchBtn()
+	{
+		if (!isSearch)
+		{
+            searchBar.SetActive(true);
+            isSearch = true;
+		}
+		else
+		{
+            searchBar.SetActive(false);
+            isSearch = false;
+		}
+	}
     public void ClickBtnHome()
     {
         SetNavigationActive();
