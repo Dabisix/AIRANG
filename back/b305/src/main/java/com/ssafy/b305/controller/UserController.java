@@ -150,6 +150,7 @@ public class UserController {
     }
 
     //이메일 중복검사
+    @NoJwt
     @PostMapping("/id")
     public ResponseEntity<?> checkDuplication(@RequestBody Map<String, String> request) {
         String email = request.get("email");
