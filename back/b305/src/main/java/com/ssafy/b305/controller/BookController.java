@@ -71,17 +71,16 @@ public class BookController {
             return new ResponseEntity<>("unauthorized Token", HttpStatus.UNAUTHORIZED);
         }
 
-//        try{
+        try{
             List<BookInfoResponseDto> bookInfoResponseDtos = bookService.getBookList(bookRequestDto);
-        System.out.println("Size = " + bookInfoResponseDtos.size());
             if(bookInfoResponseDtos==null || bookInfoResponseDtos.size()==0){
                 return new ResponseEntity<>("no books that satisfing condition", HttpStatus.NO_CONTENT);
             }else{
                 return new ResponseEntity<>(bookInfoResponseDtos, HttpStatus.OK);
             }
-//        }catch (Exception e){
-//            return new ResponseEntity<>("fail to select book id", HttpStatus.BAD_REQUEST);
-//        }
+        }catch (Exception e){
+            return new ResponseEntity<>("fail to select book id", HttpStatus.BAD_REQUEST);
+        }
     }
 
     // 즐겨찾기 등록 및 해제

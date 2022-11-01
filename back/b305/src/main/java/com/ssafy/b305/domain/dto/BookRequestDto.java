@@ -11,7 +11,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class BookRequestDto {
     private int aFlag;
-    private boolean cntSort;
-    private boolean titleSort;
+    private int sort;
     private String keyword;
 }

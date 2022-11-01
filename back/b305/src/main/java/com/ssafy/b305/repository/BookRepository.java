@@ -13,11 +13,8 @@ import java.util.Optional;
 
 @Repository
 public interface BookRepository extends JpaRepository<Book, Integer> {
-
     Optional<Book> findBybId(Long id);
 
-    @Query(value = "SELECT * FROM BOOK " +
-            "WHERE TITLE LIKE '%:keyword%' AND A_FLAG = :aFlag ", nativeQuery = true)
-    List<Book> findBookList(@Param("aFlag") int aFlag, @Param("keyword") String keyword);
-
+    @Query(value = "SELECT * FROM Book WHERE title LIKE %:keyword% AND a_flag=:aFlag", nativeQuery = true)
+    List<Book> findBookList(@Param("keyword") String keyword, @Param("aFlag") int aFlag);
 }
