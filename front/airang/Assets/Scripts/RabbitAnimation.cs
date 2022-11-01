@@ -10,14 +10,15 @@ public class RabbitAnimation : MonoBehaviour
     Vector3 rabbitStartPos;
     Vector3 rabbitTargetPos;
 
-    float timer = 0.0f;
-    float duration = 15f; //지속 시간동안 이동시킴
+    public float timer;
+    public float duration; //지속 시간동안 이동시킴
+    public Vector3 vector;
 
     // Start is called before the first frame update
     void Start()
     {
         rabbitStartPos = rabbitTransform.position;
-        rabbitTargetPos = rabbitStartPos + new Vector3(7.5f, 0, 0);
+        rabbitTargetPos = rabbitStartPos + vector;
     }
 
     // Update is called once per frame

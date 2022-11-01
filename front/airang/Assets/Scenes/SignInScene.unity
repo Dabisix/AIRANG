@@ -422,6 +422,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IdInputField
       objectReference: {fileID: 0}
+    - target: {fileID: 3017544883724209751, guid: 884d96b57f6bc1b45918646d3ee59e65, type: 3}
+      propertyPath: m_GlobalFontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 80ee7bdb4abd7994388c388d9d7ff953, type: 2}
     - target: {fileID: 3017544884183966366, guid: 884d96b57f6bc1b45918646d3ee59e65, type: 3}
       propertyPath: m_text
       value: "\uC544\uC774\uB514\uB97C \uC785\uB825\uD558\uC138\uC694."
@@ -430,6 +434,14 @@ PrefabInstance:
       propertyPath: m_text
       value: "\uC544\uC774\uB514"
       objectReference: {fileID: 0}
+    - target: {fileID: 3017544884714147969, guid: 884d96b57f6bc1b45918646d3ee59e65, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 80ee7bdb4abd7994388c388d9d7ff953, type: 2}
+    - target: {fileID: 3017544884714147969, guid: 884d96b57f6bc1b45918646d3ee59e65, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -1375911254938410687, guid: 80ee7bdb4abd7994388c388d9d7ff953, type: 2}
     - target: {fileID: 3017544885591059562, guid: 884d96b57f6bc1b45918646d3ee59e65, type: 3}
       propertyPath: m_Name
       value: IdInput
@@ -870,8 +882,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10db01bc103165e49b91862262b0301a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  my_camera: {fileID: 0}
   idInputField: {fileID: 1079459957}
   pwInputField: {fileID: 1253484476}
+  doorOpen: {fileID: 0}
   alertObject: {fileID: 394875110}
   alertMsg: {fileID: 394875109}
 --- !u!1 &1578904057
@@ -966,9 +980,17 @@ PrefabInstance:
       value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 682260585530914745, guid: 7fcabf8b18fe54847bb308c7ab1aa45e, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 80ee7bdb4abd7994388c388d9d7ff953, type: 2}
+    - target: {fileID: 682260585530914745, guid: 7fcabf8b18fe54847bb308c7ab1aa45e, type: 3}
       propertyPath: m_fontSizeBase
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 682260585530914745, guid: 7fcabf8b18fe54847bb308c7ab1aa45e, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -1375911254938410687, guid: 80ee7bdb4abd7994388c388d9d7ff953, type: 2}
     - target: {fileID: 1698377546477057289, guid: 7fcabf8b18fe54847bb308c7ab1aa45e, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0
@@ -1207,6 +1229,14 @@ PrefabInstance:
       propertyPath: m_text
       value: "\uB85C\uADF8\uC778\n"
       objectReference: {fileID: 0}
+    - target: {fileID: 682260585530914745, guid: 7fcabf8b18fe54847bb308c7ab1aa45e, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 80ee7bdb4abd7994388c388d9d7ff953, type: 2}
+    - target: {fileID: 682260585530914745, guid: 7fcabf8b18fe54847bb308c7ab1aa45e, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -1375911254938410687, guid: 80ee7bdb4abd7994388c388d9d7ff953, type: 2}
     - target: {fileID: 3634465755485893473, guid: 7fcabf8b18fe54847bb308c7ab1aa45e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1

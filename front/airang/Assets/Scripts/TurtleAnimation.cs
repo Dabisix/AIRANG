@@ -10,14 +10,15 @@ public class TurtleAnimation : MonoBehaviour
     Vector3 turtleStartPos; //시작 위치
     Vector3 turtleTargetPos; //목표 위치
 
-    float timer = 0.0f;
-    float duration = 15f; //지속 시간동안 이동시킴
+    public float timer;
+    public float duration; //지속 시간동안 이동시킴
+    public Vector3 vector;
 
     // Start is called before the first frame update
     void Start()
     {
         turtleStartPos = turtleTransform.position;
-        turtleTargetPos = turtleStartPos + new Vector3(-5, 0.5f, 0);
+        turtleTargetPos = turtleStartPos + vector;
     }
 
     // Update is called once per frame
@@ -30,12 +31,7 @@ public class TurtleAnimation : MonoBehaviour
         if (turtleTransform.position == turtleTargetPos)
         {
             Debug.Log("거북이가 멈춘당");
-            PauseGame();
+            Time.timeScale = 0;
         }
-    }
-
-    void PauseGame()
-    {
-        Time.timeScale = 0;
     }
 }
