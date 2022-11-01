@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// 애니메이션 커브를 사용해 게임오브젝트 이동시키기
 public class AnimationTest : MonoBehaviour
 {
     public AnimationCurve turtleCurve;
@@ -10,12 +11,12 @@ public class AnimationTest : MonoBehaviour
     public AnimationCurve rabbitCurve;
     public Transform rabbitTransform;
 
-    Vector3 turtleStartPos;
-    Vector3 turtleTargetPos;
+    Vector3 turtleStartPos; //시작 위치
+    Vector3 turtleTargetPos; //목표 위치
     Vector3 rabbitStartPos;
     Vector3 rabbitTargetPos;
     float timer = 0.0f;
-    float duration = 10f;
+    float duration = 10f; //지속 시간동안 이동시킴
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +25,7 @@ public class AnimationTest : MonoBehaviour
         turtleTargetPos = turtleStartPos + new Vector3(-4, 0.5f, 0);
 
         rabbitStartPos = rabbitTransform.position;
-        rabbitTargetPos = rabbitStartPos + new Vector3(7.5f, 0, 0);
+        rabbitTargetPos = rabbitStartPos + new Vector3(6.8f, 0, 0);
     }
 
     // Update is called once per frame
@@ -32,10 +33,9 @@ public class AnimationTest : MonoBehaviour
     {
         timer += Time.deltaTime;
         float percentage = timer / duration;
-        turtleTransform.position = Vector3.Lerp(turtleStartPos, turtleTargetPos, percentage);
+        turtleTransform.position = Vector3.Lerp(turtleStartPos, turtleTargetPos, turtleCurve.Evaluate(percentage));
         if(rabbitTransform.position == rabbitTargetPos)
         {
-
             Debug.Log("만났으니까 멈출거임");
             PauseGame();
         }
@@ -47,13 +47,11 @@ public class AnimationTest : MonoBehaviour
         Debug.Log("토끼 움직인다");
         timer += Time.deltaTime;
         float percentage = timer / duration;
-        rabbitTransform.position = Vector3.Lerp(rabbitStartPos, rabbitTargetPos, percentage);
-
+        rabbitTransform.position = Vector3.Lerp(rabbitStartPos, rabbitTargetPos, rabbitCurve.Evaluate(percentage));
     }
 
     void PauseGame()
     {
-        Time.timeScale = 0.1f;
         Time.timeScale = 0;
     }
 }
