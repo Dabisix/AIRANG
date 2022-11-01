@@ -17,7 +17,7 @@ public class RabbitAnimation : MonoBehaviour
     void Start()
     {
         rabbitStartPos = rabbitTransform.position;
-        rabbitTargetPos = rabbitStartPos + new Vector3(7.4f, 0, 0);
+        rabbitTargetPos = rabbitStartPos + new Vector3(7.5f, 0, 0);
     }
 
     // Update is called once per frame
@@ -25,10 +25,14 @@ public class RabbitAnimation : MonoBehaviour
     {
         timer += Time.deltaTime;
         float percentage = timer / duration;
-        rabbitTransform.position = Vector3.Lerp(rabbitStartPos, rabbitTargetPos, rabbitCurve.Evaluate(percentage));
         if (rabbitTransform.position == rabbitTargetPos)
         {
+            Debug.Log("≈‰≥¢∞° ∏ÿ√·¥Á");
             Time.timeScale = 0;
+        }
+        else
+        {
+            rabbitTransform.position = Vector3.Lerp(rabbitStartPos, rabbitTargetPos, rabbitCurve.Evaluate(percentage));
         }
     }
 }

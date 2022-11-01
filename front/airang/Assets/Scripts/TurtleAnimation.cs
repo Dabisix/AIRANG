@@ -29,7 +29,7 @@ public class TurtleAnimation : MonoBehaviour
 
         if (turtleTransform.position == turtleTargetPos)
         {
-            Debug.Log("∏∏≥µ¿∏¥œ±Ó ∏ÿ√‚∞≈¿”");
+            Debug.Log("∞≈∫œ¿Ã∞° ∏ÿ√·¥Á");
             PauseGame();
         }
     }
