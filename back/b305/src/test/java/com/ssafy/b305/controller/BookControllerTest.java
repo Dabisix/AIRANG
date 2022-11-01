@@ -34,21 +34,4 @@ public class BookControllerTest {
         assertEquals(result.getTitle(), "개구리 왕자");
     }
 
-    @Test
-    public void getBookList() {
-        // given
-        BookRequestDto input = new BookRequestDto(1, false, true, "");
-
-
-        // when
-        List<BookInfoResponseDto> result = bookService.getBookList(input);
-        // then
-
-        System.out.println(result);
-
-        for (BookInfoResponseDto book : result){
-            System.out.println(book.getBId() + ", " + book.getTitle());
-        }
-
-    }
 }

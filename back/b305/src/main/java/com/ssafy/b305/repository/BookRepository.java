@@ -1,8 +1,6 @@
 package com.ssafy.b305.repository;
 
-import com.ssafy.b305.domain.entity.Auth;
 import com.ssafy.b305.domain.entity.Book;
-import com.ssafy.b305.domain.entity.BookInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

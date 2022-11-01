@@ -13,4 +13,5 @@ public class BookRequestDto {
     private int aFlag;
     private int sort;
     private String keyword;
+    private int pageNo;
 }

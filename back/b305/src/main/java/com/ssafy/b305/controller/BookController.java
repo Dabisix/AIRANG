@@ -1,8 +1,8 @@
 package com.ssafy.b305.controller;
 
-import com.ssafy.b305.domain.dto.BookInfoResponseDto;
 import com.ssafy.b305.domain.dto.BookRequestDto;
 import com.ssafy.b305.domain.dto.BookDetailResponseDto;
+import com.ssafy.b305.domain.dto.PageDto;
 import com.ssafy.b305.domain.entity.User;
 import com.ssafy.b305.jwt.JwtTokenProvider;
 import com.ssafy.b305.service.BookService;
@@ -12,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/book")
@@ -72,14 +70,14 @@ public class BookController {
         }
 
         try{
-            List<BookInfoResponseDto> bookInfoResponseDtos = bookService.getBookList(bookRequestDto);
-            if(bookInfoResponseDtos==null || bookInfoResponseDtos.size()==0){
+            PageDto pageDto = bookService.getBookList(bookRequestDto);
+            if(pageDto.getBooklist()==null || pageDto.getBooklist().size()==0){
                 return new ResponseEntity<>("no books that satisfing condition", HttpStatus.NO_CONTENT);
             }else{
-                return new ResponseEntity<>(bookInfoResponseDtos, HttpStatus.OK);
+                return new ResponseEntity<>(pageDto, HttpStatus.OK);
             }
         }catch (Exception e){
-            return new ResponseEntity<>("fail to select book id", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("fail to select book id or doesn't exist page number", HttpStatus.BAD_REQUEST);
         }
     }
 
