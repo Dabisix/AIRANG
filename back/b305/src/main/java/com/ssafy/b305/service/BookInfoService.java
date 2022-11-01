@@ -8,6 +8,9 @@ import com.ssafy.b305.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -51,16 +54,25 @@ public class BookInfoService {
 
     public boolean updateLog(User user, Long id) {
         try{
-            List<BookInfo> list = user.getLogList();
-            for(BookInfo info : list){
-                if (info.getBId() == id) {
-                    user.getLogList().remove(id.intValue());
+            List<BookInfo> loglist = user.getLogList();
+            for(int i=0; i<loglist.size(); i++){
+                BookInfo book = loglist.get(i);
+                if(book.getBId()==id){
+                    user.getLogList().remove(i);
                     break;
                 }
             }
+
+            // 읽은 목록 추가
             Book book = bookRepository.findBybId(id).get();
             user.getLogList().add(new BookInfo(id, book.getTitle()));
+            Collections.sort(user.getLogList());
+
+            // 읽은 책의 조회수 증가
             User result = userRepository.save(user);
+            book.addCnt();
+            bookRepository.save(book);
+
             if(result.getU_id() == user.getU_id()) {
                 return true;
             }else{
@@ -69,5 +81,7 @@ public class BookInfoService {
         }catch(Exception e){
             return false;
         }
+//        }
+//            return false;
     }
 }

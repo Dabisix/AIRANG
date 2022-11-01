@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 @Getter
 @NoArgsConstructor
 @Embeddable
-public class BookInfo {
+public class BookInfo implements Comparable<BookInfo> {
     private Long bId;
     private String title;
     private Timestamp date;
@@ -18,5 +18,10 @@ public class BookInfo {
         this.bId = bId;
         this.title = title;
         this.date = new Timestamp(System.currentTimeMillis());
+    }
+
+    @Override
+    public int compareTo(BookInfo o) {
+        return o.getDate().compareTo(this.getDate());
     }
 }

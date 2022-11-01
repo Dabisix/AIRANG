@@ -21,19 +21,22 @@ public class BookDetailResponseDto {
     public BookDetailResponseDto(Book book){
         this.bId = book.getBId();
         this.title = book.getTitle();
+        this.author = book.getAuthor();
         this.cnt = book.getCnt();
         this.aFlag = book.isAFlag();
 
         // 페이지별로 내용 나눠 저장
+        String separator = "&page&";
+
         List<String> content = new ArrayList<String>();
-        String[] request_contents = book.getKContent().split("&page&");
+        String[] request_contents = book.getKContent().split(separator);
         for (String s : request_contents){
             content.add(s);
         }
         this.kContent = content.toArray(new String[content.size()]);
 
         content = new ArrayList<String>();
-        request_contents = book.getEContent().split("&page&");
+        request_contents = book.getEContent().split(separator);
         for (String s : request_contents){
             content.add(s);
         }

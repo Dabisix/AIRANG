@@ -29,8 +29,9 @@ public class BookController {
     JwtTokenProvider jwtTokenProvider;
 
     @Autowired
-    BookInfoService starService;
+    BookInfoService bookInfoService;
 
+    // 도서 상세 정보 조회
     @GetMapping("/{id}")
     public ResponseEntity<?> getBook(@RequestHeader(value = "access-token") String request, @PathVariable Long id) {
         User user;
@@ -56,6 +57,7 @@ public class BookController {
         }
     }
 
+    // 도서 목록 조회
     @PostMapping()
     public ResponseEntity<?> getBookList(@RequestHeader(value = "access-token") String request, @RequestBody BookRequestDto bookRequestDto){
         User user;
@@ -69,16 +71,17 @@ public class BookController {
             return new ResponseEntity<>("unauthorized Token", HttpStatus.UNAUTHORIZED);
         }
 
-        try{
+//        try{
             List<BookInfoResponseDto> bookInfoResponseDtos = bookService.getBookList(bookRequestDto);
+        System.out.println("Size = " + bookInfoResponseDtos.size());
             if(bookInfoResponseDtos==null || bookInfoResponseDtos.size()==0){
                 return new ResponseEntity<>("no books that satisfing condition", HttpStatus.NO_CONTENT);
             }else{
                 return new ResponseEntity<>(bookInfoResponseDtos, HttpStatus.OK);
             }
-        }catch (Exception e){
-            return new ResponseEntity<>("fail to select book id", HttpStatus.BAD_REQUEST);
-        }
+//        }catch (Exception e){
+//            return new ResponseEntity<>("fail to select book id", HttpStatus.BAD_REQUEST);
+//        }
     }
 
     // 즐겨찾기 등록 및 해제
@@ -96,7 +99,7 @@ public class BookController {
         }
 
         try{
-            if(starService.updateStar(user, id)){
+            if(bookInfoService.updateStar(user, id)){
                 return new ResponseEntity<>(HttpStatus.OK);
             }else{
                 throw new Exception();
@@ -137,10 +140,10 @@ public class BookController {
         }
 
         try{
-            if(starService.updateLog(user, id)){
+            if(bookInfoService.updateLog(user, id)){
                 return new ResponseEntity<>(HttpStatus.OK);
             }else{
-                throw   new Exception();
+                throw new Exception();
             }
         }catch (Exception e){
             e.printStackTrace();
