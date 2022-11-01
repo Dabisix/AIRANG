@@ -45,11 +45,11 @@ public class GameManager : MonoBehaviour
 
     private List<Book> books;
 
-    private string cur_book_name; // current book name
+    private Book cur_book; // current book
 
-    public string CurBookName
+    public Book CurBook
     {
-        get => cur_book_name ?? "";
-        set => cur_book_name = value;
+        get => cur_book;
+        set => cur_book = value;
     }
 }
