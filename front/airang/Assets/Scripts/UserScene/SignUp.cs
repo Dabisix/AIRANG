@@ -168,7 +168,8 @@ public class SignUp : MonoBehaviour
         {
             Debug.Log(request.downloadHandler.text);
             alertMsg.text = "회원가입이 완료되었습니다 😊";
-            
+            alertObject.gameObject.SetActive(true);
+
             Invoke("changeCanvas", 1.25f);
             request.Dispose();
 

@@ -1,20 +1,17 @@
 package com.ssafy.b305.controller;
 
+import com.ssafy.b305.domain.dto.BookRequestDto;
+import com.ssafy.b305.domain.dto.BookDetailResponseDto;
+import com.ssafy.b305.domain.dto.PageDto;
+import com.ssafy.b305.domain.entity.User;
+import com.ssafy.b305.jwt.JwtTokenProvider;
 import com.ssafy.b305.service.BookService;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import com.ssafy.b305.service.BookInfoService;
+import com.ssafy.b305.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-@ApiResponses({
-        @ApiResponse(code = 200, message = "성공"),
-        @ApiResponse(code = 401, message = "인증 실패"),
-        @ApiResponse(code = 404, message = "사용자 없음"),
-        @ApiResponse(code = 500, message = "서버 오류")
-})
 
 @RestController
 @RequestMapping("/book")
@@ -24,14 +21,148 @@ public class BookController {
     @Autowired
     BookService bookService;
 
-    @GetMapping("/{title}")
-    public ResponseEntity<?> getScripts(@PathVariable String title) {
-        String result = bookService.getScripts(title);
+    @Autowired
+    UserService userService;
+    @Autowired
+    JwtTokenProvider jwtTokenProvider;
 
-        if(result != "") {
-            return new ResponseEntity<String>(result, HttpStatus.OK);
+    @Autowired
+    BookInfoService bookInfoService;
+
+    // 도서 상세 정보 조회
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getBook(@RequestHeader(value = "access-token") String request, @PathVariable Long id) {
+        User user;
+        try{
+            String userEmail = jwtTokenProvider.getUserID(request);
+            user = userService.myPage(userEmail);
+            if (user == null) {
+                throw new Exception();
+            }
+        }catch (Exception e){
+            return new ResponseEntity<>("unauthorized Token", HttpStatus.UNAUTHORIZED);
         }
-        return new ResponseEntity<String>("Fail", HttpStatus.NO_CONTENT);
+
+        try{
+            BookDetailResponseDto bookDetailResponseDto = bookService.getBook(id);
+            if(bookDetailResponseDto != null){
+                return new ResponseEntity<BookDetailResponseDto>(bookDetailResponseDto, HttpStatus.OK);
+            }else{
+                return new ResponseEntity<>("not exist book id", HttpStatus.NO_CONTENT);
+            }
+        }catch (Exception e){
+            return new ResponseEntity<>("fail to select book id", HttpStatus.BAD_REQUEST);
+        }
     }
+
+    // 도서 목록 조회
+    @PostMapping()
+    public ResponseEntity<?> getBookList(@RequestHeader(value = "access-token") String request, @RequestBody BookRequestDto bookRequestDto){
+        User user;
+        try{
+            String userEmail = jwtTokenProvider.getUserID(request);
+            user = userService.myPage(userEmail);
+            if (user == null) {
+                throw new Exception();
+            }
+        }catch (Exception e){
+            return new ResponseEntity<>("unauthorized Token", HttpStatus.UNAUTHORIZED);
+        }
+
+        try{
+            PageDto pageDto = bookService.getBookList(bookRequestDto);
+            if(pageDto.getBooklist()==null || pageDto.getBooklist().size()==0){
+                return new ResponseEntity<>("no books that satisfing condition", HttpStatus.NO_CONTENT);
+            }else{
+                return new ResponseEntity<>(pageDto, HttpStatus.OK);
+            }
+        }catch (Exception e){
+            return new ResponseEntity<>("fail to select book id or doesn't exist page number", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    // 즐겨찾기 등록 및 해제
+    @PutMapping("/star/{id}")
+    public ResponseEntity<?> updateStar(@RequestHeader(value = "access-token") String request, @PathVariable Long id){
+        User user;
+        try{
+            String userEmail = jwtTokenProvider.getUserID(request);
+            user = userService.myPage(userEmail);
+            if (user == null) {
+                throw new Exception();
+            }
+        }catch (Exception e){
+            return new ResponseEntity<>("unauthorized Token", HttpStatus.UNAUTHORIZED);
+        }
+
+        try{
+            if(bookInfoService.updateStar(user, id)){
+                return new ResponseEntity<>(HttpStatus.OK);
+            }else{
+                throw new Exception();
+            }
+        }catch (Exception e){
+            return new ResponseEntity<>("fail to add or delete star", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    // 즐겨찾기 도서 목록 조회
+    @GetMapping("/star")
+    public ResponseEntity<?> getStar(@RequestHeader(value = "access-token") String request){
+        User user;
+        try{
+            String userEmail = jwtTokenProvider.getUserID(request);
+            user = userService.myPage(userEmail);
+            if (user == null) {
+                throw new Exception();
+            }
+        }catch (Exception e){
+            return new ResponseEntity<>("unauthorized Token", HttpStatus.UNAUTHORIZED);
+        }
+        return new ResponseEntity<>(user.getStarList(), HttpStatus.OK);
+    }
+
+    // 읽은 기록 저장
+    @PutMapping("/log/{id}")
+    public ResponseEntity<?> addLog(@RequestHeader(value = "access-token") String request, @PathVariable Long id){
+        User user;
+        try{
+            String userEmail = jwtTokenProvider.getUserID(request);
+            user = userService.myPage(userEmail);
+            if (user == null) {
+                throw new Exception();
+            }
+        }catch (Exception e){
+            return new ResponseEntity<>("unauthorized Token", HttpStatus.UNAUTHORIZED);
+        }
+
+        try{
+            if(bookInfoService.updateLog(user, id)){
+                return new ResponseEntity<>(HttpStatus.OK);
+            }else{
+                throw new Exception();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>("fail to save log", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    // 읽은 도서 목록 조회
+    @GetMapping("/log")
+    public ResponseEntity<?> getLog(@RequestHeader(value = "access-token") String request){
+        User user;
+        try{
+            String userEmail = jwtTokenProvider.getUserID(request);
+            user = userService.myPage(userEmail);
+            if (user == null) {
+                throw new Exception();
+            }
+        }catch (Exception e){
+            return new ResponseEntity<>("unauthorized Token", HttpStatus.UNAUTHORIZED);
+        }
+        return new ResponseEntity<>(user.getLogList(), HttpStatus.OK);
+    }
+
 
 }
