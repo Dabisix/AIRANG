@@ -10,7 +10,7 @@ public class SearchPw : MonoBehaviour
 
     public GameObject alertPanel;
     public TextMeshProUGUI alertMsg;
-
+    public GameObject loginCanvas;
     private const string URL = "http://localhost:8081/api/";
 
     public void SendPwBtn()
@@ -18,6 +18,17 @@ public class SearchPw : MonoBehaviour
         alertMsg.text = "메일을 확인하는 중 입니다.";
         alertPanel.gameObject.SetActive(true);
         StartCoroutine(SendPwBtnCo());
+    }
+
+    private void ChangeLoginCanvas()
+	{
+        gameObject.SetActive(false);
+        loginCanvas.SetActive(true);
+    }
+
+    private void ChangeText()
+	{
+        alertMsg.text = "잠시 뒤에 로그인페이지로 이동합니다.";
     }
 
     IEnumerator SendPwBtnCo()
@@ -37,6 +48,9 @@ public class SearchPw : MonoBehaviour
             if(!request.isHttpError)
             {
                 alertMsg.text = "임시 비밀번호가 \n 발급되었습니다! \n 메일을 확인해주세요.";
+                Invoke("ChangeText", 2f);
+                Invoke("ChangeLoginCanvas", 4f);
+
             }
             else
             {
