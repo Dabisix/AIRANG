@@ -6,6 +6,7 @@ public class PrincessAnimationController : MonoBehaviour
 {
     // 애니메이션 컨트롤러 시작한다아아아
     Animator anim;
+	public int page;
 
 	private void Awake()
 	{
@@ -14,7 +15,15 @@ public class PrincessAnimationController : MonoBehaviour
 
 	private void Start()
 	{
-		SetIsSadWalking(true);
+		switch (page)
+		{
+			case 1:
+				SetIsHello(true);
+				break;
+			case 2:
+				SetIsSadWalking(true);
+				break;
+		}
 	}
 
 	public void SetIsSadWalking(bool isSadWalking)
