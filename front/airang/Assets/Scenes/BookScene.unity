@@ -2759,6 +2759,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Page10
       objectReference: {fileID: 0}
+    - target: {fileID: 3489470699067132963, guid: d1c7fe71cc6de1c4ba2d2b3bf9732da2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1c7fe71cc6de1c4ba2d2b3bf9732da2, type: 3}
 --- !u!137 &7411483743906889445
@@ -3274,7 +3278,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8272690096840894556, guid: 9ecd7bcd21ad7984d8d4be25bd73dfe1, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8272690096840894557, guid: 9ecd7bcd21ad7984d8d4be25bd73dfe1, type: 3}
       propertyPath: m_RootOrder
