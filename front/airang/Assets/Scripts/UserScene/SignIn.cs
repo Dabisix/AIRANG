@@ -11,8 +11,10 @@ public class SignIn : MonoBehaviour
     public TMP_InputField idInputField;
     public TMP_InputField pwInputField;
     public DoorOpen doorOpen;
+    public GameObject SearchPWCanvas;
     public GameObject alertObject;
     public TextMeshProUGUI alertMsg;
+  
 
     private const string URL = "http://localhost:8081/api/";
 
@@ -91,7 +93,9 @@ public class SignIn : MonoBehaviour
     // 비밀번호 찾기 씬으로 이동
     public void SearchPwBtn()
     {
-        SceneManager.LoadScene("SearchPwScene");
+        gameObject.SetActive(false);
+        SearchPWCanvas.SetActive(true);
+     //   SceneManager.LoadScene("SearchPwScene");
     }
 
 
