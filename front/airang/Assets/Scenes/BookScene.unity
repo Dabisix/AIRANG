@@ -216,7 +216,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1550620185878879521, guid: 01c6753b3967be148bc895636261af82, type: 3}
       propertyPath: m_IsOn
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1550620185878879521, guid: 01c6753b3967be148bc895636261af82, type: 3}
       propertyPath: m_Transition
@@ -327,7 +327,7 @@ PrefabInstance:
     - target: {fileID: 5237816628417346087, guid: 01c6753b3967be148bc895636261af82, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 1cee4fb92054bb34086336b04c08beaf, type: 2}
+      objectReference: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
     - target: {fileID: 5237816628417346087, guid: 01c6753b3967be148bc895636261af82, type: 3}
       propertyPath: m_enableKerning
       value: 0
@@ -335,7 +335,7 @@ PrefabInstance:
     - target: {fileID: 5237816628417346087, guid: 01c6753b3967be148bc895636261af82, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: -3537299535220418343, guid: 1cee4fb92054bb34086336b04c08beaf, type: 2}
+      objectReference: {fileID: 2140474, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
     - target: {fileID: 5237816628417346087, guid: 01c6753b3967be148bc895636261af82, type: 3}
       propertyPath: m_useMaxVisibleDescender
       value: 0
@@ -495,7 +495,6 @@ GameObject:
   - component: {fileID: 482218297}
   - component: {fileID: 482218296}
   - component: {fileID: 482218295}
-  - component: {fileID: 482218298}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -569,19 +568,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &482218298
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 482218294}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea7d7495833204790ba1d3a8755397f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ConversionMode: 0
 --- !u!1 &1529059503
 GameObject:
   m_ObjectHideFlags: 0
