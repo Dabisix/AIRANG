@@ -15,6 +15,24 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        // for DEBUG
+        books = new List<Book>();
+
+        List<bool> useAR = new List<bool>();
+        for (int i = 0; i <= 17; i++)
+            useAR.Add(false);
+
+        useAR[5] = true;
+        useAR[9] = true;
+
+        books.Add(new Book(0, "RabbitAndTurtle", 17, useAR));
+
+        List<bool> useAR2 = new List<bool>();
+        for (int i = 0; i <= 32; i++)
+            useAR.Add(false);
+
+        books.Add(new Book(1, "SnowWhite", 32, useAR2));
+
         if (instance == null)
         {
             instance = this;
@@ -36,7 +54,7 @@ public class GameManager : MonoBehaviour
         try
         {
             books = FileManager.getInstance().loadData().Books;
-        } catch(Exception e)
+        } catch (Exception e)
         {
             // TODO : 앱 손상되었음
             Debug.LogError("Application file damaged " + e.Message);
@@ -44,6 +62,17 @@ public class GameManager : MonoBehaviour
     }
 
     private List<Book> books;
+
+    public List<Book> Books
+    {
+        get
+        {
+            if (books == null)
+                return new List<Book>();
+            else
+                return books;
+        }
+    }
 
     private Book cur_book; // current book
 
