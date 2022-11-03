@@ -1,3 +1,4 @@
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -80,5 +81,18 @@ public class GameManager : MonoBehaviour
     {
         get => cur_book;
         set => cur_book = value;
+    }
+
+    public bool setCurrentBookWithName(string bookname)
+    {
+        for (int i = 0; i < books.Count; i++)
+        {
+            if (bookname.Equals(books[i].BookName))
+            {
+                cur_book = books[i];
+                return true;
+            }
+        }
+        return false;
     }
 }

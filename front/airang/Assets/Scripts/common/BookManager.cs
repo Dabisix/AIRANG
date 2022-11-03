@@ -20,7 +20,6 @@ public class BookManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(this.gameObject);
-            InitBook();
         }
         else
         {
@@ -67,7 +66,7 @@ public class BookManager : MonoBehaviour
     // check book info and ready for reading
     public void InitBook()
     {
-        // cur_book = GameManager.getInstance().CurBook;
+        cur_book = GameManager.getInstance().CurBook;
 
         loadScripts();
         loadContents(GetContents());

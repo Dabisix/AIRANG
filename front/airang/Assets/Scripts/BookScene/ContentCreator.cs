@@ -8,6 +8,8 @@ public class ContentCreator : MonoBehaviour
     {
         if(BookManager.getInstance() != null)
             m_Prefab = BookManager.getInstance().Content ?? null;
+
+        Debug.Log(m_Prefab);
     }
 
     public void renderContent()
@@ -15,11 +17,9 @@ public class ContentCreator : MonoBehaviour
         if (m_RendedObject != null)
             Destroy(m_RendedObject);
         else {
-            Debug.Log("There is no Prefab to instantiate");
+            m_RendedObject = Instantiate(m_Prefab, new Vector3(0, 0), new Quaternion(0, 0, 0, 0));   
             return;
         }
-
-        m_RendedObject = Instantiate(m_Prefab, new Vector3(0, 0), new Quaternion(0, 0, 0, 0));
     }
 
     private void Start()
