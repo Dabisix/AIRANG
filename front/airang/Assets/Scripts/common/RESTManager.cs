@@ -4,13 +4,12 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Entities.UniversalDelegates;
 using Unity.VisualScripting;
-using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class BookSearchOption
 {
-    BookSearchOption(int aFlag, int sort, string keyword, int pageNo)
+    public BookSearchOption(int aFlag, int sort, string keyword, int pageNo)
     {
         this.aFlag = aFlag;
         this.sort = sort;
@@ -26,11 +25,11 @@ public class BookSearchOption
 
 public class RESTManager : MonoBehaviour
 {
-    private const string basePath = "http://localhost:8081/api/";
+    private const string basePath = "http://localhost:8080/api/";
 
     static RESTManager instance = null;
 
-    private RequestHelper requestOptions;
+    private RequestHelper requestOptions = new RequestHelper();
 
     // singleton Pattern implemented
     public static RESTManager getInstance()
@@ -57,7 +56,6 @@ public class RESTManager : MonoBehaviour
 
     private void Start()
     {
-        requestOptions = new RequestHelper();
         requestOptions.ContentType = "application/json";
         requestOptions.EnableDebug = true;
     }
