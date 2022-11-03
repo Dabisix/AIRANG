@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PrincessAnimationController : MonoBehaviour
@@ -42,9 +40,5 @@ public class PrincessAnimationController : MonoBehaviour
 	public void SetIsHello(bool isHello)
 	{
 		anim.SetBool("isHello", isHello);
-	}
-	private void Update()
-	{
-		
 	}
 }
