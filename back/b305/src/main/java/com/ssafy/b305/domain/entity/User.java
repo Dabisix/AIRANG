@@ -5,7 +5,9 @@ import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
-
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Getter
@@ -31,4 +33,10 @@ public class User {
 
     @Column
     private String name;
+
+    @ElementCollection
+    private List<BookInfo> logList = new ArrayList<BookInfo>();
+
+    @ElementCollection
+    private List<BookInfo> starList = new ArrayList<BookInfo>();
 }
