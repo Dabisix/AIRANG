@@ -23,7 +23,7 @@ public class MovePrincess : MonoBehaviour
     {
         princessStartPos = princessTransform.position;
         princessTargetPos = princessStartPos + vector;
-        //Invoke("ShowQueen", 3f);
+        Invoke("ShowQueen", 3f);
     }
 
     public void ShowQueen()
@@ -41,6 +41,7 @@ public class MovePrincess : MonoBehaviour
         //Time.timeScale = 0;
         //anim.SetBool("isCryingAfterWalking", princessTransform.position == princessTargetPos);
 
-        //animController.SetIsCryingAfterWalking(princessTransform.position == princessTargetPos);
+        animController.SetIsCryingAfterWalking(princessTransform.position == princessTargetPos);
+        
     }
 }

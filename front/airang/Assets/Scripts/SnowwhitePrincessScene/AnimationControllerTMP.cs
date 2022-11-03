@@ -54,11 +54,11 @@ public class AnimationControllerTMP : MonoBehaviour
             }
 
             // 해당 애니메이션의 위치가 목표 위치로 이동했을때 멈추게
-            /*if (animationTransform.position == animationTargetPos)
+            if (animationTransform.position == animationTargetPos)
             {
-                anim.SetBool("isStop", true);
+                anim.SetBool("is", true);
                 anim.speed = 0;
-            }*/
+            }
         }
     }
 }
