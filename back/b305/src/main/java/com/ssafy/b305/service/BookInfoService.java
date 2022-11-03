@@ -38,7 +38,7 @@ public class BookInfoService {
             }
             if (!isDeleted) {
                 Book book = bookRepository.findBybId(id).get();
-                user.getStarList().add(new BookInfo(id, book.getTitle()));
+                user.getStarList().add(new BookInfo(id, book.getTitle(), book.isAFlag()));
             }
 
             User result = userRepository.save(user);
@@ -65,7 +65,7 @@ public class BookInfoService {
 
             // 읽은 목록 추가
             Book book = bookRepository.findBybId(id).get();
-            user.getLogList().add(new BookInfo(id, book.getTitle()));
+            user.getLogList().add(new BookInfo(id, book.getTitle(), book.isAFlag()));
             Collections.sort(user.getLogList());
 
             // 읽은 책의 조회수 증가
