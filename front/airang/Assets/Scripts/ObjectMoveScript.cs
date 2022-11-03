@@ -56,9 +56,11 @@ public class ObjectMoveScript : MonoBehaviour
             objectTransform.position = Vector3.Lerp(startPos, targetPos, animationCurve.Evaluate(percentage));
             if (objectTransform.position == targetPos)  //위치 도착하면
             {
+                timer = 0.0f;
                 Destroy(m_touchRendedObject.Dequeue());
                 Animator animator = objectTransform.GetComponent<Animator>();
                 animator.Play("Idle_A");    //기본 애니메이션으로 변경(점프하면서 멈추는 것 방지용)
+                startPos = targetPos;   //현재 위치 변경
                 targetPos = default;    //타겟 위치 재설정
             }
         }
