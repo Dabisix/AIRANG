@@ -9,16 +9,17 @@ using UnityEngine.XR.ARSubsystems;
 [RequireComponent(typeof(ARPlaneManager))]
 public class AnchorCreator : MonoBehaviour
 {
+    
     public void loadContentPrefab()
     {
         RemoveAllAnchors();
-        m_AnchorPrefab = BookManager.getInstance().Content;
+        //m_AnchorPrefab = BookManager.getInstance().Content;
     }
 
-    // ¸ğµç Anchor¸¦ »èÁ¦
+    // ëª¨ë“  Anchorë¥¼ ì‚­ì œ
     public void RemoveAllAnchors()
     {
-        // Anchor¿Í ÀÎ½ºÅÏ½ºÈ­µÈ Object ¸ğµÎ »èÁ¦
+        // Anchorì™€ ì¸ìŠ¤í„´ìŠ¤í™”ëœ Object ëª¨ë‘ ì‚­ì œ
         foreach (var anchor in m_AnchorPoints)
             Destroy(anchor);
         m_AnchorPoints.Clear();
@@ -28,11 +29,12 @@ public class AnchorCreator : MonoBehaviour
 
     void Awake()
     {
-        // Awake ¾È¿¡¼­ ÃÊ±âÈ­ ÇÕ½Ã´Ù!
+        // Awake ì•ˆì—ì„œ ì´ˆê¸°í™” í•©ì‹œë‹¤!
         m_RaycastManager = GetComponent<ARRaycastManager>();
         m_AnchorManager = GetComponent<ARAnchorManager>();
         m_PlaneManager = GetComponent<ARPlaneManager>();
         m_AnchorPoints = new List<ARAnchor>();
+        m_touchAnchorList = new();
     }
 
     private void Start()
@@ -42,22 +44,24 @@ public class AnchorCreator : MonoBehaviour
 
     void Update()
     {
-        // Raycast ÇÔ¼ö·Î È­¸éÀÇ Á¤Áß¾Ó¿¡¼­ ·¹ÀÌÁ®¸¦ ½î°í ÇØ´ç °æ·Î¿¡ »ı¼ºµÈ AR PlaneÀÌ ÀÖÀ» °æ¿ì
-        // ¿©±â ÄÚµå¿¡¼­´Â ·»´õ¸µµÈ Anchor°¡ 1°³ ¹Ì¸¸ÀÏ °æ¿ì¶ó´Â Á¶°Çµµ Ãß°¡ÇÔ
+        // Raycast í•¨ìˆ˜ë¡œ í™”ë©´ì˜ ì •ì¤‘ì•™ì—ì„œ ë ˆì´ì ¸ë¥¼ ì˜ê³  í•´ë‹¹ ê²½ë¡œì— ìƒì„±ëœ AR Planeì´ ìˆì„ ê²½ìš°
+        // ì—¬ê¸° ì½”ë“œì—ì„œëŠ” ë Œë”ë§ëœ Anchorê°€ 1ê°œ ë¯¸ë§Œì¼ ê²½ìš°ë¼ëŠ” ì¡°ê±´ë„ ì¶”ê°€í•¨
         if (m_AnchorPoints.Count < 1 && m_RaycastManager.Raycast(new Vector2(Screen.width * 0.5f, Screen.height * 0.5f), s_Hits, TrackableType.PlaneWithinPolygon))
         {
             var hitPose = s_Hits[0].pose;
             /*
-                AR·Î »ı¼ºµÈ ¿©·¯ °´Ã¼µéÀ» TrackableÀÌ¶ó°í ÇÑ´Ù
-                ARRaycastManagerÀÇ Raycast´Â ÀÚÃ¼ÀûÀ¸·Î Hit Á¤º¸¿¡ ¾î¶² TrackableÀÌ ¸Â¾Ò´ÂÁö ¾Ë·ÁÁØ´Ù
+                ARë¡œ ìƒì„±ëœ ì—¬ëŸ¬ ê°ì²´ë“¤ì„ Trackableì´ë¼ê³  í•œë‹¤
+                ARRaycastManagerì˜ RaycastëŠ” ìì²´ì ìœ¼ë¡œ Hit ì •ë³´ì— ì–´ë–¤ Trackableì´ ë§ì•˜ëŠ”ì§€ ì•Œë ¤ì¤€ë‹¤
             */
             var hitTrackableId = s_Hits[0].trackableId;
+            _trackableId = hitTrackableId;
             var hitPlane = m_PlaneManager.GetPlane(hitTrackableId);
 
-
-
-            // Plane Á¤º¸¸¦ °¡Á®¿À°í anchor¸¦ »ı¼º, ±× AnchorÀ§¿¡ PrefabÀ» »ı¼ºÇÔ
+            // Plane ì •ë³´ë¥¼ ê°€ì ¸ì˜¤ê³  anchorë¥¼ ìƒì„±, ê·¸ Anchorìœ„ì— Prefabì„ ìƒì„±í•¨
             var anchor = m_AnchorManager.AttachAnchor(hitPlane, hitPose);
+            
+            // prefab í¬ê¸° ë³€ê²½
+            anchor.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
             var created = Instantiate(m_AnchorPrefab, anchor.transform);
 
             if (anchor == null)
@@ -71,25 +75,91 @@ public class AnchorCreator : MonoBehaviour
                 TogglePlaneDetection();
             }
         }
-    }
-
-    // ÇÁ¸®ÆÕÀ» ¸¸µé°í ³ª¸é Plane DetectionÀ» ºñÈ°¼ºÈ­
-    void TogglePlaneDetection()
-    {
-        m_PlaneManager.enabled = !m_PlaneManager.enabled;
-
-        foreach (ARPlane plane in m_PlaneManager.trackables)
+        else
         {
-            plane.gameObject.SetActive(m_PlaneManager.enabled);
+            //í„°ì¹˜ í™•ì¸
+            if(TryGetTouchPosition(out Vector2 touchPosition))
+            {
+                if (m_RaycastManager.Raycast(touchPosition, s_Hits, TrackableType.PlaneWithinPolygon))
+                {
+                    //Queue ì•ˆ anchor ê°œìˆ˜ê°€ 5ê°œ ì´í•˜ë©´ ë„£ëŠ”ë‹¤
+                    if (m_touchAnchorList.Count < 5)
+                    {
+                        //í„°ì¹˜í•œ ì§€ì  ìœ„ì¹˜
+                        var hitPose = s_Hits[0].pose;
+                        //í•´ë‹¹ í„°ì¹˜ë¡œ í´ë¦­ëœ ë¶€ë¶„ì˜ trackableId ì°¾ê¸°
+                        var hitPlane = m_PlaneManager.GetPlane(_trackableId);
+
+                        var anchor = m_AnchorManager.AttachAnchor(hitPlane, hitPose);
+                        
+                        //ë§Œì•½ ì „ anchorì´ ìˆìœ¼ë©´
+                        if(m_touchAnchorList.Count > 0)
+                        {
+                            //ì „ anchorì™€ ê±°ë¦¬ ë¹„êµ í›„ ë„£ê¸°
+                            if (Vector3.Distance(anchor.transform.localPosition, m_touchAnchorList.Peek().transform.localPosition) > 1f)
+                            {
+                                m_touchAnchorList.Enqueue(anchor);
+                                // í¬ê¸° ì¡°ì ˆ
+                                anchor.transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
+                                Instantiate(m_touchedPrefab, anchor.transform);
+                            }
+                        }
+                        else
+                        {
+                            m_touchAnchorList.Enqueue(anchor);
+                            // í¬ê¸° ì¡°ì ˆ
+                            anchor.transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
+                            Instantiate(m_touchedPrefab, anchor.transform);
+                        }
+                    }
+                }
+            }
         }
     }
 
-    static List<ARRaycastHit> s_Hits = new List<ARRaycastHit>();
-    List<ARAnchor> m_AnchorPoints;
-    GameObject m_AnchorPrefab;
-    GameObject m_RendedObject;
+    // í”„ë¦¬íŒ¹ì„ ë§Œë“¤ê³  ë‚˜ë©´ Plane Detectionì„ ë¹„í™œì„±í™”
+    void TogglePlaneDetection()
+    {
+        // m_PlaneManager.enabled = !m_PlaneManager.enabled;
+        // ë¹„í™œì„±í™”ì‹œ í„°ì¹˜ ë¶€ë¶„ì„ ì°¾ì„ ìˆ˜ ì—†ìœ¼ë‹ˆ íƒì§€ ë¶€ë¶„ì„ Noneë¡œ ë³€ê²½
+        m_PlaneManager.requestedDetectionMode = PlaneDetectionMode.None;
+        // ì›í•˜ëŠ” Plane ì œì™¸í•˜ê³  ë‚˜ë¨¸ì§€ë¥¼ ì‚¬ìš© ë¶ˆê°€ëŠ¥í•˜ê²Œ
+        foreach (ARPlane plane in m_PlaneManager.trackables)
+        {
+            if(plane.trackableId != _trackableId)
+                plane.gameObject.SetActive(false);
+        }
+    }
 
+    //í„°ì¹˜ ì—¬ë¶€í™•ì¸ (í„°ì¹˜ì‹œ ìœ„ì¹˜ ì €ì¥)
+    bool TryGetTouchPosition(out Vector2 touchPosition)
+    {
+        if (Input.touchCount > 0)
+        {
+            touchPosition = Input.GetTouch(0).position;
+            return true;
+        }
+        touchPosition = default;
+        return false;
+    }
+
+    static List<ARRaycastHit> s_Hits = new List<ARRaycastHit>();
+    static List<ARRaycastHit> hits = new List<ARRaycastHit>();
+    List<ARAnchor> m_AnchorPoints;
+    GameObject m_RendedObject;
+    public GameObject m_AnchorPrefab;
     ARRaycastManager m_RaycastManager;
     ARAnchorManager m_AnchorManager;
     ARPlaneManager m_PlaneManager;
+
+    // ì¶”ê°€ : í„°ì¹˜í•œ ìœ„ì¹˜ í™•ì¸ ìœ„í•˜ì—¬
+    Vector2 touchPosition;
+    // ì¶”ê°€ : í„°ì¹˜ëœ ìœ„ì¹˜ anchor ì €ì¥ì„ ìœ„í•˜ì—¬
+    Queue<ARAnchor> m_touchAnchorList;
+
+    //ì¶”ê°€ : í„°ì¹˜ ì¸ì‹í•  plane í™•ì¸ ìœ„í•˜ì—¬
+    TrackableId _trackableId;
+    // ì¶”ê°€ : í„°ì¹˜ëœ ì§€ì  í™•ì¸ ìœ„í•œ ëª¨ì–‘
+    public GameObject m_touchedPrefab;
+
 }
