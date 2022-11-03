@@ -16,6 +16,12 @@ public class AppSettingButton : MonoBehaviour
             appSettingBoardPrefab.SetActive(false);
         }
     }
+
+    public void BookStart()
+    {
+        BookManager.getInstance().changeScene();
+    }
+
     //openAppSetting
     public void openAppSettingPrefab()
     {

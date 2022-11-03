@@ -7,9 +7,13 @@ using UnityEngine.SceneManagement;
 public class ShowBookDetail : MonoBehaviour
     ,IPointerClickHandler
 {
+
     public void OnPointerClick(PointerEventData eventData)
     {
-        SceneManager.LoadScene("BookSettingScene");
+        if (GameManager.getInstance().setCurrentBookWithName(this.gameObject.name))
+            SceneManager.LoadScene("BookSettingScene");
+        else
+            Debug.Log("book not found");
     }
 
 }
