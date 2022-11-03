@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class CharacterMove : MonoBehaviour
 {
-    public AnimationCurve rabbitCurve;
-    public Transform rabbitTransform;
+    public bool isMove; //이동 여부
+    public AnimationCurve animationCurve;
+    public Transform animationTransform;
 
-    Vector3 rabbitStartPos;
-    Vector3 rabbitTargetPos;
+    public string animationName; //실행시킬 애니메이션 이름
+
+    Vector3 animationStartPos;
+    Vector3 animationTargetPos;
 
     public float timer;
     public float duration; //지속 시간동안 이동시킴
@@ -16,27 +19,46 @@ public class CharacterMove : MonoBehaviour
 
     public Animator anim;
 
+
     private void Awake()
     {
-        anim = GetComponentInChildren<Animator>();
+        anim = animationTransform.GetComponent<Animator>();
     }
 
-    // Start is called before the first frame update
     void Start()
     {
-        rabbitStartPos = rabbitTransform.position;
-        rabbitTargetPos = rabbitStartPos + vector;
+        // 만약 오브젝트가 움직일 거리가 있다면
+        if (isMove)
+        {
+            anim.SetBool("is" + animationName, true);
+            animationStartPos = animationTransform.position;
+            animationTargetPos = animationStartPos + vector;
+        }
+        else
+        {
+            anim.Play(animationName);
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime;
-        float percentage = timer / duration;
-        rabbitTransform.position = Vector3.Lerp(rabbitStartPos, rabbitTargetPos, rabbitCurve.Evaluate(percentage));
-        //애니메이터에 그 애니메이션을 실행시켜랑...
-        //Time.timeScale = 0;
-        anim.SetBool("isStop", rabbitTransform.position == rabbitTargetPos);
-    }
+        if (isMove)
+        {
+            timer += Time.deltaTime;
+            float percentage = timer / duration;
 
+            // 움직이는 경우에만??
+            if (duration != 0)
+            {
+                animationTransform.position = Vector3.Lerp(animationStartPos, animationTargetPos, animationCurve.Evaluate(percentage));
+            }
+
+            // 해당 애니메이션의 위치가 목표 위치로 이동했을때 멈추게
+            if (animationTransform.position == animationTargetPos)
+            {
+                anim.SetBool("isStop", true);
+                anim.speed = 0;
+            }
+        }
+    }
 }
