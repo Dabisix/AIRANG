@@ -56,8 +56,9 @@ public class CharacterMove : MonoBehaviour
             // 해당 애니메이션의 위치가 목표 위치로 이동했을때 멈추게
             if (animationTransform.position == animationTargetPos)
             {
-                anim.SetBool("isStop", true);
-                anim.speed = 0;
+                Debug.Log("목표 위치 도착했다");
+                anim.SetBool("is"+animationName, false);
+                //anim.speed = 0;
             }
         }
     }
