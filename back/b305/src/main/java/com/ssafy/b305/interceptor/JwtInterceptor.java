@@ -31,7 +31,8 @@ public class JwtInterceptor implements HandlerInterceptor {
         if (accessToken != null && jwtService.isValidAccessToken(accessToken)) {
             return true;
         }
-        response.setStatus(401);
+        response.setStatus(200);
+        response.addHeader("token_expired", "y");
         return false;
     }
 
