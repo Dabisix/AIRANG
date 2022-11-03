@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.005819228, g: 0.016877374, b: 0.02835894, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -123,3 +123,60 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &6856828877976943047
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6856828878055409162, guid: 53b00ec77b8cb6b44a489806fafa9636, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6856828878055409162, guid: 53b00ec77b8cb6b44a489806fafa9636, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 118.52116
+      objectReference: {fileID: 0}
+    - target: {fileID: 6856828878055409162, guid: 53b00ec77b8cb6b44a489806fafa9636, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 33.381046
+      objectReference: {fileID: 0}
+    - target: {fileID: 6856828878055409162, guid: 53b00ec77b8cb6b44a489806fafa9636, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 88.38794
+      objectReference: {fileID: 0}
+    - target: {fileID: 6856828878055409162, guid: 53b00ec77b8cb6b44a489806fafa9636, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6856828878055409162, guid: 53b00ec77b8cb6b44a489806fafa9636, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6856828878055409162, guid: 53b00ec77b8cb6b44a489806fafa9636, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6856828878055409162, guid: 53b00ec77b8cb6b44a489806fafa9636, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6856828878055409162, guid: 53b00ec77b8cb6b44a489806fafa9636, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6856828878055409162, guid: 53b00ec77b8cb6b44a489806fafa9636, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6856828878055409162, guid: 53b00ec77b8cb6b44a489806fafa9636, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6856828878055409163, guid: 53b00ec77b8cb6b44a489806fafa9636, type: 3}
+      propertyPath: m_Name
+      value: forest_night
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 53b00ec77b8cb6b44a489806fafa9636, type: 3}
