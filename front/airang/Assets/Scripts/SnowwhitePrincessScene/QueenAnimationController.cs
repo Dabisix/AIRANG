@@ -3,16 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class QueenAnimationController : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+{ // 애니메이션 컨트롤러 시작한다아아아
+	Animator anim;
+	public int page;
+	private void Awake()
+	{
+		anim = GetComponentInChildren<Animator>();
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	void Start()
+	{
+		switch (page)
+		{
+			case 1:
+				SetIsRightTurn(true);
+				break;
+			case 2:
+				SetIsSitting(true);
+				break;
+		}
+	}
+	public void SetIsRightTurn(bool isRightTurn)
+	{
+		anim.SetBool("isRightTurn", isRightTurn);
+	}
+	public void SetIsSitting(bool isSitting)
+	{
+		anim.SetBool("isSitting", isSitting);
+	}
 }
