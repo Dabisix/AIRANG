@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class Book
 {
@@ -10,14 +8,18 @@ public class Book
     private int total_pages;
 
     private List<bool> use_ar;
+    private List<string> e_scripts;
+    private List<string> k_scripts;
 
-    public Book(int book_id, string book_name, int total_pages, List<bool> use_ar)
+    public Book(int book_id, string book_name, int total_pages, List<bool> use_ar, List<string> e_scripts, List<string> k_scripts)
     {
         this.book_id = book_id;
         this.book_name = book_name;
         this.checkpoint_page = 1;
         this.total_pages = total_pages;
         this.use_ar = use_ar;
+        this.e_scripts = e_scripts;
+        this.k_scripts = k_scripts;
     }
 
     public int BookId
@@ -47,6 +49,16 @@ public class Book
     public List<bool> UseAR
     {
         get => use_ar;
+    }
+
+    public List<string> EScripts
+    {
+        get => e_scripts;
+    }
+
+    public List<string> KScripts
+    {
+        get => k_scripts;
     }
 }
    
