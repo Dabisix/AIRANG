@@ -59,27 +59,27 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: AC_Quokka
+  m_Name: page_14_turtle 1
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: isJump
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_DefaultBool: 1
+    m_Controller: {fileID: 0}
   - m_Name: isStop
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: isEyeHappy
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_DefaultBool: 1
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -1147,7 +1147,7 @@ AnimatorStateMachine:
     m_Position: {x: 340, y: 260, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102356558082372840}
-    m_Position: {x: 375, y: 325, z: 0}
+    m_Position: {x: 350, y: 320, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102820113981613418}
     m_Position: {x: 410, y: 390, z: 0}
@@ -1189,7 +1189,7 @@ AnimatorStateMachine:
     m_Position: {x: 0, y: 360, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5104390758781543954}
-    m_Position: {x: 240, y: 760, z: 0}
+    m_Position: {x: 240, y: 670, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7038905451329456620}
     m_Position: {x: -150, y: 460, z: 0}
@@ -1199,7 +1199,7 @@ AnimatorStateMachine:
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: -20, y: 120, z: 0}
-  m_EntryPosition: {x: -20, y: 220, z: 0}
+  m_EntryPosition: {x: -60, y: 220, z: 0}
   m_ExitPosition: {x: 800, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: -7149206085227765692}
