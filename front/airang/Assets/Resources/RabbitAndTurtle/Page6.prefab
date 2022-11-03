@@ -1127,14 +1127,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1252491506398713093}
-  m_LocalRotation: {x: 0.11016346, y: -0.2863065, z: 0.03315844, w: 0.9512062}
+  m_LocalRotation: {x: 0.10584325, y: -0.389289, z: 0.045085292, w: 0.913903}
   m_LocalPosition: {x: 59.354, y: 1.9099998, z: 57.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4222500099377526824}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 13.213, y: -33.503, z: 0}
+  m_LocalEulerAnglesHint: {x: 13.213, y: -46.144, z: 0}
 --- !u!20 &1252491506398713090
 Camera:
   m_ObjectHideFlags: 0
@@ -2640,7 +2640,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4222500097818114814}
   - component: {fileID: 4222500097811207436}
-  - component: {fileID: 4222500097818114813}
+  - component: {fileID: 317706825342328133}
   m_Layer: 0
   m_Name: Turtle
   m_TagString: Untagged
@@ -2655,8 +2655,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4222500097818601182}
-  m_LocalRotation: {x: -0, y: -0.6585616, z: -0, w: 0.7525269}
-  m_LocalPosition: {x: 58.860462, y: 0.21000004, z: 59.82769}
+  m_LocalRotation: {x: 0.035395816, y: -0.74411756, z: -0.026456581, w: 0.66658556}
+  m_LocalPosition: {x: 56.411438, y: 0.468, z: 59.989296}
   m_LocalScale: {x: 0.48735, y: 0.48735, z: 0.48735}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2664,7 +2664,7 @@ Transform:
   - {fileID: 4222500097818114786}
   m_Father: {fileID: 4222500099377526824}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: -82.381, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.448, y: -96.311, z: -5.046}
 --- !u!95 &4222500097811207436
 Animator:
   serializedVersion: 4
@@ -2675,7 +2675,7 @@ Animator:
   m_GameObject: {fileID: 4222500097818601182}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 30c0a24f5c3c1fc4ea1dd5ad97c459f1, type: 3}
-  m_Controller: {fileID: 9100000, guid: 0d6e69be73fcf7446a9b814065d3ebd7, type: 2}
+  m_Controller: {fileID: 9100000, guid: df3beee3f9056e64b9f518982f30d480, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2685,7 +2685,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &4222500097818114813
+--- !u!114 &317706825342328133
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2694,37 +2694,40 @@ MonoBehaviour:
   m_GameObject: {fileID: 4222500097818601182}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 844cbcb94fe6518409422c6fd6ee94d4, type: 3}
+  m_Script: {fileID: 11500000, guid: a11047799a5070a468626767c1156206, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turtleCurve:
+  isMove: 1
+  animationCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  turtleTransform: {fileID: 4222500097818114814}
+  animationTransform: {fileID: 4222500097818114814}
+  animationName: Walk
   timer: 0
-  duration: 30
-  vector: {x: -15, y: 1.5, z: 0}
+  duration: 20
+  vector: {x: -11.9, y: 0.82, z: -1.72}
+  anim: {fileID: 0}
 --- !u!1 &4222500099377526825
 GameObject:
   m_ObjectHideFlags: 0
@@ -3751,7 +3754,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8627594314519496426}
   - component: {fileID: 8627594314526730522}
-  - component: {fileID: 8627594314519496427}
+  - component: {fileID: 88975430452638842}
   m_Layer: 0
   m_Name: Quokka_LOD0
   m_TagString: Untagged
@@ -3766,8 +3769,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8627594314519337674}
-  m_LocalRotation: {x: -0.036309637, y: 0.72725844, z: -0.051020887, w: -0.68350106}
-  m_LocalPosition: {x: 58.700554, y: 0.27, z: 60.84}
+  m_LocalRotation: {x: -0.03191466, y: 0.78188205, z: -0.053879213, w: -0.62027323}
+  m_LocalPosition: {x: 56.28421, y: 0.478, z: 61.03872}
   m_LocalScale: {x: 0.46967, y: 0.46967, z: 0.46967}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3775,7 +3778,7 @@ Transform:
   - {fileID: 8627594314519496424}
   m_Father: {fileID: 4222500099377526824}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 7.114, y: -453.492, z: 0.978}
+  m_LocalEulerAnglesHint: {x: 7.114, y: -463.089, z: 0.978}
 --- !u!95 &8627594314526730522
 Animator:
   serializedVersion: 4
@@ -3786,7 +3789,7 @@ Animator:
   m_GameObject: {fileID: 8627594314519337674}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: b1b777d8a439ddf4d9dcb33e5cde1c7c, type: 3}
-  m_Controller: {fileID: 9100000, guid: 7876f5180ca6f5b4ca03b05ad54b34fa, type: 2}
+  m_Controller: {fileID: 9100000, guid: 08a041cee2c43574d8879f5b02c75262, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3796,7 +3799,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &8627594314519496427
+--- !u!114 &88975430452638842
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3805,37 +3808,40 @@ MonoBehaviour:
   m_GameObject: {fileID: 8627594314519337674}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b652325ce3c4d4e459f48d6284bc39ea, type: 3}
+  m_Script: {fileID: 11500000, guid: a11047799a5070a468626767c1156206, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rabbitCurve:
+  isMove: 1
+  animationCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  rabbitTransform: {fileID: 8627594314519496426}
+  animationTransform: {fileID: 8627594314519496426}
+  animationName: Jump
   timer: 0
-  duration: 10
-  vector: {x: -15, y: 1, z: 0}
+  duration: 20
+  vector: {x: -20, y: 1.33, z: -5.74}
+  anim: {fileID: 0}
 --- !u!1 &8627594314519337676
 GameObject:
   m_ObjectHideFlags: 0
