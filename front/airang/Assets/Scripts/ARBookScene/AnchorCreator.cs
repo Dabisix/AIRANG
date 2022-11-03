@@ -25,6 +25,14 @@ public class AnchorCreator : MonoBehaviour
         m_AnchorPoints.Clear();
 
         Destroy(m_RendedObject);
+
+        //만약 터치가 있으면 터치의 anchor와 object 삭제
+        foreach (var anchor in m_touchAnchorList)
+            Destroy(anchor);
+        m_touchAnchorList.Clear();
+        foreach (var rendedObject in m_touchRendedObject)
+            Destroy(rendedObject);
+        m_touchRendedObject.Clear();
     }
 
     void Awake()
@@ -34,7 +42,12 @@ public class AnchorCreator : MonoBehaviour
         m_AnchorManager = GetComponent<ARAnchorManager>();
         m_PlaneManager = GetComponent<ARPlaneManager>();
         m_AnchorPoints = new List<ARAnchor>();
+
+        //터치한 앵커의 리스트
         m_touchAnchorList = new();
+        m_touchRendedObject = new();
+        //페이지 들어온 시간
+        _time = Time.time;
     }
 
     private void Start()
@@ -57,61 +70,64 @@ public class AnchorCreator : MonoBehaviour
             _trackableId = hitTrackableId;
             var hitPlane = m_PlaneManager.GetPlane(hitTrackableId);
 
-            // Plane 정보를 가져오고 anchor를 생성, 그 Anchor위에 Prefab을 생성함
-            var anchor = m_AnchorManager.AttachAnchor(hitPlane, hitPose);
-            
-            // prefab 크기 변경
-            anchor.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-            var created = Instantiate(m_AnchorPrefab, anchor.transform);
 
-            if (anchor == null)
+            // plane 크기에 따라 prefab 크기 설정 f이상이면 저장 (최소크기)
+            Debug.Log("hitPlane.size.x * hitPlane.size.y" + (hitPlane.size.x * hitPlane.size.y));
+            if (hitPlane.size.x * hitPlane.size.y > 3f)
             {
-                Debug.Log("Error creating anchor.");
-            }
-            else
-            {
-                m_AnchorPoints.Add(anchor);
-                m_RendedObject = created;
-                TogglePlaneDetection();
+                // Plane 정보를 가져오고 anchor를 생성, 그 Anchor위에 Prefab을 생성함
+                var anchor = m_AnchorManager.AttachAnchor(hitPlane, hitPose);
+
+                // prefab 크기 변경
+                anchor.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+                var created = Instantiate(m_AnchorPrefab, anchor.transform);
+
+                if (anchor == null)
+                {
+                    Debug.Log("Error creating anchor.");
+                }
+                else
+                {
+                    m_AnchorPoints.Add(anchor);
+                    m_RendedObject = created;
+                    TogglePlaneDetection();
+                }
             }
         }
-        else
+        else if (TryGetTouchPosition(out Vector2 touchPosition) && m_RaycastManager.Raycast(touchPosition, s_Hits, TrackableType.PlaneWithinPolygon))
         {
-            //터치 확인
-            if(TryGetTouchPosition(out Vector2 touchPosition))
+            //터치 확인 & hit 한 경우
+            //Queue 안 anchor 개수가 5개 이하면 넣는다
+            if (m_touchAnchorList.Count < 5)
             {
-                if (m_RaycastManager.Raycast(touchPosition, s_Hits, TrackableType.PlaneWithinPolygon))
-                {
-                    //Queue 안 anchor 개수가 5개 이하면 넣는다
-                    if (m_touchAnchorList.Count < 5)
-                    {
-                        //터치한 지점 위치
-                        var hitPose = s_Hits[0].pose;
-                        //해당 터치로 클릭된 부분의 trackableId 찾기
-                        var hitPlane = m_PlaneManager.GetPlane(_trackableId);
-
-                        var anchor = m_AnchorManager.AttachAnchor(hitPlane, hitPose);
+                //터치한 지점 위치
+                var hitPose = s_Hits[0].pose;
+                //해당 터치로 클릭된 부분의 trackableId 찾기
+                var hitPlane = m_PlaneManager.GetPlane(_trackableId);
+                var anchor = m_AnchorManager.AttachAnchor(hitPlane, hitPose);
                         
-                        //만약 전 anchor이 있으면
-                        if(m_touchAnchorList.Count > 0)
-                        {
-                            //전 anchor와 거리 비교 후 넣기
-                            if (Vector3.Distance(anchor.transform.localPosition, m_touchAnchorList.Peek().transform.localPosition) > 1f)
-                            {
-                                m_touchAnchorList.Enqueue(anchor);
-                                // 크기 조절
-                                anchor.transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
-                                Instantiate(m_touchedPrefab, anchor.transform);
-                            }
-                        }
-                        else
-                        {
-                            m_touchAnchorList.Enqueue(anchor);
-                            // 크기 조절
-                            anchor.transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
-                            Instantiate(m_touchedPrefab, anchor.transform);
-                        }
+                //만약 전 anchor이 있으면
+                if(m_touchAnchorList.Count > 0)
+                {
+                    //전 anchor와 거리 비교 후 넣기
+                    if (Vector3.Distance(anchor.transform.localPosition, m_touchAnchorList.Peek().transform.localPosition) > 0.7f)
+                    {
+                        m_touchAnchorList.Enqueue(anchor);
+                        // 크기 조절
+                        anchor.transform.localScale = new Vector3(2, 2, 2);
+                        Vector3 tmp = anchor.transform.localPosition;
+                        anchor.transform.localPosition = new Vector3(tmp.x, tmp.y, tmp.z + 0.05f);
+                        m_touchRendedObject.Enqueue(Instantiate(m_touchedPrefab, anchor.transform));
                     }
+                }
+                else
+                {
+                    m_touchAnchorList.Enqueue(anchor);
+                    // 크기 조절
+                    anchor.transform.localScale = new Vector3(2, 2, 2);
+                    Vector3 tmp = anchor.transform.localPosition;
+                    anchor.transform.localPosition = new Vector3(tmp.x, tmp.y, tmp.z + 0.05f);
+                    m_touchRendedObject.Enqueue(Instantiate(m_touchedPrefab, anchor.transform));
                 }
             }
         }
@@ -121,30 +137,40 @@ public class AnchorCreator : MonoBehaviour
     void TogglePlaneDetection()
     {
         // m_PlaneManager.enabled = !m_PlaneManager.enabled;
-        // 비활성화시 터치 부분을 찾을 수 없으니 탐지 부분을 None로 변경
-        m_PlaneManager.requestedDetectionMode = PlaneDetectionMode.None;
-        // 원하는 Plane 제외하고 나머지를 사용 불가능하게
-        foreach (ARPlane plane in m_PlaneManager.trackables)
+        // 비활성화시 터치 부분을 찾을 수 없게 되니, 탐지 부분을 None로 변경
+        if(m_PlaneManager.currentDetectionMode == PlaneDetectionMode.None)
         {
-            if(plane.trackableId != _trackableId)
-                plane.gameObject.SetActive(false);
+            //넓은 바닥 인식
+            m_PlaneManager.requestedDetectionMode = PlaneDetectionMode.Horizontal;
+        }
+        else
+        {
+            m_PlaneManager.requestedDetectionMode = PlaneDetectionMode.None;
+            // 원하는 Plane 제외하고 나머지를 사용 불가능하게
+            foreach (ARPlane plane in m_PlaneManager.trackables)
+            {
+                if (plane.trackableId != _trackableId)
+                    plane.gameObject.SetActive(false);
+            }
         }
     }
 
     //터치 여부확인 (터치시 위치 저장)
     bool TryGetTouchPosition(out Vector2 touchPosition)
     {
-        if (Input.touchCount > 0)
+        if (Input.touchCount > 0 && Time.time - _time >= 0.5f)
         {
             touchPosition = Input.GetTouch(0).position;
+            _time = Time.time;
             return true;
         }
         touchPosition = default;
         return false;
     }
 
+
+
     static List<ARRaycastHit> s_Hits = new List<ARRaycastHit>();
-    static List<ARRaycastHit> hits = new List<ARRaycastHit>();
     List<ARAnchor> m_AnchorPoints;
     GameObject m_RendedObject;
     public GameObject m_AnchorPrefab;
@@ -155,7 +181,11 @@ public class AnchorCreator : MonoBehaviour
     // 추가 : 터치한 위치 확인 위하여
     Vector2 touchPosition;
     // 추가 : 터치된 위치 anchor 저장을 위하여
-    Queue<ARAnchor> m_touchAnchorList;
+    public Queue<ARAnchor> m_touchAnchorList;
+    // 추가 : 터치된 시간 간격 주기 위하여
+    float _time;
+    // 추가 : 터치 인식 지점 삭제 위해서
+    public Queue<GameObject> m_touchRendedObject;
 
     //추가 : 터치 인식할 plane 확인 위하여
     TrackableId _trackableId;
