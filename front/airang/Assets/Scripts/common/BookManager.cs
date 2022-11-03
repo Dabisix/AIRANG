@@ -31,12 +31,12 @@ public class BookManager : MonoBehaviour
         }
     }
 
-    private Book cur_book = new Book(0, "book1", 4, new List<bool> { true, true, true, false, false });
+    private Book cur_book;
     private int cur_page = 1; // current page
 
     // each pages infomations
     private List<GameObject> contents = new List<GameObject>();
-    private List<string> scripts;
+    private List<string> scripts = new List<string>();  
     public string BookName
     {
         get => cur_book.BookName;
@@ -50,7 +50,7 @@ public class BookManager : MonoBehaviour
     public int CurPage
     {
         get => cur_page;
-        set => cur_page = (value < 1 || value > TotalPages ? 1 : value);
+        set => cur_page = value;
     }
 
     public GameObject Content
@@ -79,8 +79,7 @@ public class BookManager : MonoBehaviour
 
     public void loadContents(List<GameObject> contents)
     {
-        Debug.Log("bookname " + cur_book.BookName);
-        GameObject[] objects = Resources.LoadAll<GameObject>(cur_book.BookName);
+        GameObject[] objects = Resources.LoadAll<GameObject>("book" + cur_book.BookId);
 
         contents.Clear();
         contents.Add(null);
@@ -90,11 +89,9 @@ public class BookManager : MonoBehaviour
 
     public bool loadScripts()
     {
-        // TODO : replace with REST API
-        scripts = new List<string>();
+        scripts.Clear();
 
-        scripts.Add("asdf1");
-        scripts.Add("asdf2");
+        
 
         return true;
     }
@@ -108,7 +105,9 @@ public class BookManager : MonoBehaviour
         else // not use AR
             next_scene_name = "BookScene";
 
-        Debug.Log("changeScene " + cur_page);
+        
+
+        Debug.Log("changeScene : page - " + cur_page);
         SceneManager.LoadScene(next_scene_name);
     }
 }
