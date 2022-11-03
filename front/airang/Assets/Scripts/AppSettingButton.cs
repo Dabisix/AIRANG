@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AppSettingButton : MonoBehaviour
 {
@@ -15,6 +16,12 @@ public class AppSettingButton : MonoBehaviour
             appSettingBoardPrefab.SetActive(false);
         }
     }
+
+    public void BookStart()
+    {
+        BookManager.getInstance().changeScene();
+    }
+
     //openAppSetting
     public void openAppSettingPrefab()
     {
@@ -23,5 +30,9 @@ public class AppSettingButton : MonoBehaviour
     public void closeAppSettingPrefab()
     {
         appSettingBoardPrefab.SetActive(false);
+    }
+    public void goMainButton()
+    {
+        SceneManager.LoadScene("MainScene");
     }
 }
