@@ -72,13 +72,17 @@ public class BookListLoader : MonoBehaviour
     {
         for (int i = 0; i < books.Count; i++)
         {
-            var item = Instantiate(bookItemPrefab);
-            item.name = books[i].BookName;
+            GameObject book = Instantiate(bookItemPrefab);
+            // set Book Information
+            book.name = "Book" + books[i].BookId;
+            book.GetComponent<BookItemAction>().Book = books[i];
+            book.GetComponent<BookItemAction>().checkARTag();
+            book.GetComponent<BookItemAction>().setBookCoverFromResource();
 
             // set position
-            item.transform.SetParent(contentContainer);
-            item.transform.localScale = new Vector3(1.15f, 1.37f, 1);
-            item.transform.localPosition = new Vector3(item.transform.position.x, item.transform.position.y, 0);
+            book.transform.SetParent(contentContainer);
+            book.transform.localScale = new Vector3(1.15f, 1.37f, 1);
+            book.transform.localPosition = new Vector3(book.transform.position.x, book.transform.position.y, 0);
         }
     }
 }
