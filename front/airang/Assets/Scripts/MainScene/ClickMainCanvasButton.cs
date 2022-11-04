@@ -28,13 +28,28 @@ public class ClickMainCanvasButton : MonoBehaviour
     }
     public void ClickBtnLibrary()
     {
+        // instantiate books list
+        loadBookListWithViewName("BestBooksScrollView");
+        loadBookListWithViewName("BooksScrollView");
+
         MoveCamera(0);
         navigation[0].SetActive(false);
     }
     public void ClickBtnMyDesk()
     {
+        // instantiate books list
+        loadBookListWithViewName("FavorBookScrollView");
+        loadBookListWithViewName("RecentBookScrollView");
+
         MoveCamera(1);
         navigation[1].SetActive(false);
+    }
+
+    private void loadBookListWithViewName(string scroll_view_name)
+    {
+        GameObject recent_book_scroll_view = GameObject.Find(scroll_view_name);
+        BookListLoader recent_book_book_loader = recent_book_scroll_view.GetComponent<BookListLoader>();
+        recent_book_book_loader.loadBooks(false);
     }
 
     public void MoveCamera(int index)
