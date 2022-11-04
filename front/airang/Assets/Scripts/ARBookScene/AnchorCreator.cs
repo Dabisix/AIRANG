@@ -10,6 +10,13 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(ARPlaneManager))]
 public class AnchorCreator : MonoBehaviour
 {
+    [SerializeField] private Camera arCamera;
+    Animator anim;
+    bool isMove = false;
+    Ray ray;
+    RaycastHit hitobj;
+    GameObject realTurtle;
+
     public void loadContentPrefab()
     {
         RemoveAllAnchors();
@@ -94,41 +101,65 @@ public class AnchorCreator : MonoBehaviour
                 }
             }
         }
-        else if (TryGetTouchPosition(out Vector2 touchPosition) && m_RaycastManager.Raycast(touchPosition, s_Hits, TrackableType.PlaneWithinPolygon))
+        else if (TryGetTouchPosition(out Vector2 touchPosition))
         {
-            //터치 확인 & hit 한 경우
-            //Queue 안 anchor 개수가 5개 이하면 넣는다
-            if (m_touchAnchorList.Count < 5)
+
+            if (Input.touchCount == 0) return;
+            Touch touch = Input.GetTouch(0);
+            //터치 시작시
+            if (touch.phase == TouchPhase.Began)
             {
-                //터치한 지점 위치
-                var hitPose = s_Hits[0].pose;
-                //해당 터치로 클릭된 부분의 trackableId 찾기
-                var hitPlane = m_PlaneManager.GetPlane(_trackableId);
-                var anchor = m_AnchorManager.AttachAnchor(hitPlane, hitPose);
-                        
-                //만약 전 anchor이 있으면
-                if(m_touchAnchorList.Count > 0)
+                Debug.Log("===============================터치 시작했음");
+                Debug.Log("거북이 오브젝트가 할당되었낭? : "+realTurtle);
+
+                ray = Camera.main.ScreenPointToRay(touch.position);
+                Physics.Raycast(ray, out hitobj);
+                //Ray를 통한 오브젝트 인식
+                Debug.Log("Ray를 통한 오브젝트 인식=============================");
+                Debug.Log("지금 터치한 오브젝트 이름 뭐임? : " + hitobj.collider.name);
+
+                //터치한 곳에 오브젝트 이름이 Turtle을 포함하면
+                if (hitobj.collider.name.Contains("Turtle"))
                 {
-                    //전 anchor와 거리 비교 후 넣기
-                    if (Vector3.Distance(anchor.transform.localPosition, m_touchAnchorList.Peek().transform.localPosition) > 0.7f)
-                    {
-                        m_touchAnchorList.Enqueue(anchor);
-                        // 크기 조절
-                        anchor.transform.localScale = new Vector3(2, 2, 2);
-                        Vector3 tmp = anchor.transform.localPosition;
-                        anchor.transform.localPosition = new Vector3(tmp.x, tmp.y, tmp.z + 0.05f);
-                        m_touchRendedObject.Enqueue(Instantiate(m_touchedPrefab, anchor.transform));
-                    }
+                    Debug.Log("거북이다!!!!!!!!!!!");
+                    realTurtle = hitobj.collider.gameObject; //현재 충돌한거를 진짜 거북이에 넣었음
+                    Debug.Log("거북이 넣었지롱 : " + realTurtle);
+                    isMove = true;
                 }
                 else
                 {
-                    m_touchAnchorList.Enqueue(anchor);
-                    // 크기 조절
-                    anchor.transform.localScale = new Vector3(2, 2, 2);
-                    Vector3 tmp = anchor.transform.localPosition;
-                    anchor.transform.localPosition = new Vector3(tmp.x, tmp.y, tmp.z + 0.05f);
-                    m_touchRendedObject.Enqueue(Instantiate(m_touchedPrefab, anchor.transform));
+                    Debug.Log("엥?????????????????????????????????????????");
                 }
+
+            }
+        }
+
+
+        if (isMove && realTurtle != null)
+        {
+            Debug.Log("거북이가 움직이기 시작한다아아아앙");
+            anim = realTurtle.GetComponent<Animator>(); //거북이 오브젝트
+
+            Debug.Log("움직일거임??");
+            Vector3 animationStartPos = realTurtle.transform.position;
+            Vector3 animationTargetPos = animationStartPos+new Vector3(-5, 0, 0);
+
+            float timer = 0f;
+            float duration = 10f;
+            timer += Time.deltaTime;
+            float percentage = timer / duration;
+
+
+            // 해당 애니메이션의 위치가 목표 위치로 이동했을때 멈추게
+            if (realTurtle.transform.position == animationTargetPos)
+            {
+                anim.Play("Idle_A");    //기본 애니메이션으로 변경(점프하면서 멈추는 것 방지용)
+            }
+            // 움직이는 경우에만??
+            else
+            {
+                anim.Play("Walk");
+                realTurtle.transform.position = Vector3.Lerp(animationStartPos, animationTargetPos, percentage);
             }
         }
     }
