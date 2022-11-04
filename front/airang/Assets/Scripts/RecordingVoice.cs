@@ -22,7 +22,6 @@ public class RecordingVoice : MonoBehaviour
     void Start()
     {
         _microphoneID = Microphone.devices[0];
-        Debug.Log(_microphoneID);
         recordClip = GetComponent<AudioClip>();
     }
 
