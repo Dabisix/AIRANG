@@ -7,6 +7,7 @@ public class CharacterMove : MonoBehaviour
     public bool isMove; //이동 여부
     public AnimationCurve animationCurve;
     public Transform animationTransform;
+    public ChangeTexture changeTexture;
 
     public string animationName; //실행시킬 애니메이션 이름
 
@@ -37,6 +38,12 @@ public class CharacterMove : MonoBehaviour
         else
         {
             anim.Play(animationName);
+			if (animationName == "Sleep")
+			{
+                anim.SetBool("isSleep", true);
+                changeTexture.ChangeShaderTexture();
+            }
+
         }
     }
 
