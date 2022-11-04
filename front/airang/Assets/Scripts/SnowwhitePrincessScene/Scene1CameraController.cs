@@ -25,6 +25,7 @@ public class Scene1CameraController : MonoBehaviour
         Vector3 new_rotation = subCamera.transform.eulerAngles;
         iTween.MoveTo(this.gameObject, iTween.Hash("position", new_position, "easetype", easeType, "time", speed));
         iTween.RotateTo(this.gameObject, iTween.Hash("rotation", new_rotation, "easetype", easeType, "time", speed));
+
     }
 
     // Update is called once per frame
