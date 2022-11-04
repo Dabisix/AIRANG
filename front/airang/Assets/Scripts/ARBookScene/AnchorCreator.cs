@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(ARAnchorManager))]
 [RequireComponent(typeof(ARRaycastManager))]
 [RequireComponent(typeof(ARPlaneManager))]
 public class AnchorCreator : MonoBehaviour
 {
-    
     public void loadContentPrefab()
     {
         RemoveAllAnchors();
@@ -59,9 +59,9 @@ public class AnchorCreator : MonoBehaviour
 
             // Plane 정보를 가져오고 anchor를 생성, 그 Anchor위에 Prefab을 생성함
             var anchor = m_AnchorManager.AttachAnchor(hitPlane, hitPose);
-            
+
             // prefab 크기 변경
-            anchor.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+            anchor.transform.localScale = new Vector3(1f, 1f, 1f);
             var created = Instantiate(m_AnchorPrefab, anchor.transform);
 
             if (anchor == null)
@@ -78,7 +78,7 @@ public class AnchorCreator : MonoBehaviour
         else
         {
             //터치 확인
-            if(TryGetTouchPosition(out Vector2 touchPosition))
+            if (TryGetTouchPosition(out Vector2 touchPosition))
             {
                 if (m_RaycastManager.Raycast(touchPosition, s_Hits, TrackableType.PlaneWithinPolygon))
                 {
@@ -91,9 +91,9 @@ public class AnchorCreator : MonoBehaviour
                         var hitPlane = m_PlaneManager.GetPlane(_trackableId);
 
                         var anchor = m_AnchorManager.AttachAnchor(hitPlane, hitPose);
-                        
+
                         //만약 전 anchor이 있으면
-                        if(m_touchAnchorList.Count > 0)
+                        if (m_touchAnchorList.Count > 0)
                         {
                             //전 anchor와 거리 비교 후 넣기
                             if (Vector3.Distance(anchor.transform.localPosition, m_touchAnchorList.Peek().transform.localPosition) > 1f)
@@ -126,7 +126,7 @@ public class AnchorCreator : MonoBehaviour
         // 원하는 Plane 제외하고 나머지를 사용 불가능하게
         foreach (ARPlane plane in m_PlaneManager.trackables)
         {
-            if(plane.trackableId != _trackableId)
+            if (plane.trackableId != _trackableId)
                 plane.gameObject.SetActive(false);
         }
     }
