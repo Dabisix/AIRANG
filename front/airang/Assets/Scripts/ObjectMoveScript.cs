@@ -19,7 +19,7 @@ public class ObjectMoveScript : MonoBehaviour
 
     // Start is called before the first frame update
     float timer = 0.0f;
-    public float duration = 5f; //지속 시간동안 이동시킴
+    public float duration = 4f; //지속 시간동안 이동시킴
 
     // Start is called before the first frame update
     void Start()
@@ -44,9 +44,6 @@ public class ObjectMoveScript : MonoBehaviour
             animator.Play("Walk");
             targetPos = m_touchAnchorList.Dequeue().transform.localPosition;
             objectTransform.LookAt(targetPos);
-            //targetPos.x = startPos.x - transform.localPosition.x + targetPos.x;
-            //targetPos.y = startPos.y - transform.localPosition.y + targetPos.y;
-            //targetPos.z = startPos.z - transform.localPosition.z + targetPos.z;
         }
         else if(targetPos != default)
         {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(ARAnchorManager))]
 [RequireComponent(typeof(ARRaycastManager))]
@@ -57,6 +58,13 @@ public class AnchorCreator : MonoBehaviour
 
     void Update()
     {
+        //잘못 누른 앵커가 있으면
+        if(failTouch != null && Time.time - _failTouchTime == 0.5f)
+        {
+            // 해당 초 지나면 삭제
+            Destroy(failTouchObject);
+            failTouch = null;
+        }
         // Raycast 함수로 화면의 정중앙에서 레이져를 쏘고 해당 경로에 생성된 AR Plane이 있을 경우
         // 여기 코드에서는 렌더링된 Anchor가 1개 미만일 경우라는 조건도 추가함
         if (m_AnchorPoints.Count < 1 && m_RaycastManager.Raycast(new Vector2(Screen.width * 0.5f, Screen.height * 0.5f), s_Hits, TrackableType.PlaneWithinPolygon))
@@ -72,8 +80,7 @@ public class AnchorCreator : MonoBehaviour
 
 
             // plane 크기에 따라 prefab 크기 설정 f이상이면 저장 (최소크기)
-            Debug.Log("hitPlane.size.x * hitPlane.size.y" + (hitPlane.size.x * hitPlane.size.y));
-            if (hitPlane.size.x * hitPlane.size.y > 3f)
+            if (hitPlane.size.x * hitPlane.size.y > 2.5f)
             {
                 // Plane 정보를 가져오고 anchor를 생성, 그 Anchor위에 Prefab을 생성함
                 var anchor = m_AnchorManager.AttachAnchor(hitPlane, hitPose);
@@ -100,17 +107,43 @@ public class AnchorCreator : MonoBehaviour
             //Queue 안 anchor 개수가 5개 이하면 넣는다
             if (m_touchAnchorList.Count < 5)
             {
+                //터치 된 경우
+                RaycastHit hit;
+                Ray ray = Camera.main.ScreenPointToRay(touchPosition);
+                Physics.Raycast(ray, out hit);
+
                 //터치한 지점 위치
                 var hitPose = s_Hits[0].pose;
                 //해당 터치로 클릭된 부분의 trackableId 찾기
                 var hitPlane = m_PlaneManager.GetPlane(_trackableId);
                 var anchor = m_AnchorManager.AttachAnchor(hitPlane, hitPose);
-                        
-                //만약 전 anchor이 있으면
-                if(m_touchAnchorList.Count > 0)
+
+                //어떤 것을 건드렸나 확인
+                if (hit.collider.name.Equals("Obstacle"))
                 {
-                    //전 anchor와 거리 비교 후 넣기
-                    if (Vector3.Distance(anchor.transform.localPosition, m_touchAnchorList.Peek().transform.localPosition) > 0.7f)
+                    //이름이 "Obstacle"인 장애물을 터치했을 경우
+                    failTouch = anchor;
+                    _failTouchTime = Time.time;
+                    anchor.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
+                    failTouchObject = Instantiate(m_failTouchObject, anchor.transform);
+                }
+                else
+                {
+                    //만약 전 anchor이 있으면
+                    if (m_touchAnchorList.Count > 0)
+                    {
+                        //전 anchor와 거리 비교 후 넣기
+                        if (Vector3.Distance(anchor.transform.localPosition, m_touchAnchorList.Peek().transform.localPosition) > 0.7f)
+                        {
+                            m_touchAnchorList.Enqueue(anchor);
+                            // 크기 조절
+                            anchor.transform.localScale = new Vector3(2, 2, 2);
+                            Vector3 tmp = anchor.transform.localPosition;
+                            anchor.transform.localPosition = new Vector3(tmp.x, tmp.y, tmp.z + 0.05f);
+                            m_touchRendedObject.Enqueue(Instantiate(m_touchedPrefab, anchor.transform));
+                        }
+                    }
+                    else
                     {
                         m_touchAnchorList.Enqueue(anchor);
                         // 크기 조절
@@ -119,15 +152,13 @@ public class AnchorCreator : MonoBehaviour
                         anchor.transform.localPosition = new Vector3(tmp.x, tmp.y, tmp.z + 0.05f);
                         m_touchRendedObject.Enqueue(Instantiate(m_touchedPrefab, anchor.transform));
                     }
-                }
-                else
-                {
-                    m_touchAnchorList.Enqueue(anchor);
-                    // 크기 조절
-                    anchor.transform.localScale = new Vector3(2, 2, 2);
-                    Vector3 tmp = anchor.transform.localPosition;
-                    anchor.transform.localPosition = new Vector3(tmp.x, tmp.y, tmp.z + 0.05f);
-                    m_touchRendedObject.Enqueue(Instantiate(m_touchedPrefab, anchor.transform));
+                    if (hit.collider.name.Equals("EndObject") && m_endAnchor == null)
+                    {
+                        //이름이 "EndObjecct"인 오브젝트를 터치했을 경우
+                        m_endAnchor = anchor;
+                        Debug.Log("END");
+                        endGame.Invoke();
+                    }
                 }
             }
         }
@@ -186,10 +217,19 @@ public class AnchorCreator : MonoBehaviour
     float _time;
     // 추가 : 터치 인식 지점 삭제 위해서
     public Queue<GameObject> m_touchRendedObject;
+    // 추가 : 터치 실패 지점 저장, 삭제 위하여
+    ARAnchor failTouch;
+    float _failTouchTime;
+    GameObject failTouchObject;
 
     //추가 : 터치 인식할 plane 확인 위하여
     TrackableId _trackableId;
     // 추가 : 터치된 지점 확인 위한 모양
     public GameObject m_touchedPrefab;
+    public GameObject m_failTouchObject;
 
+    // 추가 : 종료 지점 터치
+    public ARAnchor m_endAnchor;
+    // 추가 : 종료 확인 위한 이벤트
+    UnityEvent endGame;
 }
