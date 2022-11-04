@@ -91,7 +91,14 @@ public class BookManager : MonoBehaviour
     {
         scripts.Clear();
 
-        
+        //" + cur_book.BookId
+        RESTManager.getInstance().Get("book/3").Then(res =>
+        {
+            Debug.Log(res.Text);
+        }).Catch(err =>
+        {
+
+        });
 
         return true;
     }
@@ -100,12 +107,13 @@ public class BookManager : MonoBehaviour
     {
         string next_scene_name = this.gameObject.scene.name;
         
-        if (cur_book.UseAR[cur_page]) // use AR
+        if (cur_book.UseARPages[cur_page]) // use AR
             next_scene_name = "ARBookScene";
         else // not use AR
             next_scene_name = "BookScene";
 
-        
+        if (cur_page <= 0 || cur_page > cur_book.TotalPages)
+            next_scene_name = "BookSettingScene";
 
         Debug.Log("changeScene : page - " + cur_page);
         SceneManager.LoadScene(next_scene_name);
