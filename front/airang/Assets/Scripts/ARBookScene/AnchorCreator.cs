@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 [RequireComponent(typeof(ARAnchorManager))]
 [RequireComponent(typeof(ARRaycastManager))]
@@ -11,11 +12,31 @@ using UnityEngine.SceneManagement;
 public class AnchorCreator : MonoBehaviour
 {
     [SerializeField] private Camera arCamera;
-    Animator anim;
+    Animator turtleAnim;
+    Animator rabbitAnim;
     bool isMove = false;
+    bool isTime = false;
     Ray ray;
     RaycastHit hitobj;
-    GameObject realTurtle;
+    GameObject turtleObject;
+    GameObject rabbitObject;
+
+    Vector3 turtleStartPos;
+    Vector3 turtleTargetPos;
+    Vector3 rabbitStartPos;
+    Vector3 rabbitTargetPos;
+
+    //카운트다운 오브젝트
+    GameObject guideMsg;
+    GameObject num_3;
+    GameObject num_2;
+    GameObject num_1;
+    GameObject num_GO;
+    private int countdown;
+    //AudioSource audioSource;
+    //AudioClip raceAudioClip;
+
+    float timer = 0f;
 
     public void loadContentPrefab()
     {
@@ -60,6 +81,7 @@ public class AnchorCreator : MonoBehaviour
     private void Start()
     {
         loadContentPrefab();
+        countdown = 0;
     }
 
     void Update()
@@ -109,57 +131,133 @@ public class AnchorCreator : MonoBehaviour
             //터치 시작시
             if (touch.phase == TouchPhase.Began)
             {
-                Debug.Log("===============================터치 시작했음");
-                Debug.Log("거북이 오브젝트가 할당되었낭? : "+realTurtle);
-
-                ray = Camera.main.ScreenPointToRay(touch.position);
-                Physics.Raycast(ray, out hitobj);
                 //Ray를 통한 오브젝트 인식
-                Debug.Log("Ray를 통한 오브젝트 인식=============================");
-                Debug.Log("지금 터치한 오브젝트 이름 뭐임? : " + hitobj.collider.name);
+                ray = Camera.main.ScreenPointToRay(touch.position);
+                Physics.Raycast(ray, out hitobj); //터치한 부분을 hitobj로 뽑아내겠다
 
                 //터치한 곳에 오브젝트 이름이 Turtle을 포함하면
                 if (hitobj.collider.name.Contains("Turtle"))
                 {
-                    Debug.Log("거북이다!!!!!!!!!!!");
-                    realTurtle = hitobj.collider.gameObject; //현재 충돌한거를 진짜 거북이에 넣었음
-                    Debug.Log("거북이 넣었지롱 : " + realTurtle);
-                    isMove = true;
-                }
-                else
-                {
-                    Debug.Log("엥?????????????????????????????????????????");
-                }
+                    turtleObject = hitobj.collider.gameObject; //터치한 오브젝트가 거북이다
+                    turtleStartPos = turtleObject.transform.position; //거북이 시작위치
+                    turtleTargetPos = turtleStartPos + new Vector3(-2, 0, 0); //거북이 도착위치
+                    turtleAnim = turtleObject.GetComponent<Animator>(); //거북이 애니메이션
 
+                    // 거북이 터치하면 경주 시작함, 토끼도 같이 움직여야 하기 때문에 토끼를 찾아보자
+                    int numChild = m_RendedObject.transform.childCount;
+                    for (int i = 0; i < numChild; i++)
+                    {
+                        if (m_RendedObject.transform.GetChild(i).name == "Rabbit")
+                        {
+                            rabbitObject = m_RendedObject.transform.GetChild(i).gameObject;
+                        }
+                        if(m_RendedObject.transform.GetChild(i).name == "Canvas") //카운트다운 이미지 오브젝트 찾기
+                        {
+                            int canvasChiild = m_RendedObject.transform.GetChild(i).childCount;
+                            for(int j=0; j<canvasChiild; j++)
+                            {
+                                if(m_RendedObject.transform.GetChild(i).GetChild(j).name == "1")
+                                {
+                                    num_1 = m_RendedObject.transform.GetChild(i).GetChild(j).gameObject;
+                                }
+                                if (m_RendedObject.transform.GetChild(i).GetChild(j).name == "2")
+                                {
+                                    num_2 = m_RendedObject.transform.GetChild(i).GetChild(j).gameObject;
+                                }
+                                if (m_RendedObject.transform.GetChild(i).GetChild(j).name == "3")
+                                {
+                                    num_3 = m_RendedObject.transform.GetChild(i).GetChild(j).gameObject;
+                                }
+                                if (m_RendedObject.transform.GetChild(i).GetChild(j).name == "GO")
+                                {
+                                    num_GO = m_RendedObject.transform.GetChild(i).GetChild(j).gameObject;
+                                }
+                                if (m_RendedObject.transform.GetChild(i).GetChild(j).name == "Guide")
+                                {
+                                    guideMsg = m_RendedObject.transform.GetChild(i).GetChild(j).gameObject;
+                                }
+                            }
+                        }
+                    }
+
+                    rabbitStartPos = rabbitObject.transform.position; //토끼 시작위치
+                    rabbitTargetPos = rabbitStartPos + new Vector3(-2, 0, 0); //토끼 도착위치
+                    rabbitAnim = rabbitObject.GetComponent<Animator>(); //토끼 애니메이션
+
+                    turtleAnim.SetBool("isWalk", true); //거북이는 걸어
+                    rabbitAnim.SetBool("isJump", true); //토끼는 뛰어
+
+                    //audioSource = GetComponent<AudioSource>();
+                    //raceAudioClip = GetComponent<AudioClip>();
+                    //audioSource.clip = raceAudioClip;
+
+                    isTime = true; //카운트 다운 이미지 나오게
+                }
             }
         }
 
-
-        if (isMove && realTurtle != null)
+        //카운트다운
+        if (isTime)
         {
-            Debug.Log("거북이가 움직이기 시작한다아아아앙");
-            anim = realTurtle.GetComponent<Animator>(); //거북이 오브젝트
-
-            Debug.Log("움직일거임??");
-            Vector3 animationStartPos = realTurtle.transform.position;
-            Vector3 animationTargetPos = animationStartPos+new Vector3(-5, 0, 0);
-
-            float timer = 0f;
-            float duration = 10f;
-            timer += Time.deltaTime;
-            float percentage = timer / duration;
-
-
-            // 해당 애니메이션의 위치가 목표 위치로 이동했을때 멈추게
-            if (realTurtle.transform.position == animationTargetPos)
+            if (countdown == 0)
             {
-                anim.Play("Idle_A");    //기본 애니메이션으로 변경(점프하면서 멈추는 것 방지용)
+                Time.timeScale = 0;
             }
-            // 움직이는 경우에만??
-            else
+
+            if (countdown <= 90)
             {
-                anim.Play("Walk");
-                realTurtle.transform.position = Vector3.Lerp(animationStartPos, animationTargetPos, percentage);
+                guideMsg.SetActive(false); //거북이 터치 메세지 false
+                //audioSource.Play();
+                countdown++;
+
+                if (countdown < 30)
+                {
+                    num_3.SetActive(true);
+                }
+                if (countdown > 30)
+                {
+                    num_3.SetActive(false);
+                    num_2.SetActive(true);
+                }
+                if (countdown > 60)
+                {
+                    num_2.SetActive(false);
+                    num_1.SetActive(true);
+                }
+                if (countdown >= 90)
+                {
+                    num_1.SetActive(false);
+                    num_GO.SetActive(true);
+                    StartCoroutine(LoadingEnd());
+                    Time.timeScale = 1.0f; //게임 시작
+                    isMove = true; //애니메이션 시작 flag
+                    isTime = false;
+                }
+            }
+        }
+
+        IEnumerator LoadingEnd()
+        {
+            yield return new WaitForSeconds(1.0f);
+            num_GO.SetActive(false);
+        }
+
+        if (isMove) //거북이 터치하면 애니메이션 시작
+        {
+            timer += Time.deltaTime;
+            turtleObject.transform.position = Vector3.Lerp(turtleStartPos, turtleTargetPos, timer / 20f);
+            rabbitObject.transform.position = Vector3.Lerp(rabbitStartPos, rabbitTargetPos, timer / 5f);
+
+
+            // 5초 지나면 다음 페이지로 이동시키자
+            if(timer >= 5f)
+            {
+                isMove = false; //애니메이션 중지
+                turtleAnim.SetBool("isWalk", false);
+                rabbitAnim.SetBool("isJump", false);
+                Debug.Log("다음 페이지로 이동할 시간");
+                //BookManager.getInstance().CurPage += 1;
+                //BookManager.getInstance().changeScene();
             }
         }
     }
