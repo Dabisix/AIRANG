@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.0270247, g: 0.2985171, b: 0.49576345, a: 1}
+  m_IndirectSpecularColor: {r: 0.026700953, g: 0.29866886, b: 0.49627915, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2237,6 +2237,10 @@ PrefabInstance:
     - target: {fileID: 2202336160156185155, guid: cf1e0d6d121ecc043988d49dc8b0d583, type: 3}
       propertyPath: m_Name
       value: P_Signup
+      objectReference: {fileID: 0}
+    - target: {fileID: 2202336160156185155, guid: cf1e0d6d121ecc043988d49dc8b0d583, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2202336160156185176, guid: cf1e0d6d121ecc043988d49dc8b0d583, type: 3}
       propertyPath: signinCanvas

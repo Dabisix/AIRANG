@@ -5451,7 +5451,7 @@ Animator:
   m_GameObject: {fileID: 2552410178107908901}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 548733df06e8fda4db3be7f64c5d659a, type: 2}
+  m_Controller: {fileID: 9100000, guid: ddb090ac308512e43ba70bbb58329b8a, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -7839,6 +7839,8 @@ MonoBehaviour:
   subCamera: {fileID: 3287983683579571959}
   speed: 0
   easeType: 0
+  targetCamera: {fileID: 0}
+  page: 0
 --- !u!1 &3287983683579571952
 GameObject:
   m_ObjectHideFlags: 0
