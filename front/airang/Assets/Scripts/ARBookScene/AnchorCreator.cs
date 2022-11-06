@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
-using UnityEngine.Events;
 
 [RequireComponent(typeof(ARAnchorManager))]
 [RequireComponent(typeof(ARRaycastManager))]
@@ -157,7 +156,6 @@ public class AnchorCreator : MonoBehaviour
                         //이름이 "EndObjecct"인 오브젝트를 터치했을 경우
                         m_endAnchor = anchor;
                         Debug.Log("END");
-                        endGame.Invoke();
                     }
                 }
             }
@@ -199,6 +197,12 @@ public class AnchorCreator : MonoBehaviour
         return false;
     }
 
+    // 다음 페이지 넘어가고 싶다
+    public void nextPage()
+    {
+        Debug.Log("NextPage");
+    }
+
 
 
     static List<ARRaycastHit> s_Hits = new List<ARRaycastHit>();
@@ -230,6 +234,4 @@ public class AnchorCreator : MonoBehaviour
 
     // 추가 : 종료 지점 터치
     public ARAnchor m_endAnchor;
-    // 추가 : 종료 확인 위한 이벤트
-    UnityEvent endGame;
 }
