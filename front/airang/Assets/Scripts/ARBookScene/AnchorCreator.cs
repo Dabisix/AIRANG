@@ -33,8 +33,8 @@ public class AnchorCreator : MonoBehaviour
     GameObject num_1;
     GameObject num_GO;
     private int countdown;
-    //AudioSource audioSource;
-    //AudioClip raceAudioClip;
+    AudioSource audioSource;
+    AudioClip raceAudioClip;
 
     float timer = 0f;
 
@@ -119,6 +119,7 @@ public class AnchorCreator : MonoBehaviour
                 {
                     m_AnchorPoints.Add(anchor);
                     m_RendedObject = created;
+                    audioSource = m_RendedObject.GetComponent<AudioSource>();
                     TogglePlaneDetection();
                 }
             }
@@ -186,11 +187,8 @@ public class AnchorCreator : MonoBehaviour
 
                     turtleAnim.SetBool("isWalk", true); //거북이는 걸어
                     rabbitAnim.SetBool("isJump", true); //토끼는 뛰어
-
-                    //audioSource = GetComponent<AudioSource>();
-                    //raceAudioClip = GetComponent<AudioClip>();
-                    //audioSource.clip = raceAudioClip;
-
+                    audioSource.loop = false; //반복안함
+                    audioSource.Play(); //카운트 다운 소리 재생
                     isTime = true; //카운트 다운 이미지 나오게
                 }
             }
@@ -207,11 +205,11 @@ public class AnchorCreator : MonoBehaviour
             if (countdown <= 90)
             {
                 guideMsg.SetActive(false); //거북이 터치 메세지 false
-                //audioSource.Play();
                 countdown++;
 
                 if (countdown < 30)
                 {
+
                     num_3.SetActive(true);
                 }
                 if (countdown > 30)
