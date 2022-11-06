@@ -948,7 +948,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 652289702}
         m_TargetAssemblyTypeName: BookSettingManager, Assembly-CSharp
-        m_MethodName: setLang
+        m_MethodName: toggleLang
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1248,9 +1248,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1451114241}
-        m_TargetAssemblyTypeName: AppSettingButton, Assembly-CSharp
-        m_MethodName: BookStart
+      - m_Target: {fileID: 652289702}
+        m_TargetAssemblyTypeName: BookSettingManager, Assembly-CSharp
+        m_MethodName: readStart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2193,19 +2193,7 @@ MonoBehaviour:
   m_Group: {fileID: 1964629499}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 652289702}
-        m_TargetAssemblyTypeName: BookSettingManager, Assembly-CSharp
-        m_MethodName: setLang
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_IsOn: 0
 --- !u!1 &642660269
 GameObject:
@@ -3628,7 +3616,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeOutUIImage: {fileID: 2029547931}
-  fadeSpeed: 0.8
+  fadeSpeed: 1.2
 --- !u!4 &1228172140
 Transform:
   m_ObjectHideFlags: 0

@@ -6,7 +6,9 @@ public class BookSettingManager : MonoBehaviour
 {
     private bool lang = true; // kor : true, eng : false
 
-    public void setLang()
+    BookManager bookManager;
+
+    public void toggleLang()
     {
         lang = !lang;
     }
@@ -14,12 +16,26 @@ public class BookSettingManager : MonoBehaviour
 
     void Start()
     {
-        
-        BookManager.getInstance().InitBook();    
+        bookManager = BookManager.getInstance();
+
+        bookManager.InitBook();
     }
 
     public void readStart()
     {
-        BookManager.getInstance().changeScene(true);
+        if (bookManager.CurBook == null) return;
+
+        // write read record to server
+        RESTManager.getInstance().Put("book/log/" + bookManager.CurBook.BookId, null);
+
+        // language and get checkpoint
+        bookManager.CurBook.Lang = lang;
+        bookManager.CurPage = 1;
+        bookManager.changeScene(true);
+    }
+
+    public void getCheckPoint()
+    {
+
     }
 }

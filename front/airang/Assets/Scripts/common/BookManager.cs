@@ -1,3 +1,4 @@
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -36,7 +37,6 @@ public class BookManager : MonoBehaviour
 
     // each pages infomations
     private List<GameObject> contents = new List<GameObject>();
-    private List<string> scripts = new List<string>();  
 
 
     public Book CurBook
@@ -68,7 +68,13 @@ public class BookManager : MonoBehaviour
 
     public string Script
     {
-        get => scripts[cur_page];
+        get
+        {
+            if (cur_book.Lang)
+                return cur_book.KScripts[cur_page];
+            else
+                return cur_book.EScripts[cur_page];
+        }
     }
 
     // check book info and ready for reading
@@ -76,7 +82,7 @@ public class BookManager : MonoBehaviour
     {
         cur_book = BookManager.getInstance().CurBook;
 
-        loadScripts();
+        if(cur_book.KScripts.Count != 0) getBookInfo();
         loadContents();
     }
 
@@ -90,20 +96,39 @@ public class BookManager : MonoBehaviour
             contents.Add(objects[i]);
     }
 
-    public bool loadScripts()
+    public bool getBookInfo()
     {
-        scripts.Clear();
-
-        //" + cur_book.BookId
-        RESTManager.getInstance().Get("book/3").Then(res =>
+        // get Script info and totalpage from server
+        RESTManager.getInstance().Get("book/" + cur_book.BookId).Then(res =>
         {
-            Debug.Log(res.Text);
+            JObject bookInfo = JObject.Parse(res.Text);
+
+            foreach (string text in bookInfo["kcontent"])
+                cur_book.KScripts.Add(text);
+            foreach (string text in bookInfo["econtent"])
+                cur_book.EScripts.Add(text);
+
+            cur_book.TotalPages = cur_book.KScripts.Count;
         }).Catch(err =>
         {
-
+            // TODO : check network warn
+            Debug.Log("error on get BookInfo");
         });
 
         return true;
+    }
+
+    private List<string> parseScript(string book_info)
+    {
+        List<string> scripts = new List<string>();
+        JObject json = JObject.Parse(book_info);
+
+        List<Book> ret = new List<Book>();
+        foreach (var book in json["booklist"])
+            ret.Add(new Book((int)book["bid"], (string)book["title"], (bool)book["aflag"]));
+
+
+        return scripts;
     }
 
     public void changeScene(bool isFade = false)
@@ -120,9 +145,13 @@ public class BookManager : MonoBehaviour
             next_scene_name = "NonPicBookPagingScene";
 
         // book ended or start
-        if (cur_page <= 0 || cur_page > cur_book.TotalPages)
+
+        Debug.Log(cur_page);
+        if (cur_page <= 0)
             next_scene_name = "BookSettingScene";
-        
+        else if(cur_page > cur_book.TotalPages)
+            next_scene_name = "MainScene";
+
 
         Debug.Log("changeScene : page - " + cur_page);
         if(isFade)
