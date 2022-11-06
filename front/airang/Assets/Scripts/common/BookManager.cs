@@ -37,6 +37,14 @@ public class BookManager : MonoBehaviour
     // each pages infomations
     private List<GameObject> contents = new List<GameObject>();
     private List<string> scripts = new List<string>();  
+
+
+    public Book CurBook
+    {
+        get => cur_book;
+        set => cur_book = value;
+    }
+
     public string BookName
     {
         get => cur_book.BookName;
@@ -66,18 +74,13 @@ public class BookManager : MonoBehaviour
     // check book info and ready for reading
     public void InitBook()
     {
-        cur_book = GameManager.getInstance().CurBook;
+        cur_book = BookManager.getInstance().CurBook;
 
         loadScripts();
-        loadContents(GetContents());
+        loadContents();
     }
 
-    public List<GameObject> GetContents()
-    {
-        return contents;
-    }
-
-    public void loadContents(List<GameObject> contents)
+    public void loadContents()
     {
         GameObject[] objects = Resources.LoadAll<GameObject>("book" + cur_book.BookId);
 
@@ -107,15 +110,22 @@ public class BookManager : MonoBehaviour
     {
         string next_scene_name = this.gameObject.scene.name;
         
-        if (cur_book.UseARPages[cur_page]) // use AR
+        if (cur_book.UseARPages[cur_page] > 0) // use AR
             next_scene_name = "ARBookScene";
         else // not use AR
             next_scene_name = "BookScene";
 
+        // not use ARBook(only text)
+        if (!cur_book.UseAR)
+            next_scene_name = "NonPicBookPagingScene";
+
+        // book ended or start
         if (cur_page <= 0 || cur_page > cur_book.TotalPages)
             next_scene_name = "BookSettingScene";
+        
 
         Debug.Log("changeScene : page - " + cur_page);
-        SceneManager.LoadScene(next_scene_name);
+        // SceneManager.LoadScene(next_scene_name);
+        StartCoroutine(GameObject.FindObjectOfType<SceneFader>().FadeAndLoadScene(SceneFader.FadeDirection.In, next_scene_name));
     }
 }
