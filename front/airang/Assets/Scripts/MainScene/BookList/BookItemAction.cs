@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -12,6 +13,7 @@ public class BookItemAction : MonoBehaviour
     private Book bookInfo;
 
     private const string BOOK_COVER_PATH = "BookCovers/";
+    private const int NUM_DEFAULT_BOOK_IMAGE = 4;
 
     public Book Book
     {
@@ -27,10 +29,21 @@ public class BookItemAction : MonoBehaviour
         // load book cover splite with Book ID
         Sprite book_cover = Resources.Load<Sprite>(BOOK_COVER_PATH + "Book" + bookInfo.BookId);
 
-        if (book_cover == null) // set default image
-            book_cover = Resources.Load<Sprite>(BOOK_COVER_PATH + "default");
+        // for random default image
+        System.Random rand = new System.Random();
+        if (book_cover == null) // set default image with random
+            book_cover = Resources.Load<Sprite>(BOOK_COVER_PATH + "default" + rand.Next(1, NUM_DEFAULT_BOOK_IMAGE + 1));
    
         GetComponent<Image>().sprite = book_cover;
+    }
+
+    public void setBookTitle()
+    {
+        if (bookInfo == null) return;
+
+        // set Title
+        GameObject text = this.gameObject.transform.Find("Title").gameObject;
+        text.GetComponent<TextMeshProUGUI>().text = bookInfo.BookName;
     }
 
     // enable AR tag if book support AR
@@ -39,7 +52,7 @@ public class BookItemAction : MonoBehaviour
         if (bookInfo == null) return;
 
         if(AR_tag_image == null)
-            AR_tag_image = this.gameObject.transform.GetChild(0).gameObject;
+            AR_tag_image = this.gameObject.transform.Find("ARTag").gameObject;
         AR_tag_image.SetActive(bookInfo.UseAR);
     }
 
@@ -52,6 +65,6 @@ public class BookItemAction : MonoBehaviour
 
         bm.CurBook = bookInfo;
         bm.CurPage = 0;
-        bm.changeScene();
+        bm.changeScene(true);
     }
 }
