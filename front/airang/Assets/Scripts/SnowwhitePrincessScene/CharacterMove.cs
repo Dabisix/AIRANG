@@ -36,7 +36,7 @@ public class CharacterMove : MonoBehaviour
         }
         else
         {
-            anim.Play(animationName);
+            anim.SetBool("is" + animationName, true);
         }
     }
 
