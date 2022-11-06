@@ -7,6 +7,7 @@ public class ClickMainCanvasButton : MonoBehaviour
     public MainMainCamera my_camera;
     public GameObject[] navigation;
     public GameObject searchBar;
+
     private bool isSearch = false;
     public void clickSearchBtn()
 	{
@@ -25,6 +26,9 @@ public class ClickMainCanvasButton : MonoBehaviour
     {
         SetNavigationActive();
         MoveCamera(2);
+
+        // Active search button
+        searchBar.SetActive(false);
     }
     public void ClickBtnLibrary()
     {
@@ -43,6 +47,9 @@ public class ClickMainCanvasButton : MonoBehaviour
 
         MoveCamera(1);
         navigation[1].SetActive(false);
+
+        // Active search button
+        searchBar.SetActive(false);
     }
 
     private void loadBookListWithViewName(string scroll_view_name)

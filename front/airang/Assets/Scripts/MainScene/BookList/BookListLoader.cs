@@ -60,7 +60,7 @@ public class BookListLoader : MonoBehaviour
         }
     }
 
-    void eraseAllBooks()
+    public void eraseAllBooks()
     {
         for(int i = 0; i < contentContainer.childCount; i++) {
             Destroy(contentContainer.GetChild(i).gameObject);
@@ -68,7 +68,7 @@ public class BookListLoader : MonoBehaviour
     }
 
     // render at content in scrollView
-    void renderBooks(List<Book> books)
+    public void renderBooks(List<Book> books)
     {
         for (int i = 0; i < books.Count; i++)
         {
@@ -78,6 +78,7 @@ public class BookListLoader : MonoBehaviour
             book.GetComponent<BookItemAction>().Book = books[i];
             book.GetComponent<BookItemAction>().checkARTag();
             book.GetComponent<BookItemAction>().setBookCoverFromResource();
+            book.GetComponent<BookItemAction>().setBookTitle();
 
             // set position
             book.transform.SetParent(contentContainer);

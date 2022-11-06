@@ -395,7 +395,6 @@ GameObject:
   - component: {fileID: 83872007}
   - component: {fileID: 83872006}
   - component: {fileID: 83872005}
-  - component: {fileID: 83872008}
   - component: {fileID: 83872009}
   m_Layer: 0
   m_Name: Main Camera
@@ -470,18 +469,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 1.198, y: -33.815, z: 0}
---- !u!114 &83872008
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 83872004}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9aa9ca01b3feac34daf6b6e15b9f4a3f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &83872009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -512,6 +499,7 @@ GameObject:
   - component: {fileID: 153205956}
   - component: {fileID: 153205955}
   - component: {fileID: 153205958}
+  - component: {fileID: 153205959}
   m_Layer: 5
   m_Name: SearchButton
   m_TagString: Untagged
@@ -530,9 +518,10 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.3347505, y: 1.7241099, z: 1.7225595}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1025432225}
   m_Father: {fileID: 1128057162}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -583,9 +572,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 153205958}
-        m_TargetAssemblyTypeName: ClickMainCanvasButton, Assembly-CSharp
-        m_MethodName: clickSearchBtn
+      - m_Target: {fileID: 153205959}
+        m_TargetAssemblyTypeName: BookSearchBtn, Assembly-CSharp
+        m_MethodName: toggleSearchInput
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -648,6 +637,21 @@ MonoBehaviour:
   my_camera: {fileID: 0}
   navigation: []
   searchBar: {fileID: 1025432224}
+--- !u!114 &153205959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 153205953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e15a8d9f7f490c4893537fa071dca5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  searchField: {fileID: 1025432224}
+  bookListScrollView: {fileID: 598907037}
+  mainCamera: {fileID: 0}
 --- !u!1 &189177383
 GameObject:
   m_ObjectHideFlags: 0
@@ -2925,7 +2929,6 @@ GameObject:
   - component: {fileID: 815254124}
   - component: {fileID: 815254123}
   - component: {fileID: 815254122}
-  - component: {fileID: 815254121}
   m_Layer: 5
   m_Name: PlayRoomButton (1)
   m_TagString: Untagged
@@ -2953,18 +2956,6 @@ RectTransform:
   m_AnchoredPosition: {x: -333.3, y: 10}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 0}
---- !u!114 &815254121
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 815254119}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f644684e14784a543a0121780b0aeb03, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &815254122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3009,7 +3000,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 815254121}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ClickHomeButton, Assembly-CSharp
         m_MethodName: goCameraHome
         m_Mode: 1
@@ -3021,7 +3012,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 815254121}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ClickHomeButton, Assembly-CSharp
         m_MethodName: setNavigationActive
         m_Mode: 1
@@ -3326,7 +3317,6 @@ GameObject:
   - component: {fileID: 872885816}
   - component: {fileID: 872885815}
   - component: {fileID: 872885814}
-  - component: {fileID: 872885813}
   m_Layer: 5
   m_Name: ClothRoomButton (1)
   m_TagString: Untagged
@@ -3354,18 +3344,6 @@ RectTransform:
   m_AnchoredPosition: {x: -253.3, y: 10}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 0}
---- !u!114 &872885813
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 872885811}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f644684e14784a543a0121780b0aeb03, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &872885814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3410,7 +3388,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 872885813}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ClickHomeButton, Assembly-CSharp
         m_MethodName: goCameraHome
         m_Mode: 1
@@ -3422,7 +3400,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 872885813}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ClickHomeButton, Assembly-CSharp
         m_MethodName: setNavigationActive
         m_Mode: 1
@@ -3725,7 +3703,7 @@ MonoBehaviour:
   navigation:
   - {fileID: 231671365}
   - {fileID: 3284293457495275899}
-  searchBar: {fileID: 0}
+  searchBar: {fileID: 1025432224}
 --- !u!1 &1025432224
 GameObject:
   m_ObjectHideFlags: 0
@@ -3739,7 +3717,7 @@ GameObject:
   - component: {fileID: 1025432227}
   - component: {fileID: 1025432226}
   m_Layer: 5
-  m_Name: InputField (TMP)
+  m_Name: SearchBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3754,16 +3732,16 @@ RectTransform:
   m_GameObject: {fileID: 1025432224}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.9872992, y: 0.58000946, z: 0.58053154}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 546484049}
-  m_Father: {fileID: 1128057162}
-  m_RootOrder: 6
+  m_Father: {fileID: 153205954}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 80.9, y: -22.372265}
+  m_AnchoredPosition: {x: 205.82492, y: -5.8999977}
   m_SizeDelta: {x: 300, y: 30}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1025432226
@@ -4328,7 +4306,6 @@ RectTransform:
   - {fileID: 1724293194}
   - {fileID: 872885812}
   - {fileID: 815254120}
-  - {fileID: 1025432225}
   - {fileID: 153205954}
   m_Father: {fileID: 0}
   m_RootOrder: 14
@@ -6932,7 +6909,7 @@ MonoBehaviour:
   navigation:
   - {fileID: 231671365}
   - {fileID: 3284293457495275899}
-  searchBar: {fileID: 0}
+  searchBar: {fileID: 1025432224}
 --- !u!1 &1731696689
 GameObject:
   m_ObjectHideFlags: 0
@@ -8166,7 +8143,7 @@ MonoBehaviour:
   navigation:
   - {fileID: 231671365}
   - {fileID: 3284293457495275899}
-  searchBar: {fileID: 0}
+  searchBar: {fileID: 1025432224}
 --- !u!1 &2071910698
 GameObject:
   m_ObjectHideFlags: 0
@@ -8350,7 +8327,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2127462828
 Transform:
   m_ObjectHideFlags: 0
