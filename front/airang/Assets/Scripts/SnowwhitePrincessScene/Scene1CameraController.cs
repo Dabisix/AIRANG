@@ -37,22 +37,12 @@ public class Scene1CameraController : MonoBehaviour
             {
                 Invoke("transformCamera", 2.5f);
             }
-            if (page == 11) 
+            if (page == 12)
             {
-                Invoke("transformCamera", 1f);
                 subCamera = subCameras[idx + 1];
-                Invoke("MoveCamera", 1.2f);
+                MoveCamera();
             }
         }
     }
 
-    void transformCamera()
-    {
-
-        gameObject.transform.position = targetCamera.transform.position;
-        gameObject.transform.rotation = targetCamera.transform.rotation;
-
-
-
-    }
 }
