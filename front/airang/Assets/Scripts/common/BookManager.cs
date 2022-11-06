@@ -106,7 +106,7 @@ public class BookManager : MonoBehaviour
         return true;
     }
 
-    public void changeScene()
+    public void changeScene(bool isFade = false)
     {
         string next_scene_name = this.gameObject.scene.name;
         
@@ -125,7 +125,9 @@ public class BookManager : MonoBehaviour
         
 
         Debug.Log("changeScene : page - " + cur_page);
-        // SceneManager.LoadScene(next_scene_name);
-        StartCoroutine(GameObject.FindObjectOfType<SceneFader>().FadeAndLoadScene(SceneFader.FadeDirection.In, next_scene_name));
+        if(isFade)
+            StartCoroutine(GameObject.FindObjectOfType<SceneFader>().FadeAndLoadScene(SceneFader.FadeDirection.In, next_scene_name));
+        else
+            SceneManager.LoadScene(next_scene_name);
     }
 }

@@ -10,6 +10,11 @@ using UnityEngine.Windows;
 
 public class GameManager : MonoBehaviour
 {
+    static class Constant
+    {
+
+    }
+
     static GameManager instance = null;
 
     // singleton Pattern implemented
@@ -61,35 +66,19 @@ public class GameManager : MonoBehaviour
             books_log = ResponseToBookList(res.Text);
         }).Catch(err =>
         {
+            // TODO : 네트워크 환경 확인 메세지
             Debug.Log(err.Message);
+
+            // When server is closing
+            // books = FileManager.getInstance().loadData().Books;
         });
+
+        // save book list
+        // FileManager.getInstance().saveData(new SavedData(books));
     }
 
     private void Start()
     {
-        /*RESTManager.getInstance().Post("user/signup", new User.UserController
-        {
-            email = "wsu223@gmail.com",
-            name = "test",
-            pw = "test"
-        }, false).Then(res =>
-        {
-            Debug.Log("회원가입 성공");
-        });*/
-
-        /* RESTManager.getInstance().Post("user", new User.UserController
-         {
-             email = "wsu223@gmail.com",
-             pw = "test"
-         }, false).Then(res =>
-         {
-             JObject json = JObject.Parse(res.Text);
-
-             PlayerPrefs.SetString("refreshToken", (string)json["token"]["refresh_TOKEN"]);
-             PlayerPrefs.SetString("accessToken", (string)json["token"]["access_TOKEN"]);
-
-             return;*/
-
         getAllBooksList();
     }
 
