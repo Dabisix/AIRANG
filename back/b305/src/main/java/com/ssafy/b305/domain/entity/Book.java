@@ -3,13 +3,14 @@ package com.ssafy.b305.domain.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity(name="book")
 public class Book {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name ="b_id")
     private Long bId;
@@ -31,6 +32,7 @@ public class Book {
 
     @Column
     private boolean aFlag;
+
 
     @Builder
     public Book(Long bId, String title, String author, String kContent, String eContent, int cnt, boolean aFlag){

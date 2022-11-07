@@ -24,12 +24,15 @@ public class BookService {
             if(book.isPresent()){
                 return new BookDetailResponseDto(book.get());
             }else{
+                System.out.println("no book id");
                 return null;
             }
         }catch (Exception e){
+            System.out.println("error on getBook of BookService");
             return null;
         }
     }
+
 
     public PageDto getBookList(BookRequestDto bookRequestDto) {
         try{
