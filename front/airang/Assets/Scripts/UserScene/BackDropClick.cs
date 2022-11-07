@@ -5,10 +5,11 @@ using UnityEngine.EventSystems;
 
 public class BackDropClick : MonoBehaviour, IPointerClickHandler
 {
-    public GameObject canvas;
+    [SerializeField]
+    UIMovementHandler mMovementHandler;
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        canvas.SetActive(false);
+        StartCoroutine(mMovementHandler.LerpBackObject());   
     }
 }
