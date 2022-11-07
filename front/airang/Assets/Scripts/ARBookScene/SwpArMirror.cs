@@ -8,28 +8,24 @@ using System.Collections;
 
 public class SwpArMirror : MonoBehaviour
 {
-    Animator turtleAnim;
-    Animator rabbitAnim;
     bool isMove = false;
-    bool isTime = false;
     Ray ray;
     RaycastHit hitobj;
 
-    public float speed;
-    public iTween.EaseType easeType;
+    float speed = 7f; //카메라 움직임 시간
 
-    public Camera subCamera;
-    public Camera targetCamera;
-    public Camera[] subCameras;
+    Camera subCamera;
+    GameObject[] subCameras;
+    GameObject princessObject;
 
     private int idx = 0;
 
-    void MoveCamera()
+    void MoveCamera(GameObject subcamera)
     {
-        Vector3 new_position = subCamera.transform.position;
-        Vector3 new_rotation = subCamera.transform.eulerAngles;
-        iTween.MoveTo(this.gameObject, iTween.Hash("position", new_position, "easetype", easeType, "time", speed));
-        iTween.RotateTo(this.gameObject, iTween.Hash("rotation", new_rotation, "easetype", easeType, "time", speed));
+        Vector3 new_position = subcamera.transform.position;
+        Vector3 new_rotation = subcamera.transform.eulerAngles;
+        iTween.MoveTo(this.gameObject, iTween.Hash("position", new_position, "easetype", iTween.EaseType.easeInQuad, "time", speed));
+        iTween.RotateTo(this.gameObject, iTween.Hash("rotation", new_rotation, "easetype", iTween.EaseType.easeInQuad, "time", speed));
 
     }
 
@@ -102,7 +98,7 @@ public class SwpArMirror : MonoBehaviour
                 var anchor = m_AnchorManager.AttachAnchor(hitPlane, hitPose);
 
                 // prefab 크기 변경
-                anchor.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+                anchor.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
                 var created = Instantiate(m_AnchorPrefab, anchor.transform);
 
                 if (anchor == null)
@@ -132,29 +128,59 @@ public class SwpArMirror : MonoBehaviour
                 //터치한 곳에 오브젝트 이름이 Mirror를 포함하면
                 if (hitobj.collider.name.Contains("Mirror"))
                 {
-                    if (gameObject.transform.position == subCamera.transform.position)
+                    Debug.Log("지금터치한애 : "+hitobj.collider.name);
+                    int numIdx = m_RendedObject.transform.childCount;
+                    for(int i=0; i<numIdx; i++)
                     {
-                        subCamera = subCameras[idx + 1];
-                        MoveCamera();
-                    }
-
-                    //왕비 찾아서 애니메이션 줄거임
-                    int numChild = m_RendedObject.transform.childCount;
-                    for (int i = 0; i < numChild; i++)
-                    {
-                        if (m_RendedObject.transform.GetChild(i).name == "Queen")
+                        GameObject childObject = m_RendedObject.transform.GetChild(i).gameObject;
+                        Debug.Log(childObject.name);
+                        if(childObject.name == "Canvas")
                         {
+                            childObject.SetActive(false); //가이드 메세지 없애기
+                            continue;
+                        }
+                        if(childObject.name == "SubCamera")
+                        {
+                            subCameras[0] = childObject;
+                            continue;
+                        }
+                        if (childObject.name == "SubCamera2")
+                        {
+                            subCameras[1] = childObject;
+                            continue;
+                        }
+                        if (childObject.name == "Princess")
+                        {
+                            princessObject = childObject;
+                            continue;
                         }
                     }
-
-
-                    turtleAnim.SetBool("isWalk", true); //거북이는 걸어
-                    rabbitAnim.SetBool("isJump", true); //토끼는 뛰어
-
-                    MoveCamera(); //카메라 이동 시작
-
+                    isMove = true; //카메라 이동 시작해라
                 }
             }
+        }
+
+        if (isMove)
+        {
+            for(int i=0; i<subCameras.Length; i++)
+            {
+                MoveCamera(subCameras[i]);
+                if(i == subCameras.Length)
+                {
+                    princessObject.SetActive(true);
+                    princessObject.SetActive(false);
+                }
+            }
+            
+            /**
+            //카메라 이동 시작
+            if (gameObject.transform.position == subCamera.transform.position)
+            {
+                subCamera = subCameras[idx + 1];
+                MoveCamera();
+            }
+            **/
+
         }
     }
 

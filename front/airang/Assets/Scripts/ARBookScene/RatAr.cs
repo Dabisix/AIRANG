@@ -154,26 +154,32 @@ public class RatAr : MonoBehaviour
                             int canvasChiild = m_RendedObject.transform.GetChild(i).childCount;
                             for (int j = 0; j < canvasChiild; j++)
                             {
+                                GameObject targetObject = m_RendedObject.transform.GetChild(i).GetChild(j).gameObject;
                                 //이름에 맞는 오브젝트 찾아서 넣기......... 
-                                if (m_RendedObject.transform.GetChild(i).GetChild(j).name == "1")
+                                if (targetObject.name == "1")
                                 {
                                     num_1 = m_RendedObject.transform.GetChild(i).GetChild(j).gameObject;
+                                    continue;
                                 }
-                                if (m_RendedObject.transform.GetChild(i).GetChild(j).name == "2")
+                                if (targetObject.name == "2")
                                 {
                                     num_2 = m_RendedObject.transform.GetChild(i).GetChild(j).gameObject;
+                                    continue;
                                 }
-                                if (m_RendedObject.transform.GetChild(i).GetChild(j).name == "3")
+                                if (targetObject.name == "3")
                                 {
                                     num_3 = m_RendedObject.transform.GetChild(i).GetChild(j).gameObject;
+                                    continue;
                                 }
-                                if (m_RendedObject.transform.GetChild(i).GetChild(j).name == "GO")
+                                if (targetObject.name == "GO")
                                 {
                                     num_GO = m_RendedObject.transform.GetChild(i).GetChild(j).gameObject;
+                                    continue;
                                 }
-                                if (m_RendedObject.transform.GetChild(i).GetChild(j).name == "Guide")
+                                if (targetObject.name == "Guide")
                                 {
                                     guideMsg = m_RendedObject.transform.GetChild(i).GetChild(j).gameObject;
+                                    continue;
                                 }
                             }
                         }
