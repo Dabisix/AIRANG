@@ -753,9 +753,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 189177383}
+      - m_Target: {fileID: 189177389}
         m_TargetAssemblyTypeName: ClickMainCanvasButton, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: ClickBtnMyDesk
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -819,7 +819,7 @@ MonoBehaviour:
   navigation:
   - {fileID: 231671365}
   - {fileID: 3284293457495275899}
-  searchBar: {fileID: 0}
+  searchBar: {fileID: 1025432224}
 --- !u!4 &197803549 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 87d8dca7810434c48aadbe898f50e62c, type: 3}
@@ -1377,6 +1377,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bookItemPrefab: {fileID: 2522391218749165997, guid: bdfb7a612cc23cf439db92f5a5c2f495, type: 3}
   contentContainer: {fileID: 1657745329}
+  isMain: 0
   book_list_type: 1
 --- !u!1 &428507706
 GameObject:
@@ -1923,6 +1924,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bookItemPrefab: {fileID: 2522391218749165997, guid: bdfb7a612cc23cf439db92f5a5c2f495, type: 3}
   contentContainer: {fileID: 1490917423}
+  isMain: 0
   book_list_type: 0
 --- !u!1 &592529646
 GameObject:
@@ -2142,6 +2144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bookItemPrefab: {fileID: 2522391218749165997, guid: bdfb7a612cc23cf439db92f5a5c2f495, type: 3}
   contentContainer: {fileID: 1696615607}
+  isMain: 1
   book_list_type: 2
 --- !u!1 &609299412
 GameObject:
@@ -4923,6 +4926,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bookItemPrefab: {fileID: 2522391218749165997, guid: bdfb7a612cc23cf439db92f5a5c2f495, type: 3}
   contentContainer: {fileID: 728786861}
+  isMain: 1
   book_list_type: 3
 --- !u!1 &1228988211
 GameObject:
