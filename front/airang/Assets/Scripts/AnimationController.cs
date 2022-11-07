@@ -19,7 +19,6 @@ public class AnimationController : MonoBehaviour
 
     public Animator anim;
     
-
     private void Awake()
     {
         anim = animationTransform.GetComponent<Animator>();
@@ -56,7 +55,7 @@ public class AnimationController : MonoBehaviour
             // 해당 애니메이션의 위치가 목표 위치로 이동했을때 멈추게
             if (animationTransform.position == animationTargetPos)
             {
-                anim.SetBool("isStop", true);
+                anim.SetBool("is"+animationName, false);
                 anim.speed = 0;
             }
         }

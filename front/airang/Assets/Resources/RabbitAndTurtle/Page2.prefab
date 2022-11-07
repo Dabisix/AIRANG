@@ -372,10 +372,10 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   animationTransform: {fileID: 750634014434303390}
-  animationName: Jump
+  animationName: EyeHappy
   timer: 0
-  duration: 14
-  vector: {x: 7.5, y: -0.2, z: 0}
+  duration: 0
+  vector: {x: 0, y: 0, z: 0}
   anim: {fileID: 0}
 --- !u!1 &3051871841449394337
 GameObject:
@@ -387,7 +387,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3051871841449434241}
   - component: {fileID: 3051871841439888243}
-  - component: {fileID: 3051871841449434242}
+  - component: {fileID: 5881035331104402791}
   m_Layer: 0
   m_Name: Turtle
   m_TagString: Untagged
@@ -432,46 +432,49 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &3051871841449434242
+--- !u!114 &5881035331104402791
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3051871841449394337}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 844cbcb94fe6518409422c6fd6ee94d4, type: 3}
+  m_Script: {fileID: 11500000, guid: a11047799a5070a468626767c1156206, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turtleCurve:
+  isMove: 0
+  animationCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  turtleTransform: {fileID: 3051871841449434241}
+  animationTransform: {fileID: 3051871841449434241}
+  animationName: Annoyed
   timer: 0
   duration: 0
   vector: {x: 0, y: 0, z: 0}
+  anim: {fileID: 0}
 --- !u!1 &3051871841449394339
 GameObject:
   m_ObjectHideFlags: 0

@@ -425,6 +425,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1007729320379094303}
   - component: {fileID: 1007729320370109165}
+  - component: {fileID: 7675993954181176136}
   m_Layer: 0
   m_Name: Turtle
   m_TagString: Untagged
@@ -469,6 +470,49 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &7675993954181176136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1007729320379451711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a11047799a5070a468626767c1156206, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isMove: 1
+  animationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  animationTransform: {fileID: 1007729320379094303}
+  animationName: Walk
+  timer: 0
+  duration: 15
+  vector: {x: -3.74, y: 0.37, z: 0.01}
+  anim: {fileID: 0}
 --- !u!1 &2120047386363684129
 GameObject:
   m_ObjectHideFlags: 0
@@ -862,6 +906,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2120047386363722005}
   - component: {fileID: 2120047386370938597}
+  - component: {fileID: 9190376474950652978}
   m_Layer: 0
   m_Name: Quokka_Animations
   m_TagString: Untagged
@@ -906,6 +951,49 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &9190376474950652978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2120047386363684149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a11047799a5070a468626767c1156206, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isMove: 1
+  animationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  animationTransform: {fileID: 2120047386363722005}
+  animationName: Jump
+  timer: 0
+  duration: 11.36
+  vector: {x: 8.98, y: -0.1, z: 0}
+  anim: {fileID: 0}
 --- !u!1 &2120047386363684151
 GameObject:
   m_ObjectHideFlags: 0
@@ -994,14 +1082,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2829172339018150830}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.026516078, y: 0.03185532, z: -0.015338296, w: 0.99902296}
+  m_LocalPosition: {x: 58.17, y: 1.6100001, z: 56.09}
+  m_LocalScale: {x: 0.48735, y: 0.48735, z: 0.48735}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1007729319776344009}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 3.093, y: 3.608, z: -1.662}
 --- !u!20 &2149147648844204721
 Camera:
   m_ObjectHideFlags: 0
