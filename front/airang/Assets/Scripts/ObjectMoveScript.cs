@@ -29,8 +29,8 @@ public class ObjectMoveScript : MonoBehaviour
 
         m_anchorCreator = FindObjectOfType<AnchorCreator>();
         //GetComponent<AnchorCreator>();    //앵커 크리에이터 가져오기
-        m_touchAnchorList = m_anchorCreator.m_touchAnchorList;
-        m_touchRendedObject = m_anchorCreator.m_touchRendedObject;
+        //m_touchAnchorList = m_anchorCreator.m_touchAnchorList;
+        //m_touchRendedObject = m_anchorCreator.m_touchRendedObject;
     }
 
 
