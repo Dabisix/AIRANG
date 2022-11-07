@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
@@ -54,17 +55,11 @@ public class Page9 : MonoBehaviour
     private void Start()
     {
         loadContentPrefab();
+        countdown = 0;
     }
 
     void Update()
     {
-        //잘못 누른 앵커가 있으면
-        if (failTouch != null && Time.time - _failTouchTime == 0.5f)
-        {
-            // 해당 초 지나면 삭제
-            Destroy(failTouchObject);
-            failTouch = null;
-        }
         // Raycast 함수로 화면의 정중앙에서 레이져를 쏘고 해당 경로에 생성된 AR Plane이 있을 경우
         // 여기 코드에서는 렌더링된 Anchor가 1개 미만일 경우라는 조건도 추가함
         if (m_AnchorPoints.Count < 1 && m_RaycastManager.Raycast(new Vector2(Screen.width * 0.5f, Screen.height * 0.5f), s_Hits, TrackableType.PlaneWithinPolygon))
@@ -98,6 +93,17 @@ public class Page9 : MonoBehaviour
                     m_AnchorPoints.Add(anchor);
                     m_RendedObject = created;
                     TogglePlaneDetection();
+
+                    // wrong_message 얻어오기 위하여
+                    int numChild = m_RendedObject.transform.childCount;
+                    for (int i = 0; i < numChild; i++)
+                    {
+                        
+                        if(m_RendedObject.transform.GetChild(i).name == "ObstacleMessage")
+                        {
+                            wrong_message = m_RendedObject.transform.GetChild(i).gameObject;
+                        }
+                    }
                 }
             }
         }
@@ -122,10 +128,8 @@ public class Page9 : MonoBehaviour
                 if (hit.collider.name.Equals("Obstacle"))
                 {
                     //이름이 "Obstacle"인 장애물을 터치했을 경우
-                    failTouch = anchor;
-                    _failTouchTime = Time.time;
-                    anchor.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
-                    failTouchObject = Instantiate(m_failTouchObject, anchor.transform);
+                    wrong_message.SetActive(true);
+                    countdown = 60;
                 }
                 else
                 {
@@ -160,6 +164,12 @@ public class Page9 : MonoBehaviour
                     }
                 }
             }
+        }
+        if (countdown > 0)
+            countdown--;
+        if (countdown == 0)
+        {
+            wrong_message.SetActive(false);
         }
     }
 
@@ -205,7 +215,6 @@ public class Page9 : MonoBehaviour
     }
 
 
-
     static List<ARRaycastHit> s_Hits = new List<ARRaycastHit>();
     List<ARAnchor> m_AnchorPoints;
     GameObject m_RendedObject;
@@ -222,10 +231,6 @@ public class Page9 : MonoBehaviour
     float _time;
     // 추가 : 터치 인식 지점 삭제 위해서
     public Queue<GameObject> m_touchRendedObject;
-    // 추가 : 터치 실패 지점 저장, 삭제 위하여
-    ARAnchor failTouch;
-    float _failTouchTime;
-    GameObject failTouchObject;
 
     //추가 : 터치 인식할 plane 확인 위하여
     TrackableId _trackableId;
@@ -235,4 +240,8 @@ public class Page9 : MonoBehaviour
 
     // 추가 : 종료 지점 터치
     public ARAnchor m_endAnchor;
+
+    // 추가 : 잘못 터치시 경고창 띄우기
+    GameObject wrong_message;
+    private int countdown;
 }

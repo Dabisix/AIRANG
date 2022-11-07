@@ -6,6 +6,8 @@ public class EmotionScript : MonoBehaviour
 {
     public string emotionName;
     public string eyesName;
+    public float speed; //1이 기본속도
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,5 +15,7 @@ public class EmotionScript : MonoBehaviour
         animator.Play(emotionName);
         int eyesIndex = animator.GetLayerIndex("Eyes");
         animator.Play(eyesName, eyesIndex);
+        if(speed > 0)
+            animator.speed = speed;
     }
 }
