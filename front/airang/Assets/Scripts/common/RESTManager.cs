@@ -76,7 +76,7 @@ public class RESTManager : MonoBehaviour
         requestOptionsForRefresh.Headers = new Dictionary<string, string> { { "refresh-token", PlayerPrefs.GetString("refreshToken") ?? "" } };
         requestOptionsForRefresh.Uri = basePath + "auth";
 
-        Debug.Log("¸®ÇÁ·¹½¬ ÅäÅ« Àç¹ß±Ş ½ÃÀÛ");
+        Debug.Log("ë¦¬í”„ë ˆì‰¬ í† í° ì¬ë°œê¸‰ ì‹œì‘");
 
         return RestClient.Get(requestOptionsForRefresh);
     }

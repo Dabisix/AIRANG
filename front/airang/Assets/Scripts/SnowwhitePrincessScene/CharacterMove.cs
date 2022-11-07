@@ -37,6 +37,11 @@ public class CharacterMove : MonoBehaviour
         else
         {
             anim.Play(animationName);
+			if (animationName == "Sleep")
+			{
+                anim.SetBool("isSleep", true);
+            }
+
         }
     }
 
