@@ -13,13 +13,13 @@ public class ObjectMoveScript : MonoBehaviour
     private Vector3 startPos; //시작 위치
     Vector3 targetPos; //목표 위치
 
-    AnchorCreator m_anchorCreator;
+    Page9 m_anchorCreator;
     Queue<ARAnchor> m_touchAnchorList;
     Queue<GameObject> m_touchRendedObject;
 
     // Start is called before the first frame update
     float timer = 0.0f;
-    public float duration = 5f; //지속 시간동안 이동시킴
+    public float duration = 4f; //지속 시간동안 이동시킴
 
     // Start is called before the first frame update
     void Start()
@@ -27,8 +27,11 @@ public class ObjectMoveScript : MonoBehaviour
         startPos = objectTransform.position;    //현재 위치
         targetPos = default;    //타겟 위치 초기화
 
-        m_anchorCreator = FindObjectOfType<AnchorCreator>();
+        m_anchorCreator = FindObjectOfType<Page9>();
         //GetComponent<AnchorCreator>();    //앵커 크리에이터 가져오기
+        
+        // 이 아래 두개는 Anchor Creator에 있었던 리스트
+        // 나중에 Anchor Creator 결정되면 고칠것
         m_touchAnchorList = m_anchorCreator.m_touchAnchorList;
         m_touchRendedObject = m_anchorCreator.m_touchRendedObject;
     }
@@ -44,9 +47,6 @@ public class ObjectMoveScript : MonoBehaviour
             animator.Play("Walk");
             targetPos = m_touchAnchorList.Dequeue().transform.localPosition;
             objectTransform.LookAt(targetPos);
-            //targetPos.x = startPos.x - transform.localPosition.x + targetPos.x;
-            //targetPos.y = startPos.y - transform.localPosition.y + targetPos.y;
-            //targetPos.z = startPos.z - transform.localPosition.z + targetPos.z;
         }
         else if(targetPos != default)
         {
@@ -63,6 +63,13 @@ public class ObjectMoveScript : MonoBehaviour
                 startPos = targetPos;   //현재 위치 변경
                 targetPos = default;    //타겟 위치 재설정
             }
+        }
+
+        //완료 위치 왔을 때 
+        if(m_anchorCreator.m_endAnchor != null && Vector3.Distance(objectTransform.position, m_anchorCreator.m_endAnchor.transform.localPosition) < 0.05f)
+        {
+            Debug.Log("포지션까지 확인!");
+            m_anchorCreator.nextPage();
         }
     }
 }

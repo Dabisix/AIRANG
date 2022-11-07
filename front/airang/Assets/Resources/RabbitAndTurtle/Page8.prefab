@@ -168,7 +168,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8272690094864459669}
   - component: {fileID: 8272690094864459668}
-  - component: {fileID: 8272690094864459670}
+  - component: {fileID: 4827469052161777535}
   m_Layer: 0
   m_Name: Quokka_LOD0
   m_TagString: Untagged
@@ -213,34 +213,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &8272690094864459670
+--- !u!114 &4827469052161777535
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8272690094864459675}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe67ceccc27d0154b8f1b3e63863e399, type: 3}
+  m_Script: {fileID: 11500000, guid: 9df5eb70d8d25fd49b4924da85bb8c85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animationCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  objectTransform: {fileID: 0}
-  isTrackable: 0
-  useTargetPos: 1
-  useAnimation: 0
-  delta:
-  - -5
-  - 0.5
-  - 0
-  targetPos: {x: -1545.663, y: -708.9009, z: -72.73151}
-  duration: 8
+  emotionName: Idle_C
+  eyesName: Eyes_Blink
+  speed: 0.1
 --- !u!1 &8272690094927637672
 GameObject:
   m_ObjectHideFlags: 0
@@ -943,7 +930,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4000011763230356, guid: 0df5765acbf5842f38119a21a68f5eec, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 15.41
+      value: -1545.663
       objectReference: {fileID: 0}
     - target: {fileID: 4000011763230356, guid: 0df5765acbf5842f38119a21a68f5eec, type: 3}
       propertyPath: m_LocalPosition.y
