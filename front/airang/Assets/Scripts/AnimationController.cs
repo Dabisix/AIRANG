@@ -4,20 +4,21 @@ using UnityEngine;
 
 public class AnimationController : MonoBehaviour
 {
-    public bool isMove; //ÀÌµ¿ ¿©ºÎ
+    public bool isMove; //ì´ë™ ì—¬ë¶€
     public AnimationCurve animationCurve;
     public Transform animationTransform;
 
-    public string animationName; //½ÇÇà½ÃÅ³ ¾Ö´Ï¸ŞÀÌ¼Ç ÀÌ¸§
+    public string animationName; //ì‹¤í–‰ì‹œí‚¬ ì• ë‹ˆë©”ì´ì…˜ ì´ë¦„
 
     Vector3 animationStartPos;
     Vector3 animationTargetPos;
 
     public float timer;
-    public float duration; //Áö¼Ó ½Ã°£µ¿¾È ÀÌµ¿½ÃÅ´
+    public float duration; //ì§€ì† ì‹œê°„ë™ì•ˆ ì´ë™ì‹œí‚´
     public Vector3 vector;
 
     public Animator anim;
+    public float speed; //ì• ë‹ˆë©”ì´ì…˜ ìŠ¤í”¼ë“œ (1 : ì •ìƒì†ë„, ~ 0.1 : ëŠë ¤ì§, 0 : speedì•ˆì”€)
     
     private void Awake()
     {
@@ -26,7 +27,7 @@ public class AnimationController : MonoBehaviour
 
     void Start()
     {
-        // ¸¸¾à ¿ÀºêÁ§Æ®°¡ ¿òÁ÷ÀÏ °Å¸®°¡ ÀÖ´Ù¸é
+        // ë§Œì•½ ì˜¤ë¸Œì íŠ¸ê°€ ì›€ì§ì¼ ê±°ë¦¬ê°€ ìˆë‹¤ë©´
         if (isMove)
         {
             anim.SetBool("is" + animationName, true);
@@ -35,6 +36,8 @@ public class AnimationController : MonoBehaviour
         }
         else
         {
+            if(speed > 0)
+                anim.speed = speed;
             anim.Play(animationName);
         }
     }
@@ -46,13 +49,13 @@ public class AnimationController : MonoBehaviour
             timer += Time.deltaTime;
             float percentage = timer / duration;
 
-            // ¿òÁ÷ÀÌ´Â °æ¿ì¿¡¸¸??
+            // ì›€ì§ì´ëŠ” ê²½ìš°ì—ë§Œ??
             if (duration != 0)
             {
                 animationTransform.position = Vector3.Lerp(animationStartPos, animationTargetPos, animationCurve.Evaluate(percentage));
             }
 
-            // ÇØ´ç ¾Ö´Ï¸ŞÀÌ¼ÇÀÇ À§Ä¡°¡ ¸ñÇ¥ À§Ä¡·Î ÀÌµ¿ÇßÀ»¶§ ¸ØÃß°Ô
+            // í•´ë‹¹ ì• ë‹ˆë©”ì´ì…˜ì˜ ìœ„ì¹˜ê°€ ëª©í‘œ ìœ„ì¹˜ë¡œ ì´ë™í–ˆì„ë•Œ ë©ˆì¶”ê²Œ
             if (animationTransform.position == animationTargetPos)
             {
                 anim.SetBool("is"+animationName, false);
