@@ -72,8 +72,9 @@ public class AnchorCreator : MonoBehaviour
                 m_RendedObject = created;
                 TogglePlaneDetection();
             }
-        }
+        } 
     }
+
 
     // 프리팹을 만들고 나면 Plane Detection을 비활성화
     void TogglePlaneDetection()
