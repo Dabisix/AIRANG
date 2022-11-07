@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using UnityEngine.Android;
 
 //¹öÁî ID - 1
 
@@ -21,6 +22,11 @@ public class RecordingVoice : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(!Permission.HasUserAuthorizedPermission(Permission.Microphone))
+        {
+            Permission.RequestUserPermission(Permission.Microphone);
+        }
+
         _microphoneID = Microphone.devices[0];
         recordClip = GetComponent<AudioClip>();
     }
