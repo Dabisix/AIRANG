@@ -66,10 +66,10 @@ public class ObjectMoveScript : MonoBehaviour
         }
 
         //완료 위치 왔을 때 
-        if(m_anchorCreator.m_endAnchor != null && Vector3.Distance(objectTransform.position, m_anchorCreator.m_endAnchor.transform.localPosition) < 0.05f)
-        {
-            Debug.Log("포지션까지 확인!");
-            m_anchorCreator.nextPage();
-        }
+        //if(m_anchorCreator.m_endAnchor != null && Vector3.Distance(objectTransform.position, m_anchorCreator.m_endAnchor.transform.localPosition) < 0.05f)
+        //{
+        //    Debug.Log("포지션까지 확인!");
+        //    m_anchorCreator.nextPage();
+        //}
     }
 }
