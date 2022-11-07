@@ -108,6 +108,7 @@ public class BookManager : MonoBehaviour
             foreach (string text in bookInfo["econtent"])
                 cur_book.EScripts.Add(text);
 
+            Debug.Log(res.Text);
             cur_book.TotalPages = cur_book.KScripts.Count;
         }).Catch(err =>
         {
@@ -116,19 +117,6 @@ public class BookManager : MonoBehaviour
         });
 
         return true;
-    }
-
-    private List<string> parseScript(string book_info)
-    {
-        List<string> scripts = new List<string>();
-        JObject json = JObject.Parse(book_info);
-
-        List<Book> ret = new List<Book>();
-        foreach (var book in json["booklist"])
-            ret.Add(new Book((int)book["bid"], (string)book["title"], (bool)book["aflag"]));
-
-
-        return scripts;
     }
 
     public void changeScene(bool isFade = false)

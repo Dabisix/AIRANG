@@ -364,6 +364,22 @@ PrefabInstance:
       propertyPath: m_PlaneDistance
       value: 79.62
       objectReference: {fileID: 0}
+    - target: {fileID: 8519400341829037694, guid: 01c6753b3967be148bc895636261af82, type: 3}
+      propertyPath: m_IsOn
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519400341829037694, guid: 01c6753b3967be148bc895636261af82, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519400341829037694, guid: 01c6753b3967be148bc895636261af82, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519400341829037694, guid: 01c6753b3967be148bc895636261af82, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 9123940387477174517, guid: 01c6753b3967be148bc895636261af82, type: 3}
       propertyPath: m_RootOrder
       value: 0
