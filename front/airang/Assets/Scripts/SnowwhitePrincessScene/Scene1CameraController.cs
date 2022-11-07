@@ -54,7 +54,7 @@ public class Scene1CameraController : MonoBehaviour
             {
                 subCamera = subCameras[idx + 1];
                 MoveCamera();
-                Invoke("disappearObject", 0.6f);
+                Invoke("disappearObject", 0.5f);
             }
         }
     }

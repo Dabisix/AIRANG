@@ -11,23 +11,12 @@ public class SwpArMirror : MonoBehaviour
     bool isMove = false;
     Ray ray;
     RaycastHit hitobj;
+    GameObject queenObject;
+    Animator queenAnim;
 
-    float speed = 7f; //카메라 움직임 시간
-
-    Camera subCamera;
-    GameObject[] subCameras;
-    GameObject princessObject;
-
-    private int idx = 0;
-
-    void MoveCamera(GameObject subcamera)
-    {
-        Vector3 new_position = subcamera.transform.position;
-        Vector3 new_rotation = subcamera.transform.eulerAngles;
-        iTween.MoveTo(this.gameObject, iTween.Hash("position", new_position, "easetype", iTween.EaseType.easeInQuad, "time", speed));
-        iTween.RotateTo(this.gameObject, iTween.Hash("rotation", new_rotation, "easetype", iTween.EaseType.easeInQuad, "time", speed));
-
-    }
+    float timer = 0f;
+    Vector3 queenStartPos;
+    Vector3 queenTargetPos;
 
     public void loadContentPrefab()
     {
@@ -139,22 +128,16 @@ public class SwpArMirror : MonoBehaviour
                             childObject.SetActive(false); //가이드 메세지 없애기
                             continue;
                         }
-                        if(childObject.name == "SubCamera")
+                        if(childObject.name == "Queen")
                         {
-                            subCameras[0] = childObject;
-                            continue;
-                        }
-                        if (childObject.name == "SubCamera2")
-                        {
-                            subCameras[1] = childObject;
-                            continue;
-                        }
-                        if (childObject.name == "Princess")
-                        {
-                            princessObject = childObject;
-                            continue;
+                            queenObject = childObject;
+                            queenAnim = queenObject.GetComponent<Animator>();
                         }
                     }
+
+                    queenStartPos = queenObject.transform.position;
+                    queenTargetPos = queenStartPos + new Vector3(-2, 0, 0);
+                    queenAnim.SetBool("isWalk", true);
                     isMove = true; //카메라 이동 시작해라
                 }
             }
@@ -162,25 +145,18 @@ public class SwpArMirror : MonoBehaviour
 
         if (isMove)
         {
-            for(int i=0; i<subCameras.Length; i++)
-            {
-                MoveCamera(subCameras[i]);
-                if(i == subCameras.Length)
-                {
-                    princessObject.SetActive(true);
-                    princessObject.SetActive(false);
-                }
-            }
-            
-            /**
-            //카메라 이동 시작
-            if (gameObject.transform.position == subCamera.transform.position)
-            {
-                subCamera = subCameras[idx + 1];
-                MoveCamera();
-            }
-            **/
+            timer += Time.deltaTime;
+            queenObject.transform.position = Vector3.Lerp(queenStartPos, queenTargetPos, timer / 10f);
 
+            // 5초 지나면 다음 페이지로 이동시키자
+            if (timer >= 5f)
+            {
+                isMove = false; //애니메이션 중지
+                queenAnim.SetBool("isWalk", false);
+                Debug.Log("다음 페이지로 이동할 시간");
+                //BookManager.getInstance().CurPage += 1;
+                //BookManager.getInstance().changeScene();
+            }
         }
     }
 
