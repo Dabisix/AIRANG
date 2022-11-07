@@ -7,9 +7,9 @@ using UnityEngine.XR.ARSubsystems;
 [RequireComponent(typeof(ARAnchorManager))]
 [RequireComponent(typeof(ARRaycastManager))]
 [RequireComponent(typeof(ARPlaneManager))]
-public class 9Page_AR : MonoBehaviour
+
+public class Page9 : MonoBehaviour
 {
-    
     //복붙한것. 
     public void loadContentPrefab()
     {
