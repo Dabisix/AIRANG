@@ -2,6 +2,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -38,6 +39,53 @@ public class BookManager : MonoBehaviour
     // each pages infomations
     private List<GameObject> contents = new List<GameObject>();
 
+    // AR Constant
+    Dictionary<int, Dictionary<int, int>> AR_INFO;
+
+    private void initARInfo()
+    {
+        AR_INFO = new Dictionary<int, Dictionary<int, int>>();
+
+        // ≈‰≥¢øÕ ∞≈∫œ¿Ã
+        Dictionary<int, int> tmp_AR_pages = new Dictionary<int, int>();
+        tmp_AR_pages.Add(5, 1); // Book page number, AR Info
+        tmp_AR_pages.Add(9, 2);
+
+        AR_INFO.Add(3, tmp_AR_pages); // Book ID, AR Info dic
+
+        // πÈº≥∞¯¡÷
+        // AR_INFO.Add(3, )
+    }
+
+    private void Start()
+    {
+        initARInfo();
+    }
+
+    private void setARInfo()
+    {
+        // get AR info
+        Dictionary<int, int> tmp_saved_use_AR = AR_INFO.GetValueOrDefault(cur_book.BookId);
+
+        List<int> tmp_use_AR = new List<int> ();
+        Debug.Log(cur_book.TotalPages);
+        for (int i = 0; i <= cur_book.TotalPages; i++)
+            tmp_use_AR.Add(0);
+
+        if(tmp_saved_use_AR != null)
+        {
+            foreach (var item in tmp_saved_use_AR)
+            {
+
+                tmp_use_AR[item.Key] = item.Value;
+            }
+                
+        }
+            
+
+        cur_book.UseARPages = tmp_use_AR;
+        Debug.Log(tmp_use_AR);
+    }
 
     public Book CurBook
     {
@@ -82,7 +130,7 @@ public class BookManager : MonoBehaviour
     {
         cur_book = BookManager.getInstance().CurBook;
 
-        if(cur_book.KScripts.Count != 0) getBookInfo();
+        getBookInfo();
         loadContents();
     }
 
@@ -96,20 +144,23 @@ public class BookManager : MonoBehaviour
             contents.Add(objects[i]);
     }
 
+
     public bool getBookInfo()
     {
         // get Script info and totalpage from server
         RESTManager.getInstance().Get("book/" + cur_book.BookId).Then(res =>
         {
-            JObject bookInfo = JObject.Parse(res.Text);
+            cur_book.KScripts.Clear();
+            cur_book.EScripts.Clear();
 
+            JObject bookInfo = JObject.Parse(res.Text);
             foreach (string text in bookInfo["kcontent"])
                 cur_book.KScripts.Add(text);
             foreach (string text in bookInfo["econtent"])
                 cur_book.EScripts.Add(text);
 
-            Debug.Log(res.Text);
             cur_book.TotalPages = cur_book.KScripts.Count;
+            setARInfo();
         }).Catch(err =>
         {
             // TODO : check network warn
