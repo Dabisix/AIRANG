@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class Scene1CameraController : MonoBehaviour
 {
-    public Camera subCamera;
     public float speed;
     public iTween.EaseType easeType;
 
+    public Camera subCamera;
     public Camera targetCamera;
+    public Camera[] subCameras;
 
     public int page;
+    private int idx = 0;
 
     void Start()
     {
-        // 시작했을 때, 2초 있다가 백설공주쪽으로 이동하자.
-        //Invoke("MoveCamera", 1.0f);
         MoveCamera();
     }
 
@@ -32,19 +32,17 @@ public class Scene1CameraController : MonoBehaviour
     void Update()
     {
         if (gameObject.transform.position == subCamera.transform.position)
-		{
-            if(page == 7)
-			{
+        {
+            if (page == 7)
+            {
                 Invoke("transformCamera", 2.5f);
             }
-		}
+            if (page == 12)
+            {
+                subCamera = subCameras[idx + 1];
+                MoveCamera();
+            }
+        }
     }
 
-    void transformCamera()
-	{
-        gameObject.transform.position = targetCamera.transform.position;
-        gameObject.transform.rotation = targetCamera.transform.rotation;
-
-    }
 }
-
