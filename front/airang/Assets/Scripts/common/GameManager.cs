@@ -9,12 +9,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.Windows;
 
 public class GameManager : MonoBehaviour
-{
-    static class Constant
-    {
-
-    }
-
+{ 
     static GameManager instance = null;
 
     // singleton Pattern implemented
@@ -40,7 +35,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void getAllBooksList()
+    public void getAllBooksList()
     {
         RESTManager.getInstance().Post("book", new BookSearchOption(0, 0, "", -1)).Then(res =>
         {
@@ -66,7 +61,7 @@ public class GameManager : MonoBehaviour
             books_log = ResponseToBookList(res.Text);
         }).Catch(err =>
         {
-            // TODO : 匙飘况农 券版 犬牢 皋技瘤
+            // TODO : 雱ろ姼鞗岉伂 頇橁步 頇曥澑 氅旍劯歆�
             Debug.Log(err.Message);
 
             // When server is closing
@@ -79,7 +74,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        getAllBooksList();
+        // getAllBooksList();
     }
 
 

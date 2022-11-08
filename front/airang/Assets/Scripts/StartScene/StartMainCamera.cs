@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class StartMainCamera : MonoBehaviour
 {
+    public DoorOpen doorOpen;
     public Camera[] subCameras;
     public void StartMoveCamera(int index)
     {
@@ -28,16 +29,33 @@ public class StartMainCamera : MonoBehaviour
     }
     private void Start()
     {
-        StartMoveCamera(0);
+        // check Login
+        if(PlayerPrefs.GetString("accessToken") != null)
+        {
+            // get book list from server
+            GameManager.getInstance().getAllBooksList();
+
+            // move to Main
+            Invoke("openDoor", 2.3f);
+            StartMoveCamera(1);
+        } else
+        {
+            StartMoveCamera(0);
+        }
+    }
+
+    private void openDoor()
+    {
+        doorOpen.openDoor();
     }
 
 
     private void Update()
     {
-        // ¸¸¾à¿¡ ÀÎµ¦½º°¡ 1ÀÏ¶§´Â ¹®À» ¿­°í ¹æÀ¸·Î µé¾î°¡°í ¾ÀÀ» º¯°æÇØÁÖ´Â°ÍÀÌ´Ù.
+        // ë§Œì•½ì— ì¸ë±ìŠ¤ê°€ 1ì¼ë•ŒëŠ” ë¬¸ì„ ì—´ê³  ë°©ìœ¼ë¡œ ë“¤ì–´ê°€ê³  ì”¬ì„ ë³€ê²½í•´ì£¼ëŠ”ê²ƒì´ë‹¤.
         if (this.gameObject.transform.position == subCameras[1].transform.position)
         {
-            // ¾ÀÀÌµ¿ÇØ¶ó.
+            // ì”¬ì´ë™í•´ë¼.
             SceneManager.LoadScene("MainScene");
         }
     }
