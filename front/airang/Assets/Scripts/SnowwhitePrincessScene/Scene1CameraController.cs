@@ -45,4 +45,12 @@ public class Scene1CameraController : MonoBehaviour
         }
     }
 
+    void transformCamera()
+    {
+        gameObject.transform.position = targetCamera.transform.position;
+        gameObject.transform.rotation = targetCamera.transform.rotation;
+
+    }
+
+
 }

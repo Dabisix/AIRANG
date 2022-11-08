@@ -12,6 +12,7 @@ using System.Collections;
 public class SwpAr : MonoBehaviour
 {
     Animator TigerAnim;
+    Animator RabbitAnim;
     Animator PeacockAnim;
     Animator DwarfHomeAnim;
     //bool isMove = false;
@@ -19,8 +20,11 @@ public class SwpAr : MonoBehaviour
     Ray ray;
     RaycastHit hitobj;
     GameObject TigerObject;
+    GameObject RabbitObject;
     GameObject PeacockObject;
     GameObject DwarfHome;
+
+    public GameObject result;
     public void loadContentPrefab()
     {
         RemoveAllAnchors();
@@ -86,25 +90,23 @@ public class SwpAr : MonoBehaviour
 
             // plane 크기에 따라 prefab 크기 설정 f이상이면 저장 (최소크기)
             Debug.Log("hitPlane.size.x * hitPlane.size.y" + (hitPlane.size.x * hitPlane.size.y));
-            if (hitPlane.size.x * hitPlane.size.y > 3f)
+            
+            // Plane 정보를 가져오고 anchor를 생성, 그 Anchor위에 Prefab을 생성함
+            var anchor = m_AnchorManager.AttachAnchor(hitPlane, hitPose);
+
+            // prefab 크기 변경
+            anchor.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+            var created = Instantiate(m_AnchorPrefab, anchor.transform);
+
+            if (anchor == null)
             {
-                // Plane 정보를 가져오고 anchor를 생성, 그 Anchor위에 Prefab을 생성함
-                var anchor = m_AnchorManager.AttachAnchor(hitPlane, hitPose);
-
-                // prefab 크기 변경
-                anchor.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
-                var created = Instantiate(m_AnchorPrefab, anchor.transform);
-
-                if (anchor == null)
-                {
-                    Debug.Log("Error creating anchor.");
-                }
-                else
-                {
-                    m_AnchorPoints.Add(anchor);
-                    m_RendedObject = created;
-                    TogglePlaneDetection();
-                }
+                Debug.Log("Error creating anchor.");
+            }
+            else
+            {
+                m_AnchorPoints.Add(anchor);
+                m_RendedObject = created;
+                TogglePlaneDetection();
             }
         }
         else if (TryGetTouchPosition(out Vector2 touchPosition))
@@ -130,7 +132,33 @@ public class SwpAr : MonoBehaviour
                     DwarfHomeAnim = Door.GetComponent<Animator>();
                     Debug.Log(DwarfHomeAnim);
                     DwarfHomeAnim.SetBool("isDoorOpen", true);
-                    // 다음페이지로 넘어갈거야. 
+                    int numChild = m_RendedObject.transform.childCount;
+                    for (int i = 0; i < numChild; i++)
+                    {
+                        if (m_RendedObject.transform.GetChild(i).name == "Canvas")
+                        {
+                            int canvasChiild = m_RendedObject.transform.GetChild(i).childCount;
+                            for (int j = 0; j < canvasChiild; j++)
+                            {
+                                if (m_RendedObject.transform.GetChild(i).GetChild(j).name == "Guide")
+                                {
+                                    m_RendedObject.transform.GetChild(i).GetChild(j).gameObject.SetActive(false);
+                                }
+                                if (m_RendedObject.transform.GetChild(i).GetChild(j).name == "Result")
+                                {
+                                    m_RendedObject.transform.GetChild(i).GetChild(j).gameObject.SetActive(true);
+                                    
+                                    
+                                    // 다음페이지로 넘어가자~
+                                    break;
+                                }
+
+                            }
+                           
+                        }
+                    }
+                    
+
                 }
                 else if (hitobj.collider.name == "Tiger")
                 {
@@ -138,6 +166,9 @@ public class SwpAr : MonoBehaviour
                     TigerObject = hitobj.collider.gameObject; //터치한 오브젝트가 호랑이다
                     TigerAnim = TigerObject.GetComponent<Animator>(); // 호랑이 애니메이션
                     TigerAnim.Play("Jump");
+
+                    int eyesIndex = TigerAnim.GetLayerIndex("Eyes");
+                    TigerAnim.Play("Eyes_Happy", eyesIndex);
                     Debug.Log("호랑이");
                 }
                 else if (hitobj.collider.name == "Peacock")
@@ -147,6 +178,16 @@ public class SwpAr : MonoBehaviour
                     PeacockAnim = PeacockObject.GetComponent<Animator>(); //공작새 애니메이션
                     PeacockAnim.Play("Clicked");
                     Debug.Log("공작새");
+                }
+                else if (hitobj.collider.name == "Rabbit")
+                {
+                    // 공작새를 선택했다면
+                    RabbitObject = hitobj.collider.gameObject; //터치한 오브젝트가 공작새다
+                    RabbitAnim = RabbitObject.GetComponent<Animator>(); //토끼 애니메이션
+                    RabbitAnim.Play("Bounce");
+                    int eyesIndex = RabbitAnim.GetLayerIndex("Eyes");
+                    RabbitAnim.Play("Eyes_Happy", eyesIndex);
+                    Debug.Log("토끼");
                 }
             }
         }
@@ -170,11 +211,22 @@ public class SwpAr : MonoBehaviour
     // 프리팹을 만들고 나면 Plane Detection을 비활성화
     void TogglePlaneDetection()
     {
-        m_PlaneManager.enabled = !m_PlaneManager.enabled;
-
-        foreach (ARPlane plane in m_PlaneManager.trackables)
+        // m_PlaneManager.enabled = !m_PlaneManager.enabled;
+        // 비활성화시 터치 부분을 찾을 수 없게 되니, 탐지 부분을 None로 변경
+        if (m_PlaneManager.currentDetectionMode == PlaneDetectionMode.None)
         {
-            plane.gameObject.SetActive(m_PlaneManager.enabled);
+            //넓은 바닥 인식
+            m_PlaneManager.requestedDetectionMode = PlaneDetectionMode.Horizontal;
+        }
+        else
+        {
+            m_PlaneManager.requestedDetectionMode = PlaneDetectionMode.None;
+            // 원하는 Plane 제외하고 나머지를 사용 불가능하게
+            foreach (ARPlane plane in m_PlaneManager.trackables)
+            {
+                if (plane.trackableId != _trackableId)
+                    plane.gameObject.SetActive(false);
+            }
         }
     }
 
