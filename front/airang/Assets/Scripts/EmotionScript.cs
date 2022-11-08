@@ -13,9 +13,12 @@ public class EmotionScript : MonoBehaviour
     {
         Animator animator = gameObject.GetComponent<Animator>();
         animator.Play(emotionName);
-        int eyesIndex = animator.GetLayerIndex("Eyes");
-        animator.Play(eyesName, eyesIndex);
-        if(speed > 0)
+        if(eyesName != null)
+        {
+            int eyesIndex = animator.GetLayerIndex("Eyes");
+            animator.Play(eyesName, eyesIndex);
+        }
+        if (speed > 0)
             animator.speed = speed;
     }
 }
