@@ -254,12 +254,12 @@ public class RatAr : MonoBehaviour
             // 5초 지나면 다음 페이지로 이동시키자
             if (timer >= 5f)
             {
-                isMove = false; //애니메이션 중지
                 turtleAnim.SetBool("isWalk", false);
                 rabbitAnim.SetBool("isJump", false);
                 Debug.Log("다음 페이지로 이동할 시간");
                 //BookManager.getInstance().CurPage += 1;
                 //BookManager.getInstance().changeScene();
+                isMove = false; //애니메이션 중지
             }
         }
     }
