@@ -13,12 +13,14 @@ public class SwpAr : MonoBehaviour
 {
     Animator TigerAnim;
     Animator PeacockAnim;
+    Animator DwarfHomeAnim;
     //bool isMove = false;
     //bool isTime = false;
     Ray ray;
     RaycastHit hitobj;
     GameObject TigerObject;
     GameObject PeacockObject;
+    GameObject DwarfHome;
     public void loadContentPrefab()
     {
         RemoveAllAnchors();
@@ -122,6 +124,12 @@ public class SwpAr : MonoBehaviour
                     Debug.Log("다음 페이지로 이동할 시간");
                     //BookManager.getInstance().CurPage += 1;
                     //BookManager.getInstance().changeScene();
+                    DwarfHome = hitobj.collider.gameObject;
+                    GameObject Door = DwarfHome.transform.Find("DoorPivot").gameObject;
+
+                    DwarfHomeAnim = Door.GetComponent<Animator>();
+                    Debug.Log(DwarfHomeAnim);
+                    DwarfHomeAnim.SetBool("isDoorOpen", true);
                     // 다음페이지로 넘어갈거야. 
                 }
                 else if (hitobj.collider.name == "Tiger")
@@ -129,7 +137,7 @@ public class SwpAr : MonoBehaviour
                     // 호랑이를 선택했다면
                     TigerObject = hitobj.collider.gameObject; //터치한 오브젝트가 호랑이다
                     TigerAnim = TigerObject.GetComponent<Animator>(); // 호랑이 애니메이션
-                    TigerAnim.SetBool("isJump", true);
+                    TigerAnim.Play("Jump");
                     Debug.Log("호랑이");
                 }
                 else if (hitobj.collider.name == "Peacock")
@@ -137,7 +145,7 @@ public class SwpAr : MonoBehaviour
                     // 공작새를 선택했다면
                     PeacockObject = hitobj.collider.gameObject; //터치한 오브젝트가 공작새다
                     PeacockAnim = PeacockObject.GetComponent<Animator>(); //공작새 애니메이션
-                    PeacockAnim.SetBool("isClicked", true);
+                    PeacockAnim.Play("Clicked");
                     Debug.Log("공작새");
                 }
             }
