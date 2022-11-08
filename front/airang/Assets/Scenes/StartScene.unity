@@ -1140,6 +1140,17 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -3857137799350494021, guid: 45274fe0af6068a4aafd29cadc5005e8, type: 3}
+--- !u!114 &1484156907 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1648761274012169506, guid: 09e5da35d344c8944ace41e2ce5f9339, type: 3}
+  m_PrefabInstance: {fileID: 1453074224809932098}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cc1f1835e1494742806df8c1f5cf3a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1499740446
 GameObject:
   m_ObjectHideFlags: 0
@@ -2448,9 +2459,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2202336160156185176, guid: cf1e0d6d121ecc043988d49dc8b0d583, type: 3}
+      propertyPath: loginCanvas
+      value: 
+      objectReference: {fileID: 8115960611891210693}
+    - target: {fileID: 2202336160156185176, guid: cf1e0d6d121ecc043988d49dc8b0d583, type: 3}
       propertyPath: signinCanvas
       value: 
       objectReference: {fileID: 8115960611891210693}
+    - target: {fileID: 2202336160156185176, guid: cf1e0d6d121ecc043988d49dc8b0d583, type: 3}
+      propertyPath: loginCanvasHandler
+      value: 
+      objectReference: {fileID: 1484156907}
     - target: {fileID: 2202336160156185183, guid: cf1e0d6d121ecc043988d49dc8b0d583, type: 3}
       propertyPath: m_Pivot.x
       value: 0

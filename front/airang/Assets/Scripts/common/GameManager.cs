@@ -77,7 +77,6 @@ public class GameManager : MonoBehaviour
         // getAllBooksList();
     }
 
-
     // json book list to List of Book object
     private List<Book> ResponseToBookList(string book_list)
     {

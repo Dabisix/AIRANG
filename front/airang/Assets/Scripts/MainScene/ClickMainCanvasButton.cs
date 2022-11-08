@@ -33,8 +33,8 @@ public class ClickMainCanvasButton : MonoBehaviour
     public void ClickBtnLibrary()
     {
         // instantiate books list
-        loadBookListWithViewName("BestBooksScrollView");
-        loadBookListWithViewName("BooksScrollView");
+        // loadBookListWithViewName("BestBooksScrollView");
+        // loadBookListWithViewName("BooksScrollView");
 
         MoveCamera(0);
         navigation[0].SetActive(false);
@@ -42,8 +42,8 @@ public class ClickMainCanvasButton : MonoBehaviour
     public void ClickBtnMyDesk()
     {
         // instantiate books list
-        loadBookListWithViewName("FavorBookScrollView");
-        loadBookListWithViewName("RecentBookScrollView");
+        // loadBookListWithViewName("FavorBookScrollView");
+        // loadBookListWithViewName("RecentBookScrollView");
 
         MoveCamera(1);
         navigation[1].SetActive(false);

@@ -27,8 +27,7 @@ public class BookListLoader : MonoBehaviour
 
     private void Start()
     {
-        // get Container not used
-        //contentContainer = this.gameObject.transform.Find("Viewport").Find("Content");
+        loadBooks(false);
     }
 
 

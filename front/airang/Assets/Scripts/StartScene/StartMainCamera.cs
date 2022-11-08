@@ -30,7 +30,7 @@ public class StartMainCamera : MonoBehaviour
     private void Start()
     {
         // check Login
-        if(PlayerPrefs.GetString("accessToken") != null)
+        if (PlayerPrefs.GetString("accessToken") != null)
         {
             // get book list from server
             GameManager.getInstance().getAllBooksList();
@@ -38,8 +38,10 @@ public class StartMainCamera : MonoBehaviour
             // move to Main
             Invoke("openDoor", 2.3f);
             StartMoveCamera(1);
-        } else
+        }
+        else
         {
+            // move to login canvas
             StartMoveCamera(0);
         }
     }
