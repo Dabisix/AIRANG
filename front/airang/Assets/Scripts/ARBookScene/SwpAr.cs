@@ -15,6 +15,8 @@ public class SwpAr : MonoBehaviour
     Animator RabbitAnim;
     Animator PeacockAnim;
     Animator DwarfHomeAnim;
+    Animator PronghornAnim;
+    Animator PandaAnim;
     //bool isMove = false;
     //bool isTime = false;
     Ray ray;
@@ -23,8 +25,10 @@ public class SwpAr : MonoBehaviour
     GameObject RabbitObject;
     GameObject PeacockObject;
     GameObject DwarfHome;
+    GameObject PronghornObject;
+    GameObject PandaObject;
 
-    public GameObject result;
+
     public void loadContentPrefab()
     {
         RemoveAllAnchors();
@@ -73,6 +77,9 @@ public class SwpAr : MonoBehaviour
 
     void Update()
     {
+
+        
+
         // Raycast 함수로 화면의 정중앙에서 레이져를 쏘고 해당 경로에 생성된 AR Plane이 있을 경우
         // 여기 코드에서는 렌더링된 Anchor가 1개 미만일 경우라는 조건도 추가함
         if (m_AnchorPoints.Count < 1 && m_RaycastManager.Raycast(new Vector2(Screen.width * 0.5f, Screen.height * 0.5f), s_Hits, TrackableType.PlaneWithinPolygon))
@@ -167,29 +174,44 @@ public class SwpAr : MonoBehaviour
                     TigerAnim = TigerObject.GetComponent<Animator>(); // 호랑이 애니메이션
                     TigerAnim.Play("Jump");
 
-                    int eyesIndex = TigerAnim.GetLayerIndex("Eyes");
-                    TigerAnim.Play("Eyes_Happy", eyesIndex);
                     Debug.Log("호랑이");
                 }
                 else if (hitobj.collider.name == "Peacock")
 				{
                     // 공작새를 선택했다면
                     PeacockObject = hitobj.collider.gameObject; //터치한 오브젝트가 공작새다
-                    PeacockAnim = PeacockObject.GetComponent<Animator>(); //공작새 애니메이션
+					PeacockAnim = PeacockObject.GetComponent<Animator>(); //공작새 애니메이션
+                    
                     PeacockAnim.Play("Clicked");
+
                     Debug.Log("공작새");
                 }
                 else if (hitobj.collider.name == "Rabbit")
                 {
                     // 공작새를 선택했다면
-                    RabbitObject = hitobj.collider.gameObject; //터치한 오브젝트가 공작새다
+                    RabbitObject = hitobj.collider.gameObject; //터치한 오브젝트가 토끼다
                     RabbitAnim = RabbitObject.GetComponent<Animator>(); //토끼 애니메이션
-                    RabbitAnim.Play("Bounce");
-                    int eyesIndex = RabbitAnim.GetLayerIndex("Eyes");
-                    RabbitAnim.Play("Eyes_Happy", eyesIndex);
+                    RabbitAnim.Play("Clicked");
                     Debug.Log("토끼");
                 }
+                else if (hitobj.collider.name == "Pronghorn")
+                {
+                    PronghornObject = hitobj.collider.gameObject;
+                    PronghornAnim = PronghornObject.GetComponent<Animator>();
+                    PronghornAnim.Play("Jump");
+
+                    Debug.Log("사슴? 얘이름뭐지");
+                }
+                else if (hitobj.collider.name == "Panda")
+                {
+                    PandaObject = hitobj.collider.gameObject;
+                    PandaAnim = PandaObject.GetComponent<Animator>();
+                    PandaAnim.Play("Idle_B");
+
+                    Debug.Log("사슴? 얘이름뭐지");
+                }
             }
+            
         }
     }
 
