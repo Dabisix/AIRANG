@@ -1,11 +1,15 @@
+using Models;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Entities.UniversalDelegates;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.Windows;
 
 public class GameManager : MonoBehaviour
-{
+{ 
     static GameManager instance = null;
 
     // singleton Pattern implemented
@@ -16,24 +20,6 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        // for DEBUG
-        books = new List<Book>();
-
-        List<bool> useAR = new List<bool>();
-        for (int i = 0; i <= 17; i++)
-            useAR.Add(false);
-
-        useAR[5] = true;
-        useAR[9] = true;
-
-        books.Add(new Book(0, "RabbitAndTurtle", 17, useAR));
-
-        List<bool> useAR2 = new List<bool>();
-        for (int i = 0; i <= 32; i++)
-            useAR.Add(false);
-
-        books.Add(new Book(1, "SnowWhite", 32, useAR2));
-
         if (instance == null)
         {
             instance = this;
@@ -49,50 +35,88 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    public void getAllBooksList()
     {
-        // get book list from local file
-        try
+        RESTManager.getInstance().Post("book", new BookSearchOption(0, 0, "", -1)).Then(res =>
         {
-            books = FileManager.getInstance().loadData().Books;
-        } catch (Exception e)
+            // get All books
+            books = ResponseToBookList(res.Text);
+
+            return RESTManager.getInstance().Post("book", new BookSearchOption(0, 2, "", 0));
+        }).Then(res =>
         {
-            // TODO : æ€ º’ªÛµ«æ˙¿Ω
-            Debug.LogError("Application file damaged " + e.Message);
-        }
+            // get hot books
+            popular_books = ResponseToBookList(res.Text);
+
+            return RESTManager.getInstance().Get("book/star");
+        }).Then(res =>
+        {
+            // get Favorite books
+            favor_books = ResponseToBookList(res.Text);
+
+            return RESTManager.getInstance().Get("book/log");
+        }).Then(res =>
+        {
+            // get Recently books
+            books_log = ResponseToBookList(res.Text);
+        }).Catch(err =>
+        {
+            // TODO : ÎÑ§Ìä∏ÏõåÌÅ¨ ÌôòÍ≤Ω ÌôïÏù∏ Î©îÏÑ∏ÏßÄ
+            Debug.Log(err.Message);
+
+            // When server is closing
+            // books = FileManager.getInstance().loadData().Books;
+        });
+
+        // save book list
+        // FileManager.getInstance().saveData(new SavedData(books));
     }
 
-    private List<Book> books;
+    private void Start()
+    {
+        // getAllBooksList();
+    }
+
+    // json book list to List of Book object
+    private List<Book> ResponseToBookList(string book_list)
+    {
+        JObject json = JObject.Parse(book_list);
+
+        List<Book> ret = new List<Book>();
+        foreach (var book in json["booklist"])
+            ret.Add(new Book((int)book["bid"], (string)book["title"], (bool)book["aflag"]));
+
+        return ret;
+    }
+
+
+    // book lists from server
+    private List<Book> books = new List<Book>();
+    private List<Book> popular_books = new List<Book>();
 
     public List<Book> Books
     {
-        get
-        {
-            if (books == null)
-                return new List<Book>();
-            else
-                return books;
-        }
+        get => books ?? new List<Book>();
+        set => books = value;
+    }
+    public List<Book> PopularBooks
+    {
+        get => popular_books ?? new List<Book>();
+        set => popular_books = value;
     }
 
-    private Book cur_book; // current book
+    // my desk area book list
+    private List<Book> favor_books = new List<Book>();
+    private List<Book> books_log = new List<Book>();
 
-    public Book CurBook
+    public List<Book> Favor_Books
     {
-        get => cur_book;
-        set => cur_book = value;
+        get => favor_books ?? new List<Book>();
+        set => favor_books = value;
     }
-
-    public bool setCurrentBookWithName(string bookname)
+    public List<Book> RecentBooks
     {
-        for (int i = 0; i < books.Count; i++)
-        {
-            if (bookname.Equals(books[i].BookName))
-            {
-                cur_book = books[i];
-                return true;
-            }
-        }
-        return false;
+        get => books_log ?? new List<Book>();
+        set => books_log = value;
     }
 }

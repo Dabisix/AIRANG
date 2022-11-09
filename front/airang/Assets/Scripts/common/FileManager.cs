@@ -7,11 +7,16 @@ using UnityEngine;
 public class SavedData
 {
     // 저장할 데이터 포맷
-    public List<Book> books = new List<Book>();
+    private List<Book> books = new List<Book>();
 
     public List<Book> Books
     {
         get => books;
+    }
+
+    public SavedData(List<Book> books)
+    {
+        this.books = books;
     }
 }
 

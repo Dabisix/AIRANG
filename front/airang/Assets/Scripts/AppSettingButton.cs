@@ -19,7 +19,7 @@ public class AppSettingButton : MonoBehaviour
 
     public void BookStart()
     {
-        BookManager.getInstance().changeScene();
+        BookManager.getInstance().changeScene(true);
     }
 
     //openAppSetting
@@ -33,6 +33,6 @@ public class AppSettingButton : MonoBehaviour
     }
     public void goMainButton()
     {
-        SceneManager.LoadScene("MainScene");
+        StartCoroutine(GameObject.FindObjectOfType<SceneFader>().FadeAndLoadScene(SceneFader.FadeDirection.In, "MainScene"));
     }
 }

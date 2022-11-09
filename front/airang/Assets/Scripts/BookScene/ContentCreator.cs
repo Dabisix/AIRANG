@@ -8,8 +8,6 @@ public class ContentCreator : MonoBehaviour
     {
         if(BookManager.getInstance() != null)
             m_Prefab = BookManager.getInstance().Content ?? null;
-
-        Debug.Log(m_Prefab);
     }
 
     public void renderContent()
