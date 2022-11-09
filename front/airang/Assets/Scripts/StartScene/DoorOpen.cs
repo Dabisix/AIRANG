@@ -4,19 +4,11 @@ using UnityEngine;
 
 public class DoorOpen : MonoBehaviour
 {
-    // Start is called before the first frame update
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void openDoor()
 	{
         Vector3 new_rotation = new Vector3(0, 150.516f, 0);
 
-        // ¹®À» ¿­·Á¸é È¸ÀüÀ» ÇÏ¿©¶ó~
+        // ë¬¸ì„ ì—´ë ¤ë©´ íšŒì „ì„ í•˜ì—¬ë¼~
         iTween.RotateTo(this.gameObject, iTween.Hash("rotation", new_rotation, "easetype", iTween.EaseType.easeInOutQuart, "time", 5.0f));
     }
 }

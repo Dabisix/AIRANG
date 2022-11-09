@@ -1,17 +1,30 @@
 package com.ssafy.b305.controller;
 
+import com.ssafy.b305.annotation.NoJwt;
 import com.ssafy.b305.domain.dto.BookRequestDto;
 import com.ssafy.b305.domain.dto.BookDetailResponseDto;
 import com.ssafy.b305.domain.dto.PageDto;
+import com.ssafy.b305.domain.entity.BookInfo;
 import com.ssafy.b305.domain.entity.User;
 import com.ssafy.b305.jwt.JwtTokenProvider;
 import com.ssafy.b305.service.BookService;
 import com.ssafy.b305.service.BookInfoService;
 import com.ssafy.b305.service.UserService;
+
+import java.util.HashMap;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.util.List;
 
 @RestController
 @RequestMapping("/book")
@@ -119,7 +132,11 @@ public class BookController {
         }catch (Exception e){
             return new ResponseEntity<>("unauthorized Token", HttpStatus.UNAUTHORIZED);
         }
-        return new ResponseEntity<>(user.getStarList(), HttpStatus.OK);
+        
+        HashMap<String, List<BookInfo>> ret = new HashMap<String, List<BookInfo>>();
+        ret.put("booklist", user.getStarList());
+        
+        return new ResponseEntity<>(ret, HttpStatus.OK);
     }
 
     // 읽은 기록 저장
@@ -161,8 +178,28 @@ public class BookController {
         }catch (Exception e){
             return new ResponseEntity<>("unauthorized Token", HttpStatus.UNAUTHORIZED);
         }
-        return new ResponseEntity<>(user.getLogList(), HttpStatus.OK);
+        HashMap<String, List<BookInfo>> ret = new HashMap<String, List<BookInfo>>();
+        ret.put("booklist", user.getLogList());
+        
+        return new ResponseEntity<>(ret, HttpStatus.OK);
     }
 
+    @NoJwt
+    @GetMapping("/narration")
+    public ResponseEntity<?> getNarration(@RequestHeader Long id, @RequestHeader int page) {
+        BookDetailResponseDto book = bookService.getBook(id);
+        System.out.println("book ==== >>>> " + book.getTitle());
+        File file;
 
+        try{
+            file = new File("/home/ubuntu/naver/" + book.getTitle() + "/" + page + ".mp3");
+            FileInputStream fileInputStream = new FileInputStream(file);
+
+            return new ResponseEntity<File>(file, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<String>("Exception", HttpStatus.NOT_FOUND);
+        }
+
+    }
 }

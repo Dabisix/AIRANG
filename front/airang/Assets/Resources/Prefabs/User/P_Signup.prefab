@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 1286100770022465539}
   - component: {fileID: 1286100770022465537}
   - component: {fileID: 1286100770022465538}
+  - component: {fileID: 3018040119676943870}
+  - component: {fileID: 8731355494149876293}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -76,6 +78,36 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3018040119676943870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1286100770022465548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28ceece532c239148b15fae0161ce464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mMovementHandler: {fileID: 8731355494149876293}
+--- !u!114 &8731355494149876293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1286100770022465548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cc1f1835e1494742806df8c1f5cf3a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeOfTravel: 0.3
+  canvas: {fileID: 2202336160156185155}
+  panel: {fileID: 2202336160483711585}
+  to: {x: 0, y: 0, z: 0}
+  from: {x: 0, y: 2200, z: 0}
 --- !u!1 &2202336160086824693
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,8 +252,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 1cee4fb92054bb34086336b04c08beaf, type: 2}
-  m_sharedMaterial: {fileID: -8151668438565199841, guid: 1cee4fb92054bb34086336b04c08beaf, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -515,7 +547,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2202336160483711585}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -888,7 +920,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2202336161099726834}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1276,6 +1308,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3017544883724209751, guid: 884d96b57f6bc1b45918646d3ee59e65, type: 3}
+      propertyPath: m_CaretWidth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3017544883724209751, guid: 884d96b57f6bc1b45918646d3ee59e65, type: 3}
       propertyPath: m_ContentType
       value: 7
       objectReference: {fileID: 0}
@@ -1403,6 +1439,10 @@ PrefabInstance:
     - target: {fileID: 3017544883724209749, guid: 884d96b57f6bc1b45918646d3ee59e65, type: 3}
       propertyPath: m_Name
       value: IdInputField
+      objectReference: {fileID: 0}
+    - target: {fileID: 3017544883724209751, guid: 884d96b57f6bc1b45918646d3ee59e65, type: 3}
+      propertyPath: m_CaretWidth
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3017544883724209751, guid: 884d96b57f6bc1b45918646d3ee59e65, type: 3}
       propertyPath: m_ContentType
@@ -1542,6 +1582,10 @@ PrefabInstance:
       value: NameInputField
       objectReference: {fileID: 0}
     - target: {fileID: 3017544883724209751, guid: 884d96b57f6bc1b45918646d3ee59e65, type: 3}
+      propertyPath: m_CaretWidth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3017544883724209751, guid: 884d96b57f6bc1b45918646d3ee59e65, type: 3}
       propertyPath: m_ContentType
       value: 5
       objectReference: {fileID: 0}
@@ -1552,11 +1596,11 @@ PrefabInstance:
     - target: {fileID: 3017544884714147969, guid: 884d96b57f6bc1b45918646d3ee59e65, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 1cee4fb92054bb34086336b04c08beaf, type: 2}
+      objectReference: {fileID: 11400000, guid: 80ee7bdb4abd7994388c388d9d7ff953, type: 2}
     - target: {fileID: 3017544884714147969, guid: 884d96b57f6bc1b45918646d3ee59e65, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: -3537299535220418343, guid: 1cee4fb92054bb34086336b04c08beaf, type: 2}
+      objectReference: {fileID: -1375911254938410687, guid: 80ee7bdb4abd7994388c388d9d7ff953, type: 2}
     - target: {fileID: 3017544885591059562, guid: 884d96b57f6bc1b45918646d3ee59e65, type: 3}
       propertyPath: m_Name
       value: NameInput
@@ -1757,6 +1801,18 @@ PrefabInstance:
     - target: {fileID: 2561690251898983515, guid: 01e8879052048294cb7cf955871accc6, type: 3}
       propertyPath: m_Name
       value: AlertPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 2561690251898983515, guid: 01e8879052048294cb7cf955871accc6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2561690252994705571, guid: 01e8879052048294cb7cf955871accc6, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -1375911254938410687, guid: 80ee7bdb4abd7994388c388d9d7ff953, type: 2}
+    - target: {fileID: 2561690252994705571, guid: 01e8879052048294cb7cf955871accc6, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01e8879052048294cb7cf955871accc6, type: 3}
