@@ -67,7 +67,9 @@ public class BookService {
                 throw new Exception();
             }else if(page == limit){
                 return new PageDto(responseList.subList(page*20,responseList.size()), limit);
-            }else{
+            }else if(page < 0) {
+            	return new PageDto(responseList, limit);
+            } else{
                 return new PageDto(responseList.subList(page*20,(page+1)*20), limit);
             }
 

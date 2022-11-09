@@ -25,7 +25,7 @@ public class MainMainCamera : MonoBehaviour
     }
     private void Start()
     {
-        MainMoveCamera(0);
+        // MainMoveCamera(0);
     }
 
     private void Update()

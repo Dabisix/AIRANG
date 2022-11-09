@@ -7,38 +7,29 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class Response
+public class BookSearchOption
 {
-    private string response = null;
-    private string error = null;
-
-    public string Reponse
+    public BookSearchOption(int aFlag, int sort, string keyword, int pageNo)
     {
-        get => response;
-        set => response = value;
+        this.aFlag = aFlag;
+        this.sort = sort;
+        this.keyword = keyword;
+        this.pageNo = pageNo;
     }
 
-    public string Error
-    {
-        get => error;
-        set => error = value;
-    }
-}
-
-public class EMethod {
-    public const string POST = "POST",
-        GET = "POST",
-        PUT = "POST",
-        DELETE = "POST";
+    public int aFlag;
+    public int sort;
+    public string keyword;
+    public int pageNo;
 }
 
 public class RESTManager : MonoBehaviour
 {
-    private const string basePath = "http://localhost:8081/api/";
+    private const string basePath = "http://localhost:8080/api/";
 
     static RESTManager instance = null;
 
-    private RequestHelper requestOptions;
+    private RequestHelper requestOptions = new RequestHelper();
 
     // singleton Pattern implemented
     public static RESTManager getInstance()
@@ -65,7 +56,6 @@ public class RESTManager : MonoBehaviour
 
     private void Start()
     {
-        requestOptions = new RequestHelper();
         requestOptions.ContentType = "application/json";
         requestOptions.EnableDebug = true;
     }
