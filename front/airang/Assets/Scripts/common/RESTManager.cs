@@ -4,8 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Entities.UniversalDelegates;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
+using static System.Net.WebRequestMethods;
 
 public class BookSearchOption
 {
@@ -63,7 +65,7 @@ public class RESTManager : MonoBehaviour
     private void initRequest(string URL, object data = null)
     {
         //Authorization
-        requestOptions.Headers = new Dictionary<string, string> {{ "access-token", PlayerPrefs.GetString("accessToken") ?? "" }};
+        requestOptions.Headers = new Dictionary<string, string> { { "access-token", PlayerPrefs.GetString("accessToken") ?? "" } };
         requestOptions.Uri = basePath + URL;
         requestOptions.Body = data;
     }
@@ -96,7 +98,8 @@ public class RESTManager : MonoBehaviour
                 return requestNewAccessToken();
             else
                 return RestClient.Get(requestOptions);
-        }).Then(res => {
+        }).Then(res =>
+        {
             if (res.Request.url.Contains("api/auth"))
             {
                 // new Access Token gained
@@ -123,7 +126,8 @@ public class RESTManager : MonoBehaviour
                 return requestNewAccessToken();
             else
                 return RestClient.Post(requestOptions);
-        }).Then(res => {
+        }).Then(res =>
+        {
             if (res.Request.url.Contains("api/auth"))
             {
                 // new Access Token gained
@@ -150,7 +154,8 @@ public class RESTManager : MonoBehaviour
                 return requestNewAccessToken();
             else
                 return RestClient.Put(requestOptions);
-        }).Then(res => {
+        }).Then(res =>
+        {
             if (res.Request.url.Contains("api/auth"))
             {
                 // new Access Token gained
@@ -177,7 +182,8 @@ public class RESTManager : MonoBehaviour
                 return requestNewAccessToken();
             else
                 return RestClient.Delete(requestOptions);
-        }).Then(res => {
+        }).Then(res =>
+        {
             if (res.Request.url.Contains("api/auth"))
             {
                 // new Access Token gained
@@ -189,22 +195,18 @@ public class RESTManager : MonoBehaviour
         });
     }
 
-    public void DownloadFile()
+    public RSG.IPromise<ResponseHelper> getNarr(int bookId, int pageNum)
     {
-        // TODO
-        var fileUrl = "";
+        var fileUrl = "http://localhost:8080/api/book/narration";
         var fileType = AudioType.MPEG;
 
-        RestClient.Get(new RequestHelper
-        {
-            Uri = fileUrl,
-            DownloadHandler = new DownloadHandlerAudioClip(fileUrl, fileType)
-        }).Then(res => {
-            AudioSource audio = GetComponent<AudioSource>();
-            audio.clip = ((DownloadHandlerAudioClip)res.Request.downloadHandler).audioClip;
-            audio.Play();
-        }).Catch(err => {
-            Debug.Log("Error " + err.Message);
-        });
+    
+
+        RequestHelper requestHelper = new RequestHelper();
+        requestHelper.Headers = new Dictionary<string, string> { { "id", bookId + "" }, { "page", pageNum + "" } };
+        requestHelper.DownloadHandler = new DownloadHandlerAudioClip(fileUrl, fileType);
+        requestHelper.Uri = fileUrl;
+
+        return RestClient.Get(requestHelper);
     }
 }
