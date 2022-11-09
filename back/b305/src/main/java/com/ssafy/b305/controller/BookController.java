@@ -1,5 +1,6 @@
 package com.ssafy.b305.controller;
 
+import com.ssafy.b305.annotation.NoJwt;
 import com.ssafy.b305.domain.dto.BookRequestDto;
 import com.ssafy.b305.domain.dto.BookDetailResponseDto;
 import com.ssafy.b305.domain.dto.PageDto;
@@ -17,6 +18,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.util.List;
 
 @RestController
 @RequestMapping("/book")
@@ -176,5 +184,22 @@ public class BookController {
         return new ResponseEntity<>(ret, HttpStatus.OK);
     }
 
+    @NoJwt
+    @GetMapping("/narration")
+    public ResponseEntity<?> getNarration(@RequestHeader Long id, @RequestHeader int page) {
+        BookDetailResponseDto book = bookService.getBook(id);
+        System.out.println("book ==== >>>> " + book.getTitle());
+        File file;
 
+        try{
+            file = new File("/home/ubuntu/naver/" + book.getTitle() + "/" + page + ".mp3");
+            FileInputStream fileInputStream = new FileInputStream(file);
+
+            return new ResponseEntity<File>(file, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<String>("Exception", HttpStatus.NOT_FOUND);
+        }
+
+    }
 }
