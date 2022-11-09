@@ -2,17 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-
+using UnityEngine.UI;
 
 public class UserSignup : MonoBehaviour
 {
     public GameObject signupCanvas;
+
     void OnMouseDown()
     {
 		if (!EventSystem.current.IsPointerOverGameObject())
 		{
-            // Å¬¸¯ÇÏ¸é È¸¿ø°¡ÀÔ Äµ¹ö½º È°¼ºÈ­
-            signupCanvas.SetActive(true);
+            // í´ë¦­í•˜ë©´ íšŒì›ê°€ì… ìº”ë²„ìŠ¤ í™œì„±í™”
+            openSignUpCanvas();
         }
+    }
+
+    public void openSignUpCanvas()
+    {
+        signupCanvas.SetActive(true);
+    }
+
+    public void closeSignUpCanvas()
+    {
+        signupCanvas.SetActive(false);
     }
 }

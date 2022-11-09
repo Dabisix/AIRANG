@@ -10,53 +10,48 @@ public class SearchPw : MonoBehaviour
 
     public GameObject alertPanel;
     public TextMeshProUGUI alertMsg;
+
     public GameObject loginCanvas;
-    private const string URL = "http://localhost:8081/api/";
 
     public void SendPwBtn()
     {
-        alertMsg.text = "메일을 확인하는 중 입니다.";
-        alertPanel.gameObject.SetActive(true);
-        StartCoroutine(SendPwBtnCo());
+        alertMessage("메일을 확인하는 중입니다.");
+
+        RESTManager.getInstance().Post("user/mail", new User.UserController { email = emailInput.text }, false)
+            .Then(res =>
+            {
+                alertMessage("임시 비밀번호가 \n 발급되었습니다! \n 메일을 확인해주세요.");
+                Invoke("ChangeLoginCanvas", 1.5f);
+            }).Catch(err =>
+            {
+                if(err.Message.Contains("404"))
+                    alertMessage("존재하지 않는 이메일입니다.");
+                else
+                    alertMessage("네트워크 환경을 \n 확인해주세요.");
+            });
     }
 
     private void ChangeLoginCanvas()
 	{
-        gameObject.SetActive(false);
+        StartCoroutine(this.transform.Find("Image").GetComponent<UIMovementHandler>().LerpBackObject());
+        Invoke("loadLoginCanvas", 0.7f);
+    }
+
+    private void loadLoginCanvas()
+    {
+        // load login canvas with animation
         loginCanvas.SetActive(true);
     }
 
-    private void ChangeText()
-	{
-        alertMsg.text = "잠시 뒤에 로그인페이지로 이동합니다.";
-    }
-
-    IEnumerator SendPwBtnCo()
+    public void alertMessage(string message)
     {
-        User.UserController user = new User.UserController { email = emailInput.text };
-        string jsonData = JsonUtility.ToJson(user);
-        using (UnityWebRequest request = UnityWebRequest.Post(URL + "user/mail", jsonData))
-        {
-            byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(jsonData);
-            request.uploadHandler = new UploadHandlerRaw(jsonToSend);
-            request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
-            request.SetRequestHeader("Content-Type", "application/json");
-
-            yield return request.SendWebRequest();
-
-            Debug.Log(request.downloadHandler.text);
-            if(!request.isHttpError)
-            {
-                alertMsg.text = "임시 비밀번호가 \n 발급되었습니다! \n 메일을 확인해주세요.";
-                Invoke("ChangeText", 2f);
-                Invoke("ChangeLoginCanvas", 4f);
-
-            }
-            else
-            {
-                alertMsg.text = "가입되지 않은 이메일입니다 \n 회원가입을 해주세요.";
-            }
-        }
+        // show alert message and hide
+        alertMsg.text = message;
+        alertPanel.gameObject.SetActive(true);
+        Invoke("unenableAlert", 2.5f);
     }
-
+    public void unenableAlert()
+    {
+        alertPanel.gameObject.SetActive(false);
+    }
 }
