@@ -186,14 +186,16 @@ public class SwpPage21 : MonoBehaviour
                 //터치한 오브젝트가 항아리가 맞으면
                 if (hitobj.collider.name.Contains("Jar"))
                 {
-                    audio.loop = false;
-                    audio.Play();
+
                     Debug.Log("터치 개수 : " + touchNum);
                     touchNum++;
                     tocuhNumText.text = touchNum.ToString(); //화면에 숫자 갱신하기
                     if (touchNum < 4)
                     {
                         timer = 0f;
+                        //Debug.Log("오디오??" + bottle1.GetComponent<AudioSource>().);
+                        //bottle1.GetComponent<AudioSource>().loop = false;
+                        //bottle1.GetComponent<AudioSource>().Play();
                         isMove = true;
                     }
                 }
