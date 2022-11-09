@@ -49,7 +49,7 @@ public class BookManager : MonoBehaviour
         // 토끼와 거북이
         Dictionary<int, int> tmp_AR_pages = new Dictionary<int, int>();
         tmp_AR_pages.Add(5, 1); // Book page number, AR Info
-        tmp_AR_pages.Add(9, 2);
+        tmp_AR_pages.Add(8, 2);
 
         AR_INFO.Add(3, tmp_AR_pages); // Book ID, AR Info dic
 
@@ -67,8 +67,7 @@ public class BookManager : MonoBehaviour
         // get AR info
         Dictionary<int, int> tmp_saved_use_AR = AR_INFO.GetValueOrDefault(cur_book.BookId);
 
-        List<int> tmp_use_AR = new List<int> ();
-        Debug.Log(cur_book.TotalPages);
+        List<int> tmp_use_AR = new List<int>();
         for (int i = 0; i <= cur_book.TotalPages; i++)
             tmp_use_AR.Add(0);
 
@@ -76,15 +75,11 @@ public class BookManager : MonoBehaviour
         {
             foreach (var item in tmp_saved_use_AR)
             {
-
                 tmp_use_AR[item.Key] = item.Value;
             }
                 
         }
-            
-
         cur_book.UseARPages = tmp_use_AR;
-        Debug.Log(tmp_use_AR);
     }
 
     public Book CurBook
@@ -107,6 +102,11 @@ public class BookManager : MonoBehaviour
     {
         get => cur_page;
         set => cur_page = value;
+    }
+
+    public int ARType
+    {
+        get => cur_book.UseARPages[cur_page];
     }
 
     public GameObject Content
@@ -166,6 +166,12 @@ public class BookManager : MonoBehaviour
             // set total pages
             cur_book.TotalPages = cur_book.KScripts.Count;
 
+            Debug.Log("totalPage" + cur_book.TotalPages);
+
+            for(int i = 0; i < cur_book.KScripts.Count; i++) {
+                Debug.Log(i + " " + cur_book.KScripts[i]);
+            }
+
             // set AR info (in code)
             setARInfo();
         }).Catch(err =>
@@ -192,12 +198,11 @@ public class BookManager : MonoBehaviour
                 next_scene_name = "ARBookScene";
             else // not use AR
                 next_scene_name = "BookScene";
-        }
-        
-        // not use ARBook(only text)
-        if (!cur_book.UseAR)
-            next_scene_name = "NonPicBookPagingScene";
 
+            // not use ARBook(only text)
+            if (!cur_book.UseAR)
+                next_scene_name = "NonPicBookPagingScene";
+        }
 
         Debug.Log("changeScene : page - " + cur_page);
         if(isFade)

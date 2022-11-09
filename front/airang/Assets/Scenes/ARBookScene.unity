@@ -137,6 +137,8 @@ GameObject:
   - component: {fileID: 26016231}
   - component: {fileID: 26016236}
   - component: {fileID: 26016235}
+  - component: {fileID: 26016238}
+  - component: {fileID: 26016237}
   m_Layer: 0
   m_Name: AR Session Origin
   m_TagString: Untagged
@@ -207,15 +209,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 26016230}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da52701b9b7c54641ab173554ca5eb35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arCamera: {fileID: 0}
-  m_AnchorPrefab: {fileID: 5544399029990102682, guid: 6776d45423d72124cb3177fc6bbc8948, type: 3}
-  m_touchedPrefab: {fileID: 336444616333758621, guid: 499f6ca2c9ef649419f63f9ba7e2d2a8, type: 3}
-  m_failTouchObject: {fileID: 6641117129499360726, guid: 1deee809fc70cd6428bb32234c080c34, type: 3}
 --- !u!114 &26016236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,6 +227,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AnchorPrefab: {fileID: 0}
+--- !u!114 &26016237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26016230}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01173f9a68b16f048ba61e62e85ab690, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_touchedPrefab: {fileID: 336444616333758621, guid: 499f6ca2c9ef649419f63f9ba7e2d2a8, type: 3}
+  m_endAnchor: {fileID: 0}
+--- !u!114 &26016238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26016230}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecbcc00c1ead64b459fdbbef52688d54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &74998279
 GameObject:
   m_ObjectHideFlags: 0
@@ -451,6 +475,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1725880262
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1725880264}
+  - component: {fileID: 1725880263}
+  m_Layer: 0
+  m_Name: ARScriptLoader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1725880263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1725880262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b935347c029217e4e88f6f9200631a92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1725880264
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1725880262}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1045.33, y: 632.66254, z: 356.35974}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1887883497
 GameObject:
   m_ObjectHideFlags: 0

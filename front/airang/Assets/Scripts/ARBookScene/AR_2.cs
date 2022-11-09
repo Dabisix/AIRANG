@@ -9,13 +9,13 @@ using UnityEngine.XR.ARSubsystems;
 [RequireComponent(typeof(ARRaycastManager))]
 [RequireComponent(typeof(ARPlaneManager))]
 
-public class Page9 : MonoBehaviour
+public class AR_2 : MonoBehaviour
 {
     //복붙한것. 
     public void loadContentPrefab()
     {
         RemoveAllAnchors();
-        //m_AnchorPrefab = BookManager.getInstance().Content;
+        m_AnchorPrefab = BookManager.getInstance().Content;
     }
 
     // 모든 Anchor를 삭제
@@ -211,14 +211,15 @@ public class Page9 : MonoBehaviour
     // 다음 페이지 넘어가고 싶다
     public void nextPage()
     {
-        Debug.Log("NextPage");
+        BookManager.getInstance().CurPage += 1;
+        BookManager.getInstance().changeScene();
     }
 
 
     static List<ARRaycastHit> s_Hits = new List<ARRaycastHit>();
     List<ARAnchor> m_AnchorPoints;
     GameObject m_RendedObject;
-    public GameObject m_AnchorPrefab;
+    GameObject m_AnchorPrefab;
     ARRaycastManager m_RaycastManager;
     ARAnchorManager m_AnchorManager;
     ARPlaneManager m_PlaneManager;
@@ -236,7 +237,6 @@ public class Page9 : MonoBehaviour
     TrackableId _trackableId;
     // 추가 : 터치된 지점 확인 위한 모양
     public GameObject m_touchedPrefab;
-    public GameObject m_failTouchObject;
 
     // 추가 : 종료 지점 터치
     public ARAnchor m_endAnchor;

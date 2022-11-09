@@ -6,9 +6,8 @@ using UnityEngine.XR.ARSubsystems;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
-public class RatAr : MonoBehaviour
+public class AR_1 : MonoBehaviour
 {
-    [SerializeField] private Camera arCamera;
     Animator turtleAnim;
     Animator rabbitAnim;
     bool isMove = false;
@@ -38,7 +37,7 @@ public class RatAr : MonoBehaviour
     public void loadContentPrefab()
     {
         RemoveAllAnchors();
-        //m_AnchorPrefab = BookManager.getInstance().Content;
+        m_AnchorPrefab = BookManager.getInstance().Content;
     }
 
     // 모든 Anchor를 삭제
@@ -298,7 +297,7 @@ public class RatAr : MonoBehaviour
     static List<ARRaycastHit> s_Hits = new List<ARRaycastHit>();
     List<ARAnchor> m_AnchorPoints;
     GameObject m_RendedObject;
-    public GameObject m_AnchorPrefab;
+    GameObject m_AnchorPrefab;
     ARRaycastManager m_RaycastManager;
     ARAnchorManager m_AnchorManager;
     ARPlaneManager m_PlaneManager;
@@ -314,6 +313,4 @@ public class RatAr : MonoBehaviour
 
     //추가 : 터치 인식할 plane 확인 위하여
     TrackableId _trackableId;
-    // 추가 : 터치된 지점 확인 위한 모양
-    public GameObject m_touchedPrefab;
 }
