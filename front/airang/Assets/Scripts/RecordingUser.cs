@@ -1,94 +1,61 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
-using UnityEngine.VR.WSA.WebCam;
+using UnityEngine.Android;  //필수 선언
+using UnityEngine.UI;
 
 public class RecordingUser : MonoBehaviour
 {
-    static readonly float MaxRecordingTime = 5.0f;
+    WebCamTexture cam;
+    public RawImage camView;
 
-    VideoCapture m_VideoCapture = null;
-    float m_stopRecordingTimer = float.MaxValue;
-
-    // Use this for initialization
     void Start()
-    {
 
-        StartVideoCaptureTest();
+    {
+        if (!Permission.HasUserAuthorizedPermission(Permission.Camera))
+        {
+            Permission.RequestUserPermission(Permission.Camera);
+        }
     }
 
-    void Update()
+    public void CameraOn()
     {
-        if (m_VideoCapture == null || !m_VideoCapture.IsRecording)
+        if(WebCamTexture.devices.Length == 0)
         {
+            Debug.Log("!!------no camera------!!");
             return;
         }
 
-        if (Time.time > m_stopRecordingTimer)
+        WebCamDevice[] devices = WebCamTexture.devices;
+        int selectedCamera = -1;
+
+        for(int i = 0; i < devices.Length; i++)
         {
-            m_VideoCapture.StopRecordingAsync(OnStoppedRecordingVideo);
+            if(devices[i].isFrontFacing)
+            {
+                selectedCamera = i;
+                break;
+            }
+        }
+
+        if(selectedCamera != -1)
+        {
+            cam = new WebCamTexture(devices[selectedCamera].name);
+            cam.requestedFPS = 30;
+
+            camView.texture = cam;
+
+            cam.Play();
         }
     }
 
-    void StartVideoCaptureTest()
+    public void CameraOff()
     {
-
-        Resolution cameraResolution = UnityEngine.Windows.WebCam.VideoCapture.SupportedResolutions.OrderByDescending((res) => res.width * res.height).First();
-        Debug.Log(cameraResolution);
-
-        float cameraFramerate = UnityEngine.Windows.WebCam.VideoCapture.GetSupportedFrameRatesForResolution(cameraResolution).OrderByDescending((fps) => fps).First();
-        Debug.Log(cameraFramerate);
-
-        UnityEngine.Windows.WebCam.VideoCapture.CreateAsync(false, delegate (UnityEngine.Windows.WebCam.VideoCapture videoCapture)
+        if(cam != null)
         {
-            if (videoCapture != null)
-            {
-                m_VideoCapture = videoCapture;
-                Debug.Log("Created VideoCapture Instance!");
-
-                UnityEngine.Windows.WebCam.CameraParameters cameraParameters = new UnityEngine.Windows.WebCam.CameraParameters();
-                cameraParameters.hologramOpacity = 0.0f;
-                cameraParameters.frameRate = cameraFramerate;
-                cameraParameters.cameraResolutionWidth = cameraResolution.width;
-                cameraParameters.cameraResolutionHeight = cameraResolution.height;
-                cameraParameters.pixelFormat = UnityEngine.Windows.WebCam.CapturePixelFormat.BGRA32;
-
-                m_VideoCapture.StartVideoModeAsync(cameraParameters,
-                                                   UnityEngine.Windows.WebCam.VideoCapture.AudioState.ApplicationAndMicAudio,
-                                                   OnStartedVideoCaptureMode);
-            }
-            else
-            {
-                Debug.LogError("Failed to create VideoCapture Instance!");
-            }
-        });
-    }
-
-    void OnStartedVideoCaptureMode(UnityEngine.Windows.WebCam.VideoCapture.VideoCaptureResult result)
-    {
-        Debug.Log("Started Video Capture Mode!");
-        string timeStamp = Time.time.ToString().Replace(".", "").Replace(":", "");
-        string filename = string.Format("TestVideo_{0}.mp4", timeStamp);
-        string filepath = System.IO.Path.Combine(Application.persistentDataPath, filename);
-        filepath = filepath.Replace("/", @"\\");
-        m_VideoCapture.StartRecordingAsync(filepath, OnStartedRecordingVideo);
-    }
-
-    void OnStoppedVideoCaptureMode(UnityEngine.Windows.WebCam.VideoCapture.VideoCaptureResult result)
-    {
-        Debug.Log("Stopped Video Capture Mode!");
-    }
-
-    void OnStartedRecordingVideo(UnityEngine.Windows.WebCam.VideoCapture.VideoCaptureResult result)
-    {
-        Debug.Log("Started Recording Video!");
-        m_stopRecordingTimer = Time.time + MaxRecordingTime;
-    }
-
-    void OnStoppedRecordingVideo(UnityEngine.Windows.WebCam.VideoCapture.VideoCaptureResult result)
-    {
-        Debug.Log("Stopped Recording Video!");
-        m_VideoCapture.StopVideoModeAsync(OnStoppedVideoCaptureMode);
+            cam.Stop();
+            WebCamTexture.Destroy(cam);
+            cam = null;
+        }
     }
 }
