@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class showResult : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public GameObject targetObj;
+	public void SetActvieOnResult(string targetName)
+	{
+		targetObj.SetActive(true);
+		Invoke("SetActiveOff", 2f);
+	}
+	public void SetActiveOff()
+	{
+		targetObj.SetActive(false);
+	}
 }

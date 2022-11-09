@@ -16,12 +16,9 @@ public class AnimationCheck : MonoBehaviour
 
 	public void AnimationChecktoActive(string animationName, string targetName)
 	{
-		if (anim.GetCurrentAnimatorStateInfo(0).IsName(animationName))
-		{
-			// animationName이 지금 실행되고 있으면 타겟 오브젝트를 active시킬고얌
-			targetObj.SetActive(true);
-			Invoke("SetActiveOff", 2f);
-		}
+		// animationName이 지금 실행되고 있으면 타겟 오브젝트를 active시킬고얌
+		targetObj.SetActive(true);
+		Invoke("SetActiveOff", 2f);
 	}
 	public void SetActiveOff()
 	{

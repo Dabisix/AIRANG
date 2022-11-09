@@ -116,12 +116,11 @@ public class SwpAr : MonoBehaviour
                     Debug.Log("다음 페이지로 이동할 시간");
                     //BookManager.getInstance().CurPage += 1;
                     //BookManager.getInstance().changeScene();
-                    DwarfHome = hitobj.collider.gameObject;
+                    GameObject DwarfHome = hitobj.collider.gameObject;
                     GameObject Door = DwarfHome.transform.Find("DoorPivot").gameObject;
-                    DwarfHomeAnim = Door.GetComponent<Animator>();
+                    Animator DwarfHomeAnim = Door.GetComponent<Animator>();
                     DwarfHomeAnim.SetBool("isDoorOpen", true);
-                    Door.GetComponent<AudioSource>().loop = false;
-                    Door.GetComponent<AudioSource>().Play();
+                    playAudio(Door);
                     int numChild = m_RendedObject.transform.childCount;
                     for (int i = 0; i < numChild; i++)
                     {
@@ -152,20 +151,18 @@ public class SwpAr : MonoBehaviour
                 else if (hitobj.collider.name == "Tiger")
                 {
                     // 호랑이를 선택했다면
-                    TigerObject = hitobj.collider.gameObject; //터치한 오브젝트가 호랑이다
-                    TigerAnim = TigerObject.GetComponent<Animator>(); // 호랑이 애니메이션
+                    GameObject TigerObject = hitobj.collider.gameObject; //터치한 오브젝트가 호랑이다
+                    Animator TigerAnim = TigerObject.GetComponent<Animator>(); // 호랑이 애니메이션
                     TigerAnim.Play("Jump");
-                    TigerObject.GetComponent<AudioSource>().loop = false;
-                    TigerObject.GetComponent<AudioSource>().Play();
+                    playAudio(TigerObject);
                     Debug.Log("호랑이");
                 }
                 else if (hitobj.collider.name == "Peacock")
 				{
                     // 공작새를 선택했다면
-                    PeacockObject = hitobj.collider.gameObject; //터치한 오브젝트가 공작새다
-					PeacockAnim = PeacockObject.GetComponent<Animator>(); //공작새 애니메이션
-                    PeacockObject.GetComponent<AudioSource>().loop = false;
-                    PeacockObject.GetComponent<AudioSource>().Play();
+                    GameObject PeacockObject = hitobj.collider.gameObject; //터치한 오브젝트가 공작새다
+                    Animator PeacockAnim = PeacockObject.GetComponent<Animator>(); //공작새 애니메이션
+                    playAudio(PeacockObject);
                     PeacockAnim.Play("Clicked");
 
                     Debug.Log("공작새");
@@ -173,50 +170,47 @@ public class SwpAr : MonoBehaviour
                 else if (hitobj.collider.name == "Rabbit")
                 {
                     // 공작새를 선택했다면
-                    RabbitObject = hitobj.collider.gameObject; //터치한 오브젝트가 토끼다
-                    RabbitAnim = RabbitObject.GetComponent<Animator>(); //토끼 애니메이션
-                    RabbitObject.GetComponent<AudioSource>().loop = false;
-                    RabbitObject.GetComponent<AudioSource>().Play();
+                    GameObject RabbitObject = hitobj.collider.gameObject; //터치한 오브젝트가 토끼다
+                    Animator RabbitAnim = RabbitObject.GetComponent<Animator>(); //토끼 애니메이션
+                    playAudio(RabbitObject);
                     RabbitAnim.Play("Jump");
                     Debug.Log("토끼");
                 }
                 else if (hitobj.collider.name == "Bird")
                 {
-                    BirdObject.GetComponent<AudioSource>().loop = false;
-                    BirdObject.GetComponent<AudioSource>().Play();
+                    GameObject BirdObject = hitobj.collider.gameObject;
+                    playAudio(BirdObject);
                 }
                 else if (hitobj.collider.name == "Pronghorn")
                 {
-                    PronghornObject = hitobj.collider.gameObject;
-                    PronghornAnim = PronghornObject.GetComponent<Animator>();
+                    GameObject PronghornObject = hitobj.collider.gameObject;
+                    Animator PronghornAnim = PronghornObject.GetComponent<Animator>();
                     PronghornAnim.Play("Jump");
-
+                    playAudio(PronghornObject);
                     Debug.Log("사슴? 얘이름뭐지");
                 }
                 else if (hitobj.collider.name == "Panda")
                 {
-                    PandaObject = hitobj.collider.gameObject;
-                    PandaAnim = PandaObject.GetComponent<Animator>();
+                    GameObject PandaObject = hitobj.collider.gameObject;
+                    Animator PandaAnim = PandaObject.GetComponent<Animator>();
                     PandaAnim.Play("Idle_B");
 
                     Debug.Log("사슴? 얘이름뭐지");
                 }
                 else if (hitobj.collider.name == "P_BadQueen")
                 {
-                    BadQueenObject = hitobj.collider.gameObject;
-                    BadQueenObject.GetComponent<AudioSource>().loop = false;
-                    BadQueenObject.GetComponent<AudioSource>().Play();
-                    BadQueenAnim = BadQueenObject.GetComponent<Animator>();
-                    AnimationCheck AnimCeck = BadQueenObject.GetComponent<AnimationCheck>();
+                    GameObject BadQueenObject = hitobj.collider.gameObject;
+                    playAudio(BadQueenObject);
+                    Animator BadQueenAnim = BadQueenObject.GetComponent<Animator>();
                     BadQueenAnim.Play("Angry");
-                    AnimCeck.AnimationChecktoActive("Angry", "나쁜여왕");
+                    showResult AnimCeck = BadQueenObject.GetComponent<showResult>();
+                    AnimCeck.SetActvieOnResult("나쁜여왕");
                 }else if (hitobj.collider.name == "P_Prince")
 				{
-                    PrinceObject = hitobj.collider.gameObject;
-                    PrinceAnim = PrinceObject.GetComponent<Animator>();
+                    GameObject PrinceObject = hitobj.collider.gameObject;
+                    Animator PrinceAnim = PrinceObject.GetComponent<Animator>();
                     PrinceAnim.Play("Hello");
-                    PrinceObject.GetComponent<AudioSource>().loop = false;
-                    PrinceObject.GetComponent<AudioSource>().Play();
+                    playAudio(PrinceObject);
                     int numChild = m_RendedObject.transform.childCount;
                     for (int i = 0; i < numChild; i++)
                     {
@@ -232,7 +226,7 @@ public class SwpAr : MonoBehaviour
                                 if (m_RendedObject.transform.GetChild(i).GetChild(j).name == "ClickPrince")
                                 {
                                     m_RendedObject.transform.GetChild(i).GetChild(j).gameObject.SetActive(true);
-
+                                    playAudio(m_RendedObject.transform.GetChild(i).GetChild(j).gameObject);
                                     // 다음페이지로 넘어가자~
                                     break;
                                 }
@@ -244,43 +238,35 @@ public class SwpAr : MonoBehaviour
                 }
                 else if (hitobj.collider.name == "P_Hunter")
                 {
-                    HunterObject = hitobj.collider.gameObject;
-                    HunterAnim = HunterObject.GetComponent<Animator>();
-                    HunterObject.GetComponent<AudioSource>().loop = false;
-                    HunterObject.GetComponent<AudioSource>().Play();
-                    AnimationCheck AnimCeck = HunterObject.GetComponent<AnimationCheck>();
+                    GameObject HunterObject = hitobj.collider.gameObject;
+                    Animator HunterAnim = HunterObject.GetComponent<Animator>();
+                    playAudio(HunterObject);
                     HunterAnim.Play("No");
-                    AnimCeck.AnimationChecktoActive("No", "사냥꾼");
+                    showResult AnimCeck = HunterObject.GetComponent<showResult>();
+                    AnimCeck.SetActvieOnResult("사냥꾼");
+                }
+                else if (hitobj.collider.name == "Emu")
+                {
+                    GameObject EmuObject = hitobj.collider.gameObject;
+                    Animator EmuAnim = EmuObject.GetComponent<Animator>();
+                    playAudio(EmuObject);
+                    EmuAnim.Play("Jump");
                 }
             }
             
         }
     }
 
+    private void playAudio(GameObject obj)
+	{
+        obj.GetComponent<AudioSource>().loop = false;
+        obj.GetComponent<AudioSource>().Play();
+    }
 
-    Animator TigerAnim;
-    Animator RabbitAnim;
-    Animator PeacockAnim;
-    Animator DwarfHomeAnim;
-    Animator PronghornAnim;
-    Animator PandaAnim;
-    Animator BadQueenAnim;
-    Animator PrinceAnim;
-    Animator HunterAnim;
     //bool isMove = false;
     //bool isTime = false;
     Ray ray;
     RaycastHit hitobj;
-    GameObject TigerObject;
-    GameObject HunterObject;
-    GameObject RabbitObject;
-    GameObject BirdObject;
-    GameObject PeacockObject;
-    GameObject DwarfHome;
-    GameObject PronghornObject;
-    GameObject PandaObject;
-    GameObject BadQueenObject;
-    GameObject PrinceObject;
 
 
 
