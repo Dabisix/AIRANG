@@ -46,14 +46,14 @@ public class BookManager : MonoBehaviour
     {
         AR_INFO = new Dictionary<int, Dictionary<int, int>>();
 
-        // ≈‰≥¢øÕ ∞≈∫œ¿Ã
+        // ÌÜ†ÎÅºÏôÄ Í±∞Î∂ÅÏù¥
         Dictionary<int, int> tmp_AR_pages = new Dictionary<int, int>();
         tmp_AR_pages.Add(5, 1); // Book page number, AR Info
         tmp_AR_pages.Add(9, 2);
 
         AR_INFO.Add(3, tmp_AR_pages); // Book ID, AR Info dic
 
-        // πÈº≥∞¯¡÷
+        // Î∞±ÏÑ§Í≥µÏ£º
         // AR_INFO.Add(3, )
     }
 
@@ -153,13 +153,20 @@ public class BookManager : MonoBehaviour
             cur_book.KScripts.Clear();
             cur_book.EScripts.Clear();
 
+            cur_book.KScripts.Add(""); // for index 0
+            cur_book.EScripts.Add("");
+
+            // set Scripts
             JObject bookInfo = JObject.Parse(res.Text);
             foreach (string text in bookInfo["kcontent"])
                 cur_book.KScripts.Add(text);
             foreach (string text in bookInfo["econtent"])
                 cur_book.EScripts.Add(text);
 
+            // set total pages
             cur_book.TotalPages = cur_book.KScripts.Count;
+
+            // set AR info (in code)
             setARInfo();
         }).Catch(err =>
         {
@@ -173,23 +180,23 @@ public class BookManager : MonoBehaviour
     public void changeScene(bool isFade = false)
     {
         string next_scene_name = this.gameObject.scene.name;
-        
-        if (cur_book.UseARPages[cur_page] > 0) // use AR
-            next_scene_name = "ARBookScene";
-        else // not use AR
-            next_scene_name = "BookScene";
 
+        // book ended or start
+        if (cur_page <= 0)
+            next_scene_name = "BookSettingScene";
+        else if (cur_page > cur_book.TotalPages)
+            next_scene_name = "MainScene";
+        else
+        {
+            if (cur_book.UseARPages[cur_page] > 0) // use AR
+                next_scene_name = "ARBookScene";
+            else // not use AR
+                next_scene_name = "BookScene";
+        }
+        
         // not use ARBook(only text)
         if (!cur_book.UseAR)
             next_scene_name = "NonPicBookPagingScene";
-
-        // book ended or start
-
-        Debug.Log(cur_page);
-        if (cur_page <= 0)
-            next_scene_name = "BookSettingScene";
-        else if(cur_page > cur_book.TotalPages)
-            next_scene_name = "MainScene";
 
 
         Debug.Log("changeScene : page - " + cur_page);
