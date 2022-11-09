@@ -14,11 +14,7 @@ public class AnimationCheck : MonoBehaviour
 		anim = animationTransform.GetComponent<Animator>();
 	}
 
-	private void Update()
-	{
-		AnimationChecktoActive(animationName);
-	}
-	public void AnimationChecktoActive(string animationName)
+	public void AnimationChecktoActive(string animationName, string targetName)
 	{
 		if (anim.GetCurrentAnimatorStateInfo(0).IsName(animationName))
 		{

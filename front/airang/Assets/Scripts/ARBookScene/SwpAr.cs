@@ -11,25 +11,6 @@ using System.Collections;
 [RequireComponent(typeof(ARPlaneManager))]
 public class SwpAr : MonoBehaviour
 {
-    Animator TigerAnim;
-    Animator RabbitAnim;
-    Animator PeacockAnim;
-    Animator DwarfHomeAnim;
-    Animator PronghornAnim;
-    Animator BirdAnim;
-    Animator PandaAnim;
-    //bool isMove = false;
-    //bool isTime = false;
-    Ray ray;
-    RaycastHit hitobj;
-    GameObject TigerObject;
-    GameObject RabbitObject;
-    GameObject BirdObject;
-    GameObject PeacockObject;
-    GameObject DwarfHome;
-    GameObject PronghornObject;
-    GameObject PandaObject;
-
 
     public void loadContentPrefab()
     {
@@ -220,10 +201,87 @@ public class SwpAr : MonoBehaviour
 
                     Debug.Log("사슴? 얘이름뭐지");
                 }
+                else if (hitobj.collider.name == "P_BadQueen")
+                {
+                    BadQueenObject = hitobj.collider.gameObject;
+                    BadQueenObject.GetComponent<AudioSource>().loop = false;
+                    BadQueenObject.GetComponent<AudioSource>().Play();
+                    BadQueenAnim = BadQueenObject.GetComponent<Animator>();
+                    AnimationCheck AnimCeck = BadQueenObject.GetComponent<AnimationCheck>();
+                    BadQueenAnim.Play("Angry");
+                    AnimCeck.AnimationChecktoActive("Angry", "나쁜여왕");
+                }else if (hitobj.collider.name == "P_Prince")
+				{
+                    PrinceObject = hitobj.collider.gameObject;
+                    PrinceAnim = PrinceObject.GetComponent<Animator>();
+                    PrinceAnim.Play("Hello");
+                    PrinceObject.GetComponent<AudioSource>().loop = false;
+                    PrinceObject.GetComponent<AudioSource>().Play();
+                    int numChild = m_RendedObject.transform.childCount;
+                    for (int i = 0; i < numChild; i++)
+                    {
+                        if (m_RendedObject.transform.GetChild(i).name == "Canvas")
+                        {
+                            int canvasChiild = m_RendedObject.transform.GetChild(i).childCount;
+                            for (int j = 0; j < canvasChiild; j++)
+                            {
+                                if (m_RendedObject.transform.GetChild(i).GetChild(j).name == "Guide")
+                                {
+                                    m_RendedObject.transform.GetChild(i).GetChild(j).gameObject.SetActive(false);
+                                }
+                                if (m_RendedObject.transform.GetChild(i).GetChild(j).name == "ClickPrince")
+                                {
+                                    m_RendedObject.transform.GetChild(i).GetChild(j).gameObject.SetActive(true);
+
+                                    // 다음페이지로 넘어가자~
+                                    break;
+                                }
+
+                            }
+
+                        }
+                    }
+                }
+                else if (hitobj.collider.name == "P_Hunter")
+                {
+                    HunterObject = hitobj.collider.gameObject;
+                    HunterAnim = HunterObject.GetComponent<Animator>();
+                    HunterObject.GetComponent<AudioSource>().loop = false;
+                    HunterObject.GetComponent<AudioSource>().Play();
+                    AnimationCheck AnimCeck = HunterObject.GetComponent<AnimationCheck>();
+                    HunterAnim.Play("No");
+                    AnimCeck.AnimationChecktoActive("No", "사냥꾼");
+                }
             }
             
         }
     }
+
+
+    Animator TigerAnim;
+    Animator RabbitAnim;
+    Animator PeacockAnim;
+    Animator DwarfHomeAnim;
+    Animator PronghornAnim;
+    Animator PandaAnim;
+    Animator BadQueenAnim;
+    Animator PrinceAnim;
+    Animator HunterAnim;
+    //bool isMove = false;
+    //bool isTime = false;
+    Ray ray;
+    RaycastHit hitobj;
+    GameObject TigerObject;
+    GameObject HunterObject;
+    GameObject RabbitObject;
+    GameObject BirdObject;
+    GameObject PeacockObject;
+    GameObject DwarfHome;
+    GameObject PronghornObject;
+    GameObject PandaObject;
+    GameObject BadQueenObject;
+    GameObject PrinceObject;
+
 
 
 
