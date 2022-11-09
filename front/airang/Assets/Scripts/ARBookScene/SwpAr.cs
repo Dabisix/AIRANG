@@ -16,6 +16,7 @@ public class SwpAr : MonoBehaviour
     Animator PeacockAnim;
     Animator DwarfHomeAnim;
     Animator PronghornAnim;
+    Animator BirdAnim;
     Animator PandaAnim;
     //bool isMove = false;
     //bool isTime = false;
@@ -23,6 +24,7 @@ public class SwpAr : MonoBehaviour
     RaycastHit hitobj;
     GameObject TigerObject;
     GameObject RabbitObject;
+    GameObject BirdObject;
     GameObject PeacockObject;
     GameObject DwarfHome;
     GameObject PronghornObject;
@@ -135,10 +137,10 @@ public class SwpAr : MonoBehaviour
                     //BookManager.getInstance().changeScene();
                     DwarfHome = hitobj.collider.gameObject;
                     GameObject Door = DwarfHome.transform.Find("DoorPivot").gameObject;
-
                     DwarfHomeAnim = Door.GetComponent<Animator>();
-                    Debug.Log(DwarfHomeAnim);
                     DwarfHomeAnim.SetBool("isDoorOpen", true);
+                    Door.GetComponent<AudioSource>().loop = false;
+                    Door.GetComponent<AudioSource>().Play();
                     int numChild = m_RendedObject.transform.childCount;
                     for (int i = 0; i < numChild; i++)
                     {
@@ -154,7 +156,6 @@ public class SwpAr : MonoBehaviour
                                 if (m_RendedObject.transform.GetChild(i).GetChild(j).name == "Result")
                                 {
                                     m_RendedObject.transform.GetChild(i).GetChild(j).gameObject.SetActive(true);
-                                    
                                     
                                     // 다음페이지로 넘어가자~
                                     break;
@@ -173,7 +174,8 @@ public class SwpAr : MonoBehaviour
                     TigerObject = hitobj.collider.gameObject; //터치한 오브젝트가 호랑이다
                     TigerAnim = TigerObject.GetComponent<Animator>(); // 호랑이 애니메이션
                     TigerAnim.Play("Jump");
-
+                    TigerObject.GetComponent<AudioSource>().loop = false;
+                    TigerObject.GetComponent<AudioSource>().Play();
                     Debug.Log("호랑이");
                 }
                 else if (hitobj.collider.name == "Peacock")
@@ -181,7 +183,8 @@ public class SwpAr : MonoBehaviour
                     // 공작새를 선택했다면
                     PeacockObject = hitobj.collider.gameObject; //터치한 오브젝트가 공작새다
 					PeacockAnim = PeacockObject.GetComponent<Animator>(); //공작새 애니메이션
-                    
+                    PeacockObject.GetComponent<AudioSource>().loop = false;
+                    PeacockObject.GetComponent<AudioSource>().Play();
                     PeacockAnim.Play("Clicked");
 
                     Debug.Log("공작새");
@@ -191,8 +194,15 @@ public class SwpAr : MonoBehaviour
                     // 공작새를 선택했다면
                     RabbitObject = hitobj.collider.gameObject; //터치한 오브젝트가 토끼다
                     RabbitAnim = RabbitObject.GetComponent<Animator>(); //토끼 애니메이션
-                    RabbitAnim.Play("Clicked");
+                    RabbitObject.GetComponent<AudioSource>().loop = false;
+                    RabbitObject.GetComponent<AudioSource>().Play();
+                    RabbitAnim.Play("Jump");
                     Debug.Log("토끼");
+                }
+                else if (hitobj.collider.name == "Bird")
+                {
+                    BirdObject.GetComponent<AudioSource>().loop = false;
+                    BirdObject.GetComponent<AudioSource>().Play();
                 }
                 else if (hitobj.collider.name == "Pronghorn")
                 {

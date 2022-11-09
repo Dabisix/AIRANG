@@ -24,6 +24,11 @@ public class AnimationCheck : MonoBehaviour
 		{
 			// animationName이 지금 실행되고 있으면 타겟 오브젝트를 active시킬고얌
 			targetObj.SetActive(true);
+			Invoke("SetActiveOff", 2f);
 		}
+	}
+	public void SetActiveOff()
+	{
+		targetObj.SetActive(false);
 	}
 }
