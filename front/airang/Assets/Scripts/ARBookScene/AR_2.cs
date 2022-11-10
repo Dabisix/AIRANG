@@ -11,7 +11,6 @@ using UnityEngine.XR.ARSubsystems;
 
 public class AR_2 : MonoBehaviour
 {
-    //복붙한것. 
     public void loadContentPrefab()
     {
         RemoveAllAnchors();
@@ -98,10 +97,13 @@ public class AR_2 : MonoBehaviour
                     int numChild = m_RendedObject.transform.childCount;
                     for (int i = 0; i < numChild; i++)
                     {
-                        
                         if(m_RendedObject.transform.GetChild(i).name == "ObstacleMessage")
                         {
                             wrong_message = m_RendedObject.transform.GetChild(i).gameObject;
+                        }
+                        if (m_RendedObject.transform.GetChild(i).name == "GuideMessage")
+                        {
+                            guide_message = m_RendedObject.transform.GetChild(i).gameObject;
                         }
                     }
                 }
@@ -109,6 +111,10 @@ public class AR_2 : MonoBehaviour
         }
         else if (TryGetTouchPosition(out Vector2 touchPosition) && m_RaycastManager.Raycast(touchPosition, s_Hits, TrackableType.PlaneWithinPolygon))
         {
+            if(m_touchAnchorList.Count > 0)
+            {
+                guide_message.SetActive(false);
+            }
             //터치 확인 & hit 한 경우
             //Queue 안 anchor 개수가 5개 이하면 넣는다
             if (m_touchAnchorList.Count < 5)
@@ -244,4 +250,7 @@ public class AR_2 : MonoBehaviour
     // 추가 : 잘못 터치시 경고창 띄우기
     GameObject wrong_message;
     private int countdown;
+
+    // 추가 11.10 : Guide 창 추가
+    GameObject guide_message;
 }
