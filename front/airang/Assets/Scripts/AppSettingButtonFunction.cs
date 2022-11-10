@@ -22,7 +22,6 @@ public class AppSettingButtonFunction : MonoBehaviour
     {
         // PlayerPrefs에 저장한 모든 키 삭제
         PlayerPrefs.DeleteAll();
-
-        // 우리 서비스는 로그인이 필수이니까.. 로그아웃 하면 로그인해달라고 이동시켜아 하나..
+        StartCoroutine(GameObject.FindObjectOfType<SceneFader>().FadeAndLoadScene(SceneFader.FadeDirection.In, "StartScene"));
     }
 }

@@ -11,9 +11,9 @@ public class AppSettingButton : MonoBehaviour
     {
         if(appSettingBoardPrefab == null)
         {
-            GameObject settingPrefab = Resources.Load("Prefabs/AppSettingBoardPrefab") as GameObject;
+            GameObject settingPrefab = Resources.Load("Prefabs/MainScene/AppSettingBoardPrefab") as GameObject;
+            settingPrefab.SetActive(false);
             appSettingBoardPrefab = Instantiate(settingPrefab);
-            appSettingBoardPrefab.SetActive(false);
         }
     }
 
@@ -25,12 +25,10 @@ public class AppSettingButton : MonoBehaviour
     //openAppSetting
     public void openAppSettingPrefab()
     {
-        appSettingBoardPrefab.SetActive(true);
+        appSettingBoardPrefab.SetActive(true); // at first
+        appSettingBoardPrefab.transform.GetChild(0).gameObject.SetActive(true);
     }
-    public void closeAppSettingPrefab()
-    {
-        appSettingBoardPrefab.SetActive(false);
-    }
+
     public void goMainButton()
     {
         StartCoroutine(GameObject.FindObjectOfType<SceneFader>().FadeAndLoadScene(SceneFader.FadeDirection.In, "MainScene"));
