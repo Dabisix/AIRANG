@@ -5,16 +5,28 @@ using UnityEngine.SceneManagement;
 
 public class AppSettingButtonFunction : MonoBehaviour
 {
-    // closeAppSetting
-    public void closeAppSettingBoard()
+    // User Modify 
+    GameObject userModifyPrefab;
+
+    private void Start()
     {
-        AppSettingButton.appSettingBoardPrefab.SetActive(false);
+        if (userModifyPrefab == null)
+        {
+            GameObject settingPrefab = Resources.Load("Prefabs/MainScene/UserModifyPrefab") as GameObject;
+            settingPrefab.SetActive(false);
+            userModifyPrefab = Instantiate(settingPrefab);
+        }
     }
 
-    // changeScene
-    public void changeScene(string sceneName)
+    public void activeUserModify()
     {
-        SceneManager.LoadScene(sceneName);
+        StartCoroutine(GameObject.FindObjectOfType<UIMovementHandler>().LerpBackObject());
+        setUserModifyActive();
+    }
+
+    private void setUserModifyActive()
+    {
+        userModifyPrefab.SetActive(true);
     }
 
     //로그아웃
