@@ -16,6 +16,8 @@ public class MainCharacterController : MonoBehaviour
     private float length; // path의 길이
     private float currentTime; // 현재 경과 시간
 
+    public GameObject changePath;
+
     void Start()
     {
         anim = gameObject.GetComponent<Animator>();
@@ -46,4 +48,14 @@ public class MainCharacterController : MonoBehaviour
 
 
     }
+
+
+    public void ChangePath()
+	{
+        obj.m_Path = changePath.GetComponent<CinemachinePath>();
+        obj.m_Speed = 3;
+        obj.m_Position = 0;
+        anim.SetBool("isIdle", false);
+        anim.Play("Run");
+	}
 }

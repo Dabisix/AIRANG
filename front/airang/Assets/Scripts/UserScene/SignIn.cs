@@ -10,6 +10,7 @@ public class SignIn : MonoBehaviour
 {
     public StartMainCamera my_camera;
     public DoorOpen doorOpen;
+    public MainCharacterController mainCharacterController;
 
     public TMP_InputField idInputField;
     public TMP_InputField pwInputField;
@@ -48,8 +49,9 @@ public class SignIn : MonoBehaviour
                 StartCoroutine(this.transform.Find("Image").GetComponent<UIMovementHandler>().LerpBackObject());
 
                 // move to main Scene
-                Invoke("openDoor", 2.7f);
-                my_camera.StartMoveCamera(1);
+                Invoke("openDoor",0.4f);
+                //my_camera.StartMoveCamera(1);
+                mainCharacterController.ChangePath();
             }
             else if ((string)json["message"] == "pwErr")
             {

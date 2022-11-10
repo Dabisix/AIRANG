@@ -1287,7 +1287,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1373435457}
   m_LocalRotation: {x: -0.013588413, y: 0.24831052, z: 0.05292516, w: 0.9671382}
-  m_LocalPosition: {x: -5.54, y: 10.95, z: 10.03}
+  m_LocalPosition: {x: -5.54, y: 11.29, z: 10.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1343,6 +1343,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pathWay: {fileID: 1828177156}
   targetOperatingTime: 0
+  changePath: {fileID: 1608338787}
 --- !u!114 &1484156907 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1648761274012169506, guid: 09e5da35d344c8944ace41e2ce5f9339, type: 3}
@@ -1674,6 +1675,69 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1608338787
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1608338789}
+  - component: {fileID: 1608338788}
+  m_Layer: 0
+  m_Name: pathAirang2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1608338788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1608338787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d37e5385efd7064cb1d54c94960acae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Resolution: 20
+  m_Appearance:
+    pathColor: {r: 0, g: 1, b: 0, a: 1}
+    inactivePathColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    width: 0.2
+  m_Looped: 0
+  m_Waypoints:
+  - position: {x: 1.2694235, y: 0, z: -5}
+    tangent: {x: 1.3236983, y: 0, z: 0}
+    roll: 0
+  - position: {x: -2.2913706, y: -0.85997105, z: -5.5998096}
+    tangent: {x: -0.28999686, y: 0.60526085, z: 0.823534}
+    roll: 0
+  - position: {x: -2.5756934, y: 0.40212345, z: -3.4796162}
+    tangent: {x: 0, y: 0, z: 0.89913464}
+    roll: 0
+  - position: {x: -2.3475409, y: 0.40212345, z: 0.2240467}
+    tangent: {x: 0.41484165, y: 0, z: 0.823534}
+    roll: 0
+--- !u!4 &1608338789
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1608338787}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.93, y: 3.6, z: 17.66}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 26
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1716776235
 GameObject:
   m_ObjectHideFlags: 0
@@ -2004,7 +2068,7 @@ GameObject:
   - component: {fileID: 1828177158}
   - component: {fileID: 1828177157}
   m_Layer: 0
-  m_Name: pathArang
+  m_Name: pathArang1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3007,6 +3071,10 @@ PrefabInstance:
       propertyPath: SearchPWCanvas
       value: 
       objectReference: {fileID: 3693638176257402064}
+    - target: {fileID: 7245153127983488156, guid: 09e5da35d344c8944ace41e2ce5f9339, type: 3}
+      propertyPath: mainCharacterController
+      value: 
+      objectReference: {fileID: 1447574090}
     - target: {fileID: 7245153128090597425, guid: 09e5da35d344c8944ace41e2ce5f9339, type: 3}
       propertyPath: m_IsActive
       value: 1

@@ -36,6 +36,7 @@ public class StartMainCamera : MonoBehaviour
             GameManager.getInstance().getAllBooksList();
 
             // move to Main
+
             Invoke("openDoor", 2.3f);
             StartMoveCamera(1);
         }
