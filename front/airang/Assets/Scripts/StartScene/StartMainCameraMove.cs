@@ -22,5 +22,6 @@ public class StartMainCameraMove : MonoBehaviour
     void LateUpdate()
     {
         transform.position = playerTransform.position + offset;
+        // 이걸 좀 조절하면 
     }
 }
