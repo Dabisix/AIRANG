@@ -11,12 +11,20 @@ public class Scene1CameraController : MonoBehaviour
     public Camera targetCamera;
     public Camera[] subCameras;
 
+    public GameObject princessObject;
     public int page;
     private int idx = 0;
 
     void Start()
     {
-        MoveCamera();
+        if(page == 4)
+        {
+            Invoke("MoveCamera", 4f);
+        }
+        else
+        {
+            MoveCamera();
+        }
     }
 
     void MoveCamera()
@@ -42,7 +50,18 @@ public class Scene1CameraController : MonoBehaviour
                 subCamera = subCameras[idx + 1];
                 MoveCamera();
             }
+            if(page == 4)
+            {
+                subCamera = subCameras[idx + 1];
+                MoveCamera();
+                Invoke("disappearObject", 0.5f);
+            }
         }
+    }
+
+    void disappearObject()
+    {
+        princessObject.SetActive(false);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.ssafy.b305.controller;
 
+import com.ssafy.b305.annotation.NoJwt;
 import com.ssafy.b305.domain.dto.BookRequestDto;
 import com.ssafy.b305.domain.dto.BookDetailResponseDto;
 import com.ssafy.b305.domain.dto.PageDto;
@@ -13,10 +14,24 @@ import com.ssafy.b305.service.UserService;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.List;
 
 @RestController
 @RequestMapping("/book")
@@ -176,5 +191,42 @@ public class BookController {
         return new ResponseEntity<>(ret, HttpStatus.OK);
     }
 
-
+    @NoJwt
+    @GetMapping("/narration")
+    public void getNarration(HttpServletResponse response, @RequestHeader String id, @RequestHeader String page) throws ServletException, IOException {
+        BookDetailResponseDto book = bookService.getBook(Long.parseLong(id));
+        System.out.println("book ==== >>>> " + book.getTitle());
+        
+        File file;
+        ServletOutputStream stream = null;
+        BufferedInputStream buf = null;
+        
+        try {
+        	
+	        file = new File("/home/ubuntu/naver/" + book.getTitle() + "/" + page + ".mp3");
+	
+	        // Content-Type
+	        response.setContentType("audio/mpeg");
+	
+	        // Content-Disposition
+	        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + file.getName());
+	
+	        // Content-Length
+	        response.setContentLength((int) file.length());
+	
+	        FileInputStream input = new FileInputStream(file);
+	        stream = response.getOutputStream();
+	        buf = new BufferedInputStream(input);
+	        
+	        // write to body
+	        int readBytes = 0;
+	        while ((readBytes = buf.read()) != -1)
+	          stream.write(readBytes);
+      	} catch (IOException ioe) {
+      		throw new ServletException(ioe.getMessage());
+      	} finally {
+		    if (stream != null) stream.close();
+		    if (buf != null) buf.close();
+      	}
+	}
 }
