@@ -1,7 +1,6 @@
 package com.ssafy.b305.service;
 
-
-import com.ssafy.b305.domain.entity.Mail;
+import com.ssafy.b305.domain.dto.Mail;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
