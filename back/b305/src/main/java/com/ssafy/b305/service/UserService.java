@@ -1,8 +1,8 @@
 package com.ssafy.b305.service;
 
+import com.ssafy.b305.domain.dto.Mail;
 import com.ssafy.b305.domain.dto.UserNewInfo;
 
-import com.ssafy.b305.domain.entity.Mail;
 import com.ssafy.b305.domain.entity.User;
 import com.ssafy.b305.repository.UserRepository;
 import org.mindrot.jbcrypt.BCrypt;
