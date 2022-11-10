@@ -3,7 +3,7 @@ using UnityEngine.Networking;
 
 public class NarrationLoader : MonoBehaviour
 {
-    AudioSource audio;
+    new AudioSource audio;
 
     private void Start()
     {
