@@ -12,7 +12,7 @@ public class SetActiveCharacter : MonoBehaviour
     {
         Invoke("SetCharacterActive", time);
     }
-    // ½Ã°£ Áö³ª¸é SetActiveÇØÁÒ¾ßÁö
+    // ì‹œê°„ ì§€ë‚˜ë©´ SetActiveí•´ì£ ì•¼ì§€
 
     public void SetCharacterActive()
     {
