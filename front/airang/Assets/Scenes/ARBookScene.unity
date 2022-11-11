@@ -844,6 +844,10 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: -1375911254938410687, guid: 80ee7bdb4abd7994388c388d9d7ff953, type: 2}
+    - target: {fileID: 8759759450093777929, guid: 95121fe94c9d52546bdcdd800b7bfd9c, type: 3}
+      propertyPath: recordAlertObject
+      value: 
+      objectReference: {fileID: 8759759451299881088}
     - target: {fileID: 8759759451188274270, guid: 95121fe94c9d52546bdcdd800b7bfd9c, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -894,3 +898,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95121fe94c9d52546bdcdd800b7bfd9c, type: 3}
+--- !u!1 &8759759451299881088 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6043070451785244612, guid: 95121fe94c9d52546bdcdd800b7bfd9c, type: 3}
+  m_PrefabInstance: {fileID: 8759759451299881087}
+  m_PrefabAsset: {fileID: 0}
