@@ -30,7 +30,7 @@ public class StartMainCamera : MonoBehaviour
     private void Start()
     {
         // check Login
-        if (PlayerPrefs.GetString("accessToken") != null)
+        if (PlayerPrefs.GetString("accessToken") != "")
         {
             // get book list from server
             GameManager.getInstance().getAllBooksList();

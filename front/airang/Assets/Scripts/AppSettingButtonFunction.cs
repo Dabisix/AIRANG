@@ -5,16 +5,28 @@ using UnityEngine.SceneManagement;
 
 public class AppSettingButtonFunction : MonoBehaviour
 {
-    // closeAppSetting
-    public void closeAppSettingBoard()
+    // User Modify 
+    GameObject userModifyPrefab;
+
+    private void Start()
     {
-        AppSettingButton.appSettingBoardPrefab.SetActive(false);
+        if (userModifyPrefab == null)
+        {
+            GameObject settingPrefab = Resources.Load("Prefabs/MainScene/UserModifyPrefab") as GameObject;
+            settingPrefab.SetActive(false);
+            userModifyPrefab = Instantiate(settingPrefab);
+        }
     }
 
-    // changeScene
-    public void changeScene(string sceneName)
+    public void activeUserModify()
     {
-        SceneManager.LoadScene(sceneName);
+        StartCoroutine(GameObject.FindObjectOfType<UIMovementHandler>().LerpBackObject());
+        setUserModifyActive();
+    }
+
+    private void setUserModifyActive()
+    {
+        userModifyPrefab.SetActive(true);
     }
 
     //로그아웃
@@ -22,7 +34,6 @@ public class AppSettingButtonFunction : MonoBehaviour
     {
         // PlayerPrefs에 저장한 모든 키 삭제
         PlayerPrefs.DeleteAll();
-
-        // 우리 서비스는 로그인이 필수이니까.. 로그아웃 하면 로그인해달라고 이동시켜아 하나..
+        StartCoroutine(GameObject.FindObjectOfType<SceneFader>().FadeAndLoadScene(SceneFader.FadeDirection.In, "StartScene"));
     }
 }

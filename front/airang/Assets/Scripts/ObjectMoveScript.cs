@@ -13,7 +13,7 @@ public class ObjectMoveScript : MonoBehaviour
     private Vector3 startPos; //시작 위치
     Vector3 targetPos; //목표 위치
 
-    Page9 m_anchorCreator;
+    AR_2 m_anchorCreator;
     Queue<ARAnchor> m_touchAnchorList;
     Queue<GameObject> m_touchRendedObject;
 
@@ -27,7 +27,7 @@ public class ObjectMoveScript : MonoBehaviour
         startPos = objectTransform.position;    //현재 위치
         targetPos = default;    //타겟 위치 초기화
 
-        m_anchorCreator = FindObjectOfType<Page9>();
+        m_anchorCreator = FindObjectOfType<AR_2>();
         //GetComponent<AnchorCreator>();    //앵커 크리에이터 가져오기
         
         // 이 아래 두개는 Anchor Creator에 있었던 리스트
