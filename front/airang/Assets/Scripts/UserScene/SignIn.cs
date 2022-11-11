@@ -49,9 +49,9 @@ public class SignIn : MonoBehaviour
                 StartCoroutine(this.transform.Find("Image").GetComponent<UIMovementHandler>().LerpBackObject());
 
                 // move to main Scene
-                Invoke("openDoor",0.4f);
+                openDoor();
                 //my_camera.StartMoveCamera(1);
-                mainCharacterController.ChangePath();
+                mainCharacterController.ChangePath(1);
             }
             else if ((string)json["message"] == "pwErr")
             {

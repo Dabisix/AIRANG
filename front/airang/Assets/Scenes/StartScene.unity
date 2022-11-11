@@ -1327,7 +1327,7 @@ MonoBehaviour:
   m_Path: {fileID: 1828177157}
   m_UpdateMethod: 0
   m_PositionUnits: 1
-  m_Speed: 8
+  m_Speed: 7
   m_Position: 0
 --- !u!114 &1447574090
 MonoBehaviour:
@@ -1720,8 +1720,8 @@ MonoBehaviour:
   - position: {x: -2.5756934, y: 0.40212345, z: -3.4796162}
     tangent: {x: 0, y: 0, z: 0.89913464}
     roll: 0
-  - position: {x: -2.3475409, y: 0.40212345, z: 0.2240467}
-    tangent: {x: 0.41484165, y: 0, z: 0.823534}
+  - position: {x: -3.2294004, y: 0.40212345, z: 0.965147}
+    tangent: {x: 0.03587842, y: 0, z: 0.823534}
     roll: 0
 --- !u!4 &1608338789
 Transform:
@@ -2599,6 +2599,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3934298538481865807, guid: bf9c59c61e96d2b4a976359e7f0752d3, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1373435459}
+    - target: {fileID: 3934298538481865807, guid: bf9c59c61e96d2b4a976359e7f0752d3, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3934298538481865807, guid: bf9c59c61e96d2b4a976359e7f0752d3, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 2.4
+      objectReference: {fileID: 0}
     - target: {fileID: 3934298538481865810, guid: bf9c59c61e96d2b4a976359e7f0752d3, type: 3}
       propertyPath: m_Name
       value: P_SearchPW
@@ -2810,6 +2822,18 @@ PrefabInstance:
       propertyPath: loginCanvasHandler
       value: 
       objectReference: {fileID: 1484156907}
+    - target: {fileID: 2202336160156185182, guid: cf1e0d6d121ecc043988d49dc8b0d583, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1373435459}
+    - target: {fileID: 2202336160156185182, guid: cf1e0d6d121ecc043988d49dc8b0d583, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2202336160156185182, guid: cf1e0d6d121ecc043988d49dc8b0d583, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 2.4
+      objectReference: {fileID: 0}
     - target: {fileID: 2202336160156185183, guid: cf1e0d6d121ecc043988d49dc8b0d583, type: 3}
       propertyPath: m_Pivot.x
       value: 0

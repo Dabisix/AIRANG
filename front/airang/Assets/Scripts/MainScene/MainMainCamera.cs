@@ -8,6 +8,8 @@ public class MainMainCamera : MonoBehaviour
 {
     public Camera[] subCameras;
     public GameObject bookListCanvas;
+
+    public GameObject[] paths;
     public void MainMoveCamera(int index)
     {
         Vector3 new_position = subCameras[index].transform.position;
@@ -30,10 +32,10 @@ public class MainMainCamera : MonoBehaviour
 
     private void Update()
     {
-        // ¸¸¾à¿¡ ÀÎµ¦½º°¡ 0ÀÏ¶§ ¼­ºêÄ«¸Ş¶ó À§Ä¡±îÁö °£´Ù¸é, canvas Active¸¦ true·Î ÇØÁÖÀÚ.
+        // ë§Œì•½ì— ì¸ë±ìŠ¤ê°€ 0ì¼ë•Œ ì„œë¸Œì¹´ë©”ë¼ ìœ„ì¹˜ê¹Œì§€ ê°„ë‹¤ë©´, canvas Activeë¥¼ trueë¡œ í•´ì£¼ì.
         if (this.gameObject.transform.position == subCameras[0].transform.position)
         {
-            // ÀÌ‹š¹»ÇØÁÖÁö?
+            // ì´ë–„ë­˜í•´ì£¼ì§€?
         }
     }
 
