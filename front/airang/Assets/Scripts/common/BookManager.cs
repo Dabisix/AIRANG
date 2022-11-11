@@ -2,6 +2,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -35,6 +36,9 @@ public class BookManager : MonoBehaviour
 
     private Book cur_book;
     private int cur_page = 1; // current page
+
+    private bool parent_narr = false;
+    private bool need_record;
 
     // each pages infomations
     private List<GameObject> contents = new List<GameObject>();
@@ -71,13 +75,13 @@ public class BookManager : MonoBehaviour
         for (int i = 0; i <= cur_book.TotalPages; i++)
             tmp_use_AR.Add(0);
 
-        if(tmp_saved_use_AR != null)
+        if (tmp_saved_use_AR != null)
         {
             foreach (var item in tmp_saved_use_AR)
             {
                 tmp_use_AR[item.Key] = item.Value;
             }
-                
+
         }
         cur_book.UseARPages = tmp_use_AR;
     }
@@ -125,6 +129,18 @@ public class BookManager : MonoBehaviour
         }
     }
 
+    public bool ParentNarr
+    {
+        get => parent_narr;
+        set => parent_narr = value;
+    }
+
+    public bool NeedRecord
+    {
+        get => need_record;
+        set => need_record = value;
+    }
+
     // check book info and ready for reading
     public void InitBook()
     {
@@ -132,7 +148,31 @@ public class BookManager : MonoBehaviour
 
         getBookInfo();
         loadContents();
+        need_record = checkRecordVoice();
     }
+
+    // 부모 녹음 파일 확인
+    public bool checkRecordVoice()
+    {
+        Debug.Log("파일 확인해보러 들어왔음");
+        //var fileNames = Directory.GetFiles(Application.persistentDataPath, "*.wav");
+
+        // 폴더 이름 확인하기
+        DirectoryInfo di = new DirectoryInfo(Application.persistentDataPath);
+        foreach (DirectoryInfo dir in di.GetDirectories())
+        {
+            string FileDirectory = dir.Name;
+            Debug.Log("폴더 이름 : " + FileDirectory);
+            // 현재 책아이디랑 같은 폴더가 있으면 부모 녹음 파일이 있는것, 녹음 필요없음
+            if (cur_book.BookId.ToString() == FileDirectory)
+            {
+                return false;
+            }
+        }
+        Debug.Log("녹음 파일 없다");
+        return true;
+    }
+
 
     public void loadContents()
     {
@@ -168,7 +208,8 @@ public class BookManager : MonoBehaviour
 
             Debug.Log("totalPage" + cur_book.TotalPages);
 
-            for(int i = 0; i < cur_book.KScripts.Count; i++) {
+            for (int i = 0; i < cur_book.KScripts.Count; i++)
+            {
                 Debug.Log(i + " " + cur_book.KScripts[i]);
             }
 
@@ -205,7 +246,7 @@ public class BookManager : MonoBehaviour
         }
 
         Debug.Log("changeScene : page - " + cur_page);
-        if(isFade)
+        if (isFade)
             StartCoroutine(GameObject.FindObjectOfType<SceneFader>().FadeAndLoadScene(SceneFader.FadeDirection.In, next_scene_name));
         else
             SceneManager.LoadScene(next_scene_name);
