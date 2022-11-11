@@ -59,6 +59,12 @@ public class BookManager : MonoBehaviour
 
         // 백설공주
         // AR_INFO.Add(3, )
+        Dictionary<int, int> tmp_AR_pages2 = new Dictionary<int, int>();
+        tmp_AR_pages2.Add(3, 3);
+        tmp_AR_pages2.Add(9, 4);
+        tmp_AR_pages2.Add(17, 5);
+        tmp_AR_pages2.Add(25, 6);
+        AR_INFO.Add(2, tmp_AR_pages2);
     }
 
     private void Start()
