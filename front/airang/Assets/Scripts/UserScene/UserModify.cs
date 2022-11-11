@@ -55,7 +55,7 @@ public class UserModify : MonoBehaviour
 
     private void inactiveUserModify()
     {
-        StartCoroutine(this.transform.Find("Image").GetComponent<UIMovementHandler>().LerpBackObject());
+        StartCoroutine(GameObject.FindObjectOfType<UIMovementHandler>().LerpBackObject());
     }
 
     public void alertMessage(string message)
