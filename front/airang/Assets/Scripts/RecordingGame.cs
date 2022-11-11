@@ -4,13 +4,13 @@ using UnityEngine;
 using System.ComponentModel;
 using System.IO;
 using UnityEditor;
-using UnityEditor.Recorder;
-using UnityEditor.Recorder.Input;
+/*using UnityEditor.Recorder;
+using UnityEditor.Recorder.Input;*/
 
 public class RecordingGame : MonoBehaviour
 {
 
-    RecorderController m_RecorderController;
+    /*RecorderController m_RecorderController;
     public bool m_RecordAudio = true;
     MovieRecorderSettings m_Settings = null;
 
@@ -87,5 +87,5 @@ public class RecordingGame : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-    }
+    }*/
 }
