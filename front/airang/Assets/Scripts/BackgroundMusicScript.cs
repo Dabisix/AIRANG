@@ -25,7 +25,7 @@ public class BackgroundMusicScript : MonoBehaviour
         //활성화시 해당씬 실행시 바로 사운드 재생이 시작됩니다. 
         //비활성화시 Play()명령을 통해서만 재생됩니다. 
 
-        audioSource.priority = 0;
+        //audioSource.priority = 0;
         //씬안에 모든 오디오소스중 현재 오디오 소스의 우선순위를 정한다. 
         // 0 : 최우선, 256 : 최하, 128 : 기본값 
     }
