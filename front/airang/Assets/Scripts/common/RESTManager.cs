@@ -41,6 +41,7 @@ public class RESTManager : MonoBehaviour
 
     private void Awake()
     {
+
         if (instance == null)
         {
             instance = this;

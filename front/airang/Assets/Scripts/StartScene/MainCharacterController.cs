@@ -8,7 +8,7 @@ public class MainCharacterController : MonoBehaviour
 {
     // Start is called before the first frame update
     Animator anim;
-    CinemachineDollyCart obj;
+    public CinemachineDollyCart obj;
 
     public DoorOpen doorOpen;
     public GameObject pathWay; // 다람쥐 길 오브젝트
@@ -20,8 +20,9 @@ public class MainCharacterController : MonoBehaviour
 
     public GameObject changePath;
     public GameObject loginPath;
+    public bool isStartScene;
 
-    private int pathIdx = 1;
+    private bool changeScene = false;
 
 	void Start()
     {
@@ -33,23 +34,23 @@ public class MainCharacterController : MonoBehaviour
         length = pathWay.GetComponent<CinemachinePath>().PathLength;
         speed = obj.m_Speed;
         currentTime = 0f;
-        // 다람쥐 속도 가져오기
-        // check Login
-        if (PlayerPrefs.GetString("accessToken") != null)
-        {
-            obj.m_Path = loginPath.GetComponent<CinemachinePath>();
-            length = obj.m_Path.PathLength;
-            targetOperatingTime = (length - obj.m_Position) / speed;
-            // 시간 - 거리 / 시간
-            pathIdx++;
-            // get book list from server
-            GameManager.getInstance().getAllBooksList();
-            // move to Main
-            Invoke("openDoor", 1.5f);
-        }
-        else
-        {
-            targetOperatingTime = (length - obj.m_Position) / speed;
+		// 다람쥐 속도 가져오기
+		// check Login
+		if (isStartScene && PlayerPrefs.GetString("accessToken") != null)
+		{
+			obj.m_Path = loginPath.GetComponent<CinemachinePath>();
+			length = obj.m_Path.PathLength;
+			targetOperatingTime = (length - obj.m_Position) / speed;
+			// 시간 - 거리 / 시간
+			// get book list from server
+			GameManager.getInstance().getAllBooksList();
+			// move to Main
+			Invoke("openDoor", 1.5f);
+			changeScene = true;
+		}
+		else
+		{
+			targetOperatingTime = (length - obj.m_Position) / speed;
             // 시간 - 거리 / 시간
         }
        
@@ -59,14 +60,13 @@ public class MainCharacterController : MonoBehaviour
     void Update()
     {
 
-        if(pathIdx != 2 && currentTime >= targetOperatingTime)
+        if(!changeScene && currentTime >= targetOperatingTime)
         {
             anim.SetBool("isIdle", true);
-
-		} else if (pathIdx == 2 && currentTime >= targetOperatingTime)
+            
+		} else if (changeScene && currentTime >= targetOperatingTime)
 		{
             SceneManager.LoadScene("MainScene");
-            pathIdx++;
         }
         else
 		{
@@ -77,10 +77,10 @@ public class MainCharacterController : MonoBehaviour
     }
 
 
-    public void ChangePath(int idx)
+    public void ChangePath(int speedValue)
 	{
         obj.m_Path = changePath.GetComponent<CinemachinePath>();
-        obj.m_Speed = 5;
+        obj.m_Speed = speedValue;
         obj.m_Position = 0;
         anim.SetBool("isIdle", false);
         anim.Play("Run");
@@ -89,9 +89,12 @@ public class MainCharacterController : MonoBehaviour
         speed = obj.m_Speed;
         // 다람쥐 속도 가져오기
         targetOperatingTime = (length - obj.m_Position) / speed;
+		if (isStartScene)
+		{
+            changeScene = true;
+		}
         // 시간 - 거리 / 시간
         currentTime = 0f;
-        pathIdx = idx+1;
     }
     private void openDoor()
     {

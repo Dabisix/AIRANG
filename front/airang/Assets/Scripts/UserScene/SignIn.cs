@@ -49,7 +49,7 @@ public class SignIn : MonoBehaviour
                 // move to main Scene
                 openDoor();
                 //my_camera.StartMoveCamera(1);
-                mainCharacterController.ChangePath(1);
+                mainCharacterController.ChangePath(5);
             }
             else if ((string)json["message"] == "pwErr")
             {

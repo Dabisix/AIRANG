@@ -5,9 +5,17 @@ using UnityEngine;
 public class MainMainCharacterPos : MonoBehaviour
 {
     public GameObject[] positions;
-    // Start is called before the first frame update
-    public void MainMoveCamera(int index)
+    Animator anim;
+    public Transform animationTransform;
+
+    private void Awake()
     {
+        anim = animationTransform.GetComponent<Animator>();
+    }
+    // Start is called before the first frame update
+    public void MainMoveCharacter(int index)
+    {
+        anim.Play("Run");
         Vector3 new_position = positions[index].transform.position;
         Vector3 new_rotation = positions[index].transform.eulerAngles;
         //transform.position = new_position;
@@ -22,6 +30,9 @@ public class MainMainCharacterPos : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (this.gameObject.transform.position == positions[0].transform.position)
+        {
+            this.gameObject.transform.localEulerAngles = new Vector3(0, 180, 0);
+        }
     }
 }
