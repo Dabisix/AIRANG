@@ -1307,6 +1307,78 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 1447574086}
+--- !u!1 &1413746707
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1413746709}
+  - component: {fileID: 1413746708}
+  m_Layer: 0
+  m_Name: pathArangLogin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1413746708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1413746707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d37e5385efd7064cb1d54c94960acae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Resolution: 20
+  m_Appearance:
+    pathColor: {r: 0, g: 1, b: 0, a: 1}
+    inactivePathColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    width: 0.2
+  m_Looped: 0
+  m_Waypoints:
+  - position: {x: 0, y: -0.16858387, z: 5}
+    tangent: {x: 1.598659, y: 0.98969173, z: -0.7938328}
+    roll: 0
+  - position: {x: -2.888238, y: -2.4941459, z: 5.7045803}
+    tangent: {x: 0.17393303, y: -0.700233, z: -0.3145771}
+    roll: 0
+  - position: {x: -3.0149965, y: -7.6541862, z: 3.9681711}
+    tangent: {x: -0.0031909943, y: 0.07597923, z: -1.8738613}
+    roll: 0
+  - position: {x: 1.2572556, y: -7.2530556, z: 2.9179792}
+    tangent: {x: 0.64174604, y: 0.27656794, z: 0.40205288}
+    roll: 0
+  - position: {x: 3.6635618, y: -7.043584, z: 4.507819}
+    tangent: {x: 0.6938033, y: 0.29237556, z: 0.43795967}
+    roll: 0
+  - position: {x: 4.2194576, y: -5.7677145, z: 7.6302547}
+    tangent: {x: 0.17395878, y: -0.0064897537, z: 0.1608572}
+    roll: 0
+  - position: {x: 3.303615, y: -5.95731, z: 11.144922}
+    tangent: {x: 0.08921695, y: -0.00014591217, z: 0.46756363}
+    roll: 0
+--- !u!4 &1413746709
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1413746707}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.614585, y: 9.9144335, z: 7.49}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 27
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1447574086 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2768242225037002482, guid: 84c5d280501fdc945a2cd0a5d2180daf, type: 3}
@@ -1341,9 +1413,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d86dd8417c7fc3044a7c30ef9e41ee9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doorOpen: {fileID: 2146210723}
   pathWay: {fileID: 1828177156}
   targetOperatingTime: 0
   changePath: {fileID: 1608338787}
+  loginPath: {fileID: 1413746707}
 --- !u!114 &1484156907 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1648761274012169506, guid: 09e5da35d344c8944ace41e2ce5f9339, type: 3}

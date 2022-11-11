@@ -17,10 +17,6 @@ public class MainMainCharacterPos : MonoBehaviour
         iTween.RotateTo(this.gameObject, iTween.Hash("rotation", new_rotation, "easetype", iTween.EaseType.easeOutQuint, "time", 5.0f));
 
 
-        if (index == 0)
-        {
-            bookListCanvas.SetActive(false);
-        }
     }
 
     // Update is called once per frame
