@@ -135,6 +135,7 @@ public class AR_2 : MonoBehaviour
                 {
                     //이름이 "Obstacle"인 장애물을 터치했을 경우
                     wrong_message.SetActive(true);
+                    playAudio(hit.collider.gameObject);
                     countdown = 60;
                 }
                 else
@@ -166,7 +167,6 @@ public class AR_2 : MonoBehaviour
                     {
                         //이름이 "EndObjecct"인 오브젝트를 터치했을 경우
                         m_endAnchor = anchor;
-                        Debug.Log("END");
                     }
                 }
             }
@@ -219,6 +219,12 @@ public class AR_2 : MonoBehaviour
     {
         BookManager.getInstance().CurPage += 1;
         BookManager.getInstance().changeScene();
+    }
+
+    public void playAudio(GameObject obj)
+    {
+        obj.GetComponent<AudioSource>().loop = false;
+        obj.GetComponent<AudioSource>().Play();
     }
 
 
