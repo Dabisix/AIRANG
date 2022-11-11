@@ -92,7 +92,7 @@ public class SignUp : MonoBehaviour
         }, false).Then(res =>
         {
             alertMessage("회원가입이 \n 완료되었습니다 😊");
-            Invoke("changeCanvas", 1.25f);
+            Invoke("changeCanvas", 2f);
         }).Catch(err =>
         {
             Debug.Log(err.Message);
