@@ -64,7 +64,9 @@ public class BookItemAction : MonoBehaviour
         BookManager bm = BookManager.getInstance();
 
         bm.CurBook = bookInfo;
-        bm.CurPage = 0;
-        bm.changeScene(true);
+        bm.getCheckPoint();
+        bm.getBookSetting();
+
+        bm.InitBook();
     }
 }

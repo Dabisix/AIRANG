@@ -246,7 +246,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2950008084490423541
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1047,7 +1047,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2204987723566896294
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1180,14 +1180,13 @@ GameObject:
   - component: {fileID: 2504690056012101819}
   - component: {fileID: 2677076117383979740}
   - component: {fileID: 8667640215980777474}
-  - component: {fileID: 6153227028468622872}
   m_Layer: 5
   m_Name: LangButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &9070302688330712624
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1307,19 +1306,6 @@ MonoBehaviour:
   panel: {fileID: 5282938793062665235}
   to: {x: -45, y: -150, z: 0}
   from: {x: -45, y: -42, z: 0}
---- !u!114 &6153227028468622872
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5282938793062665235}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b1e86adc49166346bc6e19b7c7b31ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  script_text: {fileID: 5237816628417346087}
 --- !u!1 &5857725742897847561
 GameObject:
   m_ObjectHideFlags: 0
@@ -2556,13 +2542,14 @@ GameObject:
   - component: {fileID: 4733351799269169260}
   - component: {fileID: 5114804880804913045}
   - component: {fileID: 5477892054932407674}
+  - component: {fileID: 8716687917539611565}
   m_Layer: 5
   m_Name: HomeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3027744388585372306
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2664,7 +2651,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4733351799269169260}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8716687917539611565}
+        m_TargetAssemblyTypeName: HomeController, Assembly-CSharp
+        m_MethodName: OnHomeClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &5477892054932407674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2682,3 +2681,15 @@ MonoBehaviour:
   panel: {fileID: 8979760912453965018}
   to: {x: -45, y: -96, z: 0}
   from: {x: -45, y: -42, z: 0}
+--- !u!114 &8716687917539611565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8979760912453965018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2567f10e95403914aa6e361cc9016f0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
