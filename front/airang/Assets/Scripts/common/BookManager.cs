@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class BookManager : MonoBehaviour
 {
+    #region SINGLETON
     static BookManager instance = null;
 
     // singleton Pattern implemented
@@ -33,11 +34,14 @@ public class BookManager : MonoBehaviour
             }
         }
     }
+    #endregion
 
+    #region BOOKINFO
     private Book cur_book;
     private int cur_page = 1; // current page
 
     private bool lang; // true : Korea, false : English
+    private int narr;
 
     private bool parent_narr = false;
     private bool need_record;
@@ -47,46 +51,6 @@ public class BookManager : MonoBehaviour
 
     // AR Constant
     Dictionary<int, Dictionary<int, int>> AR_INFO;
-
-    private void initARInfo()
-    {
-        AR_INFO = new Dictionary<int, Dictionary<int, int>>();
-
-        // 토끼와 거북이
-        Dictionary<int, int> tmp_AR_pages = new Dictionary<int, int>();
-        tmp_AR_pages.Add(5, 1); // Book page number, AR Info
-        tmp_AR_pages.Add(8, 2);
-
-        AR_INFO.Add(3, tmp_AR_pages); // Book ID, AR Info dic
-
-        // 백설공주
-        // AR_INFO.Add(3, )
-    }
-
-    private void Start()
-    {
-        initARInfo();
-    }
-
-    private void setARInfo()
-    {
-        // get AR info
-        Dictionary<int, int> tmp_saved_use_AR = AR_INFO.GetValueOrDefault(cur_book.BookId);
-
-        List<int> tmp_use_AR = new List<int>();
-        for (int i = 0; i <= cur_book.TotalPages; i++)
-            tmp_use_AR.Add(0);
-
-        if (tmp_saved_use_AR != null)
-        {
-            foreach (var item in tmp_saved_use_AR)
-            {
-                tmp_use_AR[item.Key] = item.Value;
-            }
-
-        }
-        cur_book.UseARPages = tmp_use_AR;
-    }
 
     public Book CurBook
     {
@@ -120,6 +84,18 @@ public class BookManager : MonoBehaviour
         get => contents[cur_page];
     }
 
+    public bool Lang
+    {
+        get => lang;
+        set => lang = value;
+    }
+
+    public int Narration
+    {
+        get => narr;
+        set => narr = value;
+    }
+
     public string Script
     {
         get
@@ -142,41 +118,59 @@ public class BookManager : MonoBehaviour
         get => need_record;
         set => need_record = value;
     }
+    #endregion
+
+    private void Start()
+    {
+        // get hardcoded info
+        initARInfo();
+    }
+
+    #region ARPAGE
+    private void initARInfo()
+    {
+        AR_INFO = new Dictionary<int, Dictionary<int, int>>();
+
+        // 토끼와 거북이
+        Dictionary<int, int> tmp_AR_pages = new Dictionary<int, int>();
+        tmp_AR_pages.Add(5, 1); // Book page number, AR Info
+        tmp_AR_pages.Add(8, 2);
+
+        AR_INFO.Add(3, tmp_AR_pages); // Book ID, AR Info dic
+
+        // 백설공주
+        // AR_INFO.Add(3, )
+    }
+
+    private void setARInfo()
+    {
+        // get AR info
+        Dictionary<int, int> tmp_saved_use_AR = AR_INFO.GetValueOrDefault(cur_book.BookId);
+
+        List<int> tmp_use_AR = new List<int>();
+        for (int i = 0; i <= cur_book.TotalPages; i++)
+            tmp_use_AR.Add(0);
+
+        if (tmp_saved_use_AR != null)
+        {
+            foreach (var item in tmp_saved_use_AR)
+            {
+                tmp_use_AR[item.Key] = item.Value;
+            }
+
+        }
+        cur_book.UseARPages = tmp_use_AR;
+    }
+    #endregion
 
     // check book info and ready for reading
     public void InitBook()
     {
-        cur_book = BookManager.getInstance().CurBook;
-
-        getBookInfo();
         loadContents();
-      
-
-        need_record = checkRecordVoice();
+        getBookInfo();
+        
+        // need_record = checkRecordVoice();
     }
-
-    // 부모 녹음 파일 확인
-    public bool checkRecordVoice()
-    {
-        Debug.Log("파일 확인해보러 들어왔음");
-        //var fileNames = Directory.GetFiles(Application.persistentDataPath, "*.wav");
-
-        // 폴더 이름 확인하기
-        DirectoryInfo di = new DirectoryInfo(Application.persistentDataPath);
-        foreach (DirectoryInfo dir in di.GetDirectories())
-        {
-            string FileDirectory = dir.Name;
-            Debug.Log("폴더 이름 : " + FileDirectory);
-            // 현재 책아이디랑 같은 폴더가 있으면 부모 녹음 파일이 있는것, 녹음 필요없음
-            if (cur_book.BookId.ToString() == FileDirectory)
-            {
-                return false;
-            }
-        }
-        Debug.Log("녹음 파일 없다");
-        return true;
-    }
-
 
     public void loadContents()
     {
@@ -187,31 +181,6 @@ public class BookManager : MonoBehaviour
         for (int i = 0; i < objects.Length; i++)
             contents.Add(objects[i]);
     }
-
-    public void getCheckPoint()
-    {
-        // get CheckPoint
-        cur_page = FileManager.getInstance().loadData().page_checkPoint[CurBook.BookId];
-    }
-
-    public void setCheckPoint()
-    {
-        // get File
-        FileManager fb = FileManager.getInstance();
-        SavedData tmp = fb.loadData();
-
-        if (cur_page == 0) cur_page = 1;
-
-        // save checkPoint
-        BookManager bm = BookManager.getInstance();
-        if (tmp.page_checkPoint.ContainsKey(cur_book.BookId))
-            tmp.page_checkPoint[cur_book.BookId] = cur_page;
-        else
-            tmp.page_checkPoint.Add(cur_book.BookId, cur_page);
-
-        fb.saveData(tmp);
-    }
-
 
     public bool getBookInfo()
     {
@@ -234,21 +203,95 @@ public class BookManager : MonoBehaviour
             // set total pages
             cur_book.TotalPages = cur_book.KScripts.Count;
 
-            Debug.Log("totalPage" + cur_book.TotalPages);
-
-            for (int i = 0; i < cur_book.KScripts.Count; i++)
-            {
-                Debug.Log(i + " " + cur_book.KScripts[i]);
-            }
-
             // set AR info (in code)
             setARInfo();
+
+            changeScene(true);
         }).Catch(err =>
         {
             // TODO : check network warn
             Debug.Log("error on get BookInfo");
         });
 
+        return true;
+    }
+
+    #region ACCESSFILE
+    public void getCheckPoint()
+    {
+        // get File
+        FileManager fb = FileManager.getInstance();
+        SavedData tmp = fb.loadData();
+
+        // get CheckPoint
+        if (tmp.page_checkPoint.ContainsKey(cur_book.BookId))
+            cur_page = tmp.page_checkPoint[cur_book.BookId];
+        else
+            cur_page = 1;
+    }
+
+    public void setCheckPoint()
+    {
+        // get File
+        FileManager fb = FileManager.getInstance();
+        SavedData tmp = fb.loadData();
+
+        if (cur_page == 0) cur_page = 1;
+
+        // save checkPoint
+        BookManager bm = BookManager.getInstance();
+        if (tmp.page_checkPoint.ContainsKey(cur_book.BookId))
+            tmp.page_checkPoint[cur_book.BookId] = cur_page;
+        else
+            tmp.page_checkPoint.Add(cur_book.BookId, cur_page);
+
+        fb.saveData(tmp);
+    }
+
+    public void getBookSetting()
+    {
+        // get File
+        FileManager fb = FileManager.getInstance();
+        SavedData tmp = fb.loadData();
+
+        // settings
+        lang = tmp.language;
+        narr = tmp.narration;
+    }
+
+    public void setBookSetting(bool _lang, int narr)
+    {
+        // get File
+        FileManager fb = FileManager.getInstance();
+        SavedData tmp = fb.loadData();
+
+        // setting
+        tmp.language = _lang;
+
+
+        fb.saveData(tmp);
+    }
+#endregion
+
+    // 부모 녹음 파일 확인
+    public bool checkRecordVoice()
+    {
+        Debug.Log("파일 확인해보러 들어왔음");
+        //var fileNames = Directory.GetFiles(Application.persistentDataPath, "*.wav");
+
+        // 폴더 이름 확인하기
+        DirectoryInfo di = new DirectoryInfo(Application.persistentDataPath);
+        foreach (DirectoryInfo dir in di.GetDirectories())
+        {
+            string FileDirectory = dir.Name;
+            Debug.Log("폴더 이름 : " + FileDirectory);
+            // 현재 책아이디랑 같은 폴더가 있으면 부모 녹음 파일이 있는것, 녹음 필요없음
+            if (cur_book.BookId.ToString() == FileDirectory)
+            {
+                return false;
+            }
+        }
+        Debug.Log("녹음 파일 없다");
         return true;
     }
 

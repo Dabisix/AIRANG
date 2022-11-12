@@ -8,6 +8,9 @@ public class SavedData
 {
     public Dictionary<int, int> page_checkPoint = new Dictionary<int, int>();
 
+    public bool language = true;
+
+    public int narration = 1; // 0 : none, 1 : default, 2 : recorded
 }
 
 public class FileManager : MonoBehaviour
