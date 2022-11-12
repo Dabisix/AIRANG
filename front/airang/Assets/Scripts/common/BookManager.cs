@@ -37,6 +37,8 @@ public class BookManager : MonoBehaviour
     private Book cur_book;
     private int cur_page = 1; // current page
 
+    private bool lang; // true : Korea, false : English
+
     private bool parent_narr = false;
     private bool need_record;
 
@@ -122,7 +124,7 @@ public class BookManager : MonoBehaviour
     {
         get
         {
-            if (cur_book.Lang)
+            if (lang)
                 return cur_book.KScripts[cur_page];
             else
                 return cur_book.EScripts[cur_page];
@@ -182,6 +184,11 @@ public class BookManager : MonoBehaviour
         contents.Add(null);
         for (int i = 0; i < objects.Length; i++)
             contents.Add(objects[i]);
+    }
+
+    public void getCheckPoint()
+    {
+
     }
 
 

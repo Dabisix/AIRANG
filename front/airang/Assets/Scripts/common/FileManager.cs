@@ -6,18 +6,8 @@ using UnityEngine;
 [System.Serializable]
 public class SavedData
 {
-    // 저장할 데이터 포맷
-    private List<Book> books = new List<Book>();
+    public Dictionary<int, int> page_checkPoint = new Dictionary<int, int>();
 
-    public List<Book> Books
-    {
-        get => books;
-    }
-
-    public SavedData(List<Book> books)
-    {
-        this.books = books;
-    }
 }
 
 public class FileManager : MonoBehaviour
@@ -65,7 +55,8 @@ public class FileManager : MonoBehaviour
                 savedData = JsonUtility.FromJson<SavedData>(fileStream);
             } else
             {
-                throw new FileNotFoundException("saved data file not found");
+                savedData = new SavedData();
+                saveData(savedData);
             }
         }
 

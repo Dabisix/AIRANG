@@ -8,7 +8,6 @@ public class Book
     private int total_pages;
 
     private bool use_ar;
-    private bool lang;
 
     private List<int> use_ar_pages;
     private List<string> e_scripts;
@@ -65,12 +64,6 @@ public class Book
     public bool UseAR
     {
         get => use_ar;
-    }
-
-    public bool Lang
-    {
-        get => lang;
-        set => lang = value;
     }
 
     public List<int> UseARPages
