@@ -25,7 +25,7 @@ public class NarrationLoader : MonoBehaviour
         // 기본 나레
         if (!BookManager.getInstance().ParentNarr)
         {
-            RESTManager.getInstance().getNarr(bookId, pageNum)
+            RESTManager.getInstance().getNarr(bookId, pageNum - 1)
             .Then(res => {
                 audio.clip = ((DownloadHandlerAudioClip)res.Request.downloadHandler).audioClip;
                 audio.Play();
