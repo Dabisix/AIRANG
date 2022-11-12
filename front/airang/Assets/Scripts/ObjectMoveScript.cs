@@ -61,15 +61,16 @@ public class ObjectMoveScript : MonoBehaviour
                 Animator animator = objectTransform.GetComponent<Animator>();
                 animator.Play("Idle_A");    //기본 애니메이션으로 변경(점프하면서 멈추는 것 방지용)
                 startPos = targetPos;   //현재 위치 변경
+                
+                //마지막 타겟 위치면 끝
+                if(m_anchorCreator.m_endAnchor != null && Vector3.Distance(targetPos, m_anchorCreator.m_endAnchor.transform.localPosition) < 0.5f)
+                {
+                    m_anchorCreator.playAudio(gameObject);
+                    m_anchorCreator.nextPage();
+                }
+
                 targetPos = default;    //타겟 위치 재설정
             }
-        }
-
-        //완료 위치 왔을 때 
-        if(m_anchorCreator.m_endAnchor != null && Vector3.Distance(objectTransform.position, m_anchorCreator.m_endAnchor.transform.localPosition) < 0.05f)
-        {
-            Debug.Log("포지션까지 확인!");
-            m_anchorCreator.nextPage();
         }
     }
 }
