@@ -16,6 +16,9 @@ public class UIMovementHandler : MonoBehaviour
     public Vector3 to;
     public Vector3 from;
 
+    float m_LastPressTime;
+    float m_PressDelay = 0.5f;
+
     private void Awake()
     {
         rectTransform = panel.GetComponent<RectTransform>();
@@ -28,6 +31,10 @@ public class UIMovementHandler : MonoBehaviour
 
     public void turnOff()
     {
+        if (m_LastPressTime + m_PressDelay > Time.unscaledTime)
+            return;
+        m_LastPressTime = Time.unscaledTime;
+
         StartCoroutine(LerpBackObject());
     }
 
