@@ -150,7 +150,7 @@ public class BookManager : MonoBehaviour
 
         getBookInfo();
         loadContents();
-        getLocalFileSetting();
+      
 
         need_record = checkRecordVoice();
     }
@@ -192,6 +192,24 @@ public class BookManager : MonoBehaviour
     {
         // get CheckPoint
         cur_page = FileManager.getInstance().loadData().page_checkPoint[CurBook.BookId];
+    }
+
+    public void setCheckPoint()
+    {
+        // get File
+        FileManager fb = FileManager.getInstance();
+        SavedData tmp = fb.loadData();
+
+        if (cur_page == 0) cur_page = 1;
+
+        // save checkPoint
+        BookManager bm = BookManager.getInstance();
+        if (tmp.page_checkPoint.ContainsKey(cur_book.BookId))
+            tmp.page_checkPoint[cur_book.BookId] = cur_page;
+        else
+            tmp.page_checkPoint.Add(cur_book.BookId, cur_page);
+
+        fb.saveData(tmp);
     }
 
 
@@ -239,10 +257,11 @@ public class BookManager : MonoBehaviour
         string next_scene_name = this.gameObject.scene.name;
 
         // book ended or start
-        if (cur_page <= 0)
-            next_scene_name = "BookSettingScene";
-        else if (cur_page > cur_book.TotalPages)
+        if (cur_page <= 0 || cur_page > cur_book.TotalPages)
+        {
+            setCheckPoint();
             next_scene_name = "MainScene";
+        }
         else
         {
             if (cur_book.UseARPages[cur_page] > 0) // use AR
