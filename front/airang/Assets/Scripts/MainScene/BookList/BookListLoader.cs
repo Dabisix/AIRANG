@@ -81,7 +81,7 @@ public class BookListLoader : MonoBehaviour
 
             // set position
             book.transform.SetParent(contentContainer);
-            book.transform.localScale = new Vector3(1.15f, 1.37f, 1);
+            book.transform.localScale = new Vector3(2.2f, 1.3f, 1);
             book.transform.localPosition = new Vector3(book.transform.position.x, book.transform.position.y, 0);
             book.transform.localRotation = Quaternion.Euler(0, 0, 0);
         }

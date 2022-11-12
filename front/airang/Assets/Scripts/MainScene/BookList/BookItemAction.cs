@@ -13,7 +13,7 @@ public class BookItemAction : MonoBehaviour
     private Book bookInfo;
 
     private const string BOOK_COVER_PATH = "BookCovers/";
-    private const int NUM_DEFAULT_BOOK_IMAGE = 4;
+    private const int NUM_DEFAULT_BOOK_IMAGE = 6;
 
     public Book Book
     {
