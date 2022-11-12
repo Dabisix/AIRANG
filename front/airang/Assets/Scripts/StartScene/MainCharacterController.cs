@@ -36,7 +36,7 @@ public class MainCharacterController : MonoBehaviour
         currentTime = 0f;
 		// 다람쥐 속도 가져오기
 		// check Login
-		if (isStartScene && PlayerPrefs.GetString("accessToken") != "")
+		/*if (isStartScene && PlayerPrefs.GetString("accessToken") != "")
 		{
 			obj.m_Path = loginPath.GetComponent<CinemachinePath>();
 			length = obj.m_Path.PathLength;
@@ -49,10 +49,10 @@ public class MainCharacterController : MonoBehaviour
 			changeScene = true;
 		}
 		else
-		{
+		{*/
 			targetOperatingTime = (length - obj.m_Position) / speed;
             // 시간 - 거리 / 시간
-        }
+       // }
        
     }
 
