@@ -26,6 +26,11 @@ public class UIMovementHandler : MonoBehaviour
         StartCoroutine(LerpObject());
     }
 
+    public void turnOff()
+    {
+        StartCoroutine(LerpBackObject());
+    }
+
     public IEnumerator LerpObject()
     {
         currentTime = 0;
