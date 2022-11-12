@@ -150,6 +150,8 @@ public class BookManager : MonoBehaviour
 
         getBookInfo();
         loadContents();
+        getLocalFileSetting();
+
         need_record = checkRecordVoice();
     }
 
@@ -188,7 +190,8 @@ public class BookManager : MonoBehaviour
 
     public void getCheckPoint()
     {
-
+        // get CheckPoint
+        cur_page = FileManager.getInstance().loadData().page_checkPoint[CurBook.BookId];
     }
 
 
