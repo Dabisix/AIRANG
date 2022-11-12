@@ -12,6 +12,9 @@ public class GameManager : MonoBehaviour
 { 
     static GameManager instance = null;
 
+    // alert prefab
+    GameObject alertBoard;
+
     // singleton Pattern implemented
     public static GameManager getInstance()
     {
@@ -33,6 +36,12 @@ public class GameManager : MonoBehaviour
                 Destroy(this.gameObject);
             }
         }
+
+        // get Alert Prefab
+        GameObject alertBoardPrefab = Resources.Load<GameObject>("Prefabs/common/Alert");
+
+        alertBoardPrefab.SetActive(false);
+        alertBoard = Instantiate(alertBoardPrefab);
     }
 
     public void getAllBooksList()
@@ -89,7 +98,6 @@ public class GameManager : MonoBehaviour
         return ret;
     }
 
-
     // book lists from server
     private List<Book> books = new List<Book>();
     private List<Book> popular_books = new List<Book>();
@@ -118,5 +126,11 @@ public class GameManager : MonoBehaviour
     {
         get => books_log ?? new List<Book>();
         set => books_log = value;
+    }
+
+    public void alert(string message)
+    {
+        alertBoard.SetActive(true);
+        FindObjectOfType<TextSetter>().setText(message);
     }
 }
