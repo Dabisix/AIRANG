@@ -237,8 +237,8 @@ public class AR_5 : MonoBehaviour
             if (apple.transform.position == appleEnd)
             {
                 Debug.Log("다음 페이지로 이동할 시간");
-                //BookManager.getInstance().CurPage += 1;
-                //BookManager.getInstance().changeScene();
+                BookManager.getInstance().CurPage += 1;
+                BookManager.getInstance().changeScene();
                 isFinish = false;
             }
             else

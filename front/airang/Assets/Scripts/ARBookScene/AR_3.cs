@@ -153,18 +153,18 @@ public class AR_3 : MonoBehaviour
             {
                 isMove = false; //애니메이션 중지
                 queenAnim.SetBool("isWalk", false);
-                Debug.Log("다음 페이지로 이동할 시간");
-                //BookManager.getInstance().CurPage += 1;
-                //BookManager.getInstance().changeScene();
+                //Debug.Log("다음 페이지로 이동할 시간");
+                BookManager.getInstance().CurPage += 1;
+                BookManager.getInstance().changeScene();
             }
         }
     }
 
     void nextPage()
     {
-        Debug.Log("다음 페이지로 이동할 시간");
-        //BookManager.getInstance().CurPage += 1;
-        //BookManager.getInstance().changeScene();
+        //Debug.Log("다음 페이지로 이동할 시간");
+        BookManager.getInstance().CurPage += 1;
+        BookManager.getInstance().changeScene();
     }
 
     // 프리팹을 만들고 나면 Plane Detection을 비활성화

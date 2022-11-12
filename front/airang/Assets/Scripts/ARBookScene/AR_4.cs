@@ -56,9 +56,15 @@ public class AR_4 : MonoBehaviour
 
     void Update()
     {
-
-
-
+        if (isEnd)
+        {
+            if (endTime == -1f)
+            {
+                endTime = Time.time;
+            }
+            if(Time.time - endTime > 3f)
+                nextPage();
+        }
         // Raycast 함수로 화면의 정중앙에서 레이져를 쏘고 해당 경로에 생성된 AR Plane이 있을 경우
         // 여기 코드에서는 렌더링된 Anchor가 1개 미만일 경우라는 조건도 추가함
         if (m_AnchorPoints.Count < 1 && m_RaycastManager.Raycast(new Vector2(Screen.width * 0.5f, Screen.height * 0.5f), s_Hits, TrackableType.PlaneWithinPolygon))
@@ -109,6 +115,7 @@ public class AR_4 : MonoBehaviour
                 //터치한 곳에 오브젝트 이름이 DwarfHome을 포함하면
                 if (hitobj.collider.name == "DwarfHome")
                 {
+                    isEnd = true;
                     Debug.Log("다음 페이지로 이동할 시간");
                     //BookManager.getInstance().CurPage += 1;
                     //BookManager.getInstance().changeScene();
@@ -132,8 +139,6 @@ public class AR_4 : MonoBehaviour
                                 if (m_RendedObject.transform.GetChild(i).GetChild(j).name == "Result")
                                 {
                                     m_RendedObject.transform.GetChild(i).GetChild(j).gameObject.SetActive(true);
-
-                                    // 다음페이지로 넘어가자~
                                     break;
                                 }
 
@@ -141,8 +146,6 @@ public class AR_4 : MonoBehaviour
 
                         }
                     }
-
-
                 }
                 else if (hitobj.collider.name == "Tiger")
                 {
@@ -204,6 +207,7 @@ public class AR_4 : MonoBehaviour
                 }
                 else if (hitobj.collider.name == "P_Prince")
                 {
+                    isEnd = true;
                     GameObject PrinceObject = hitobj.collider.gameObject;
                     Animator PrinceAnim = PrinceObject.GetComponent<Animator>();
                     PrinceAnim.Play("Hello");
@@ -224,14 +228,14 @@ public class AR_4 : MonoBehaviour
                                 {
                                     m_RendedObject.transform.GetChild(i).GetChild(j).gameObject.SetActive(true);
                                     playAudio(m_RendedObject.transform.GetChild(i).GetChild(j).gameObject);
-                                    // 다음페이지로 넘어가자~
                                     break;
                                 }
 
                             }
-
                         }
                     }
+                    // 다음페이지로 넘어가자~
+                    
                 }
                 else if (hitobj.collider.name == "P_Hunter")
                 {
@@ -250,7 +254,6 @@ public class AR_4 : MonoBehaviour
                     EmuAnim.Play("Jump");
                 }
             }
-
         }
     }
 
@@ -303,6 +306,13 @@ public class AR_4 : MonoBehaviour
         }
     }
 
+    private void nextPage()
+    {
+        // 다음페이지로 넘어가자~
+        BookManager.getInstance().CurPage += 1;
+        BookManager.getInstance().changeScene();
+    }
+
 
     static List<ARRaycastHit> s_Hits = new List<ARRaycastHit>();
     List<ARAnchor> m_AnchorPoints;
@@ -327,4 +337,8 @@ public class AR_4 : MonoBehaviour
     TrackableId _trackableId;
     // 추가 : 터치된 지점 확인 위한 모양
     GameObject m_touchedPrefab;
+
+    //추가 : 시간초 지난 후 다음페이지로
+    bool isEnd = false;
+    float endTime = -1f;
 }
