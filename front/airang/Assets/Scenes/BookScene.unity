@@ -350,6 +350,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4736442728657220253, guid: 01c6753b3967be148bc895636261af82, type: 3}
+      propertyPath: m_text
+      value: "\uB179\uC74C\uC774 \uD544\uC694\uD569\uB2C8\uB2E4!"
+      objectReference: {fileID: 0}
     - target: {fileID: 5237816628417346087, guid: 01c6753b3967be148bc895636261af82, type: 3}
       propertyPath: m_text
       value: "3D \uBAA8\uB378\uC740 \uBCF4\uC774\uB294 \uAC83 \uBCF4\uB2E4 \uB354
@@ -941,6 +945,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b96420d9d123877478608925f8fe9e32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  recordAlertObject: {fileID: 95911040}
 --- !u!82 &1187577984
 AudioSource:
   m_ObjectHideFlags: 0

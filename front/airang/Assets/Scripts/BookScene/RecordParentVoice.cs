@@ -21,16 +21,26 @@ public class RecordParentVoice : MonoBehaviour
     void Start()
     {
         bookManager = BookManager.getInstance();
-        Debug.Log("녹음 필요 여부 : " + bookManager.NeedRecord);
-        if (!bookManager.NeedRecord || !bookManager.ParentNarr)
+        if (bookManager.Narration == 1)
         {
+            // dont need to use record
             startRecord.SetActive(false);
             stopRecord.SetActive(false);
+            return;
         }
+
+        readyToRecord();
+    }
+
+    public void readyToRecord()
+    {
+        // set permission
         if (!Permission.HasUserAuthorizedPermission(Permission.Microphone))
-        {
             Permission.RequestUserPermission(Permission.Microphone);
-        }
+
+        // active button
+        startRecord.SetActive(true);
+        stopRecord.SetActive(false);
 
         _microphoneID = Microphone.devices[0];
         recordClip = GetComponent<AudioClip>();
@@ -48,6 +58,8 @@ public class RecordParentVoice : MonoBehaviour
     {
         startRecord.SetActive(true);
         stopRecord.SetActive(false);
+
+
         Debug.Log("녹음이 끝난다?");
         int lastTime = Microphone.GetPosition(null);
 
@@ -72,6 +84,8 @@ public class RecordParentVoice : MonoBehaviour
 
         // 책 아이디가 폴더이름이고, 그 아래 각 페이지 번호를 이름으로 녹음 파일 저장
         SavWav.Save(Application.persistentDataPath + "/" + bookManager.CurBook.BookId + "/" + bookManager.CurPage, recordClip);
+
+        FindObjectOfType<NarrationLoader>().play();
     }
 
 }

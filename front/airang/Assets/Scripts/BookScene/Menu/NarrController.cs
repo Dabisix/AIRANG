@@ -11,8 +11,10 @@ public class NarrController : MonoBehaviour
 
     private void Start()
     {
-        narr_setting = PlayerPrefs.GetInt("narr", 0);
+        narr_setting = PlayerPrefs.GetInt("narr", 1);
         options[narr_setting].isOn = true;
+
+
     }
 
     public void toggleNarr(int narr)
