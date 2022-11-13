@@ -2,26 +2,50 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 
 
 public class MainMainCamera : MonoBehaviour
 {
     public Camera[] subCameras;
     public GameObject bookListCanvas;
+    public MainCharacterController mainCharacterController;
+    public GameObject changePath;
+
+    public GameObject[] paths;
     public void MainMoveCamera(int index)
     {
-        Vector3 new_position = subCameras[index].transform.position;
-        Vector3 new_rotation = subCameras[index].transform.eulerAngles;
-        //transform.position = new_position;
-        //transform.eulerAngles = new_rotation;
+        if(gameObject.transform.position != subCameras[index].transform.position)
+		{
+            Vector3 new_position = subCameras[index].transform.position;
+            Vector3 new_rotation = subCameras[index].transform.eulerAngles;
+            //transform.position = new_position;
+            //transform.eulerAngles = new_rotation;
+            mainCharacterController.changePath = changePath;
+            iTween.MoveTo(this.gameObject, iTween.Hash("position", new_position, "easetype", iTween.EaseType.easeOutQuint, "time", 5.0f));
+            iTween.RotateTo(this.gameObject, iTween.Hash("rotation", new_rotation, "easetype", iTween.EaseType.easeOutQuint, "time", 5.0f));
+            if (index == 2)
+            {
+                // if index is 2 ( selected camera is home camera), reverse path
 
-        iTween.MoveTo(this.gameObject, iTween.Hash("position", new_position, "easetype", iTween.EaseType.easeOutQuint, "time", 5.0f));
-        iTween.RotateTo(this.gameObject, iTween.Hash("rotation", new_rotation, "easetype", iTween.EaseType.easeOutQuint, "time", 5.0f));
-
-        if (index == 0)
-        {
-            bookListCanvas.SetActive(false);
+                CinemachinePath path = mainCharacterController.obj.m_Path.GetComponent<CinemachinePath>();
+                CinemachinePath new_path = mainCharacterController.changePath.GetComponent<CinemachinePath>();
+                new_path.gameObject.transform.position = path.gameObject.transform.position;
+                new_path.m_Waypoints.SetValue(path.m_Waypoints.GetValue(1), 0);
+                new_path.m_Waypoints.SetValue(path.m_Waypoints.GetValue(0), 1);
+                mainCharacterController.ChangePath(5);
+            }
+            else
+            {
+                mainCharacterController.changePath = paths[index];
+                mainCharacterController.ChangePath(5);
+            }
+            if (index == 0)
+            {
+                bookListCanvas.SetActive(false);
+            }
         }
+        
     }
     private void Start()
     {
@@ -30,10 +54,10 @@ public class MainMainCamera : MonoBehaviour
 
     private void Update()
     {
-        // ∏∏æ‡ø° ¿Œµ¶Ω∫∞° 0¿œ∂ß º≠∫Íƒ´∏ﬁ∂Û ¿ßƒ°±Ó¡ˆ ∞£¥Ÿ∏È, canvas Active∏¶ true∑Œ «ÿ¡÷¿⁄.
+        // ÎßåÏïΩÏóê Ïù∏Îç±Ïä§Í∞Ä 0ÏùºÎïå ÏÑúÎ∏åÏπ¥Î©îÎùº ÏúÑÏπòÍπåÏßÄ Í∞ÑÎã§Î©¥, canvas ActiveÎ•º trueÎ°ú Ìï¥Ï£ºÏûê.
         if (this.gameObject.transform.position == subCameras[0].transform.position)
         {
-            // ¿Ããöπª«ÿ¡÷¡ˆ?
+            // Ïù¥ÎñÑÎ≠òÌï¥Ï£ºÏßÄ?
         }
     }
 

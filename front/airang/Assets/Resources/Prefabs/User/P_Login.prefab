@@ -307,9 +307,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   my_camera: {fileID: 0}
+  doorOpen: {fileID: 0}
   idInputField: {fileID: 5578708108777152492}
   pwInputField: {fileID: 5578708108682803237}
-  doorOpen: {fileID: 0}
   SearchPWCanvas: {fileID: 0}
   alertObject: {fileID: 5118068110115870064}
   alertMsg: {fileID: 5118068108995033480}
@@ -406,7 +406,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7245153128180592752
 RectTransform:
   m_ObjectHideFlags: 0

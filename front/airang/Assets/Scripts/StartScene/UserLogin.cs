@@ -24,7 +24,7 @@ public class UserLogin : MonoBehaviour
                 anim.Play("LoginButtonTouch", 0, 0.25f);
             }
 
-            // 클릭하면 로그인 캔버스 활성화
+            // active when user click this button
             loginCanvas.SetActive(true);
         }
 

@@ -27,7 +27,7 @@ public class BookSearchOption
 
 public class RESTManager : MonoBehaviour
 {
-    private const string basePath = "http://localhost:8080/api/";
+    private const string basePath = "https://k7b305.p.ssafy.io/api/";
 
     static RESTManager instance = null;
 
@@ -41,6 +41,7 @@ public class RESTManager : MonoBehaviour
 
     private void Awake()
     {
+
         if (instance == null)
         {
             instance = this;
