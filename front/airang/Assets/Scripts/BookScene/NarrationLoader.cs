@@ -33,6 +33,9 @@ public class NarrationLoader : MonoBehaviour
 
     public void play()
     {
+        // setting record
+        FindObjectOfType<RecordParentVoice>().readyToRecord();
+
         int narr_setting = BookManager.getInstance().Narration;
         if (audio.isPlaying) audio.Stop();
 

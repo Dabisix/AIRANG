@@ -13,8 +13,6 @@ public class NarrController : MonoBehaviour
     {
         narr_setting = PlayerPrefs.GetInt("narr", 1);
         options[narr_setting].isOn = true;
-
-
     }
 
     public void toggleNarr(int narr)
@@ -26,7 +24,7 @@ public class NarrController : MonoBehaviour
     {
         BookManager.getInstance().Narration = narr_setting;
         PlayerPrefs.SetInt("narr", narr_setting);
-
+       
         // play narration
         FindObjectOfType<NarrationLoader>().play();
     }

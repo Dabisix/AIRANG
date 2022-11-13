@@ -21,6 +21,10 @@ public class RecordParentVoice : MonoBehaviour
     void Start()
     {
         bookManager = BookManager.getInstance();
+    }
+
+    public void readyToRecord()
+    {
         if (bookManager.Narration == 1)
         {
             // dont need to use record
@@ -29,11 +33,6 @@ public class RecordParentVoice : MonoBehaviour
             return;
         }
 
-        readyToRecord();
-    }
-
-    public void readyToRecord()
-    {
         // set permission
         if (!Permission.HasUserAuthorizedPermission(Permission.Microphone))
             Permission.RequestUserPermission(Permission.Microphone);
