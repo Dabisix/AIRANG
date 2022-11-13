@@ -917,6 +917,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6107054851617680365, guid: 01c6753b3967be148bc895636261af82, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6107054851617680365, guid: 01c6753b3967be148bc895636261af82, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6107054851617680365, guid: 01c6753b3967be148bc895636261af82, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1662442070}
+    - target: {fileID: 6107054851617680365, guid: 01c6753b3967be148bc895636261af82, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6107054851617680365, guid: 01c6753b3967be148bc895636261af82, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: openNarrSetting
+      objectReference: {fileID: 0}
+    - target: {fileID: 6107054851617680365, guid: 01c6753b3967be148bc895636261af82, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: NarrationLoader, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6107054851617680365, guid: 01c6753b3967be148bc895636261af82, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8188828867027704115, guid: 01c6753b3967be148bc895636261af82, type: 3}
       propertyPath: script_text
       value: 
