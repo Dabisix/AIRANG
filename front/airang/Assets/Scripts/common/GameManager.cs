@@ -12,6 +12,9 @@ public class GameManager : MonoBehaviour
 { 
     static GameManager instance = null;
 
+    // alert prefab
+    GameObject alertBoard;
+
     // singleton Pattern implemented
     public static GameManager getInstance()
     {
@@ -89,7 +92,6 @@ public class GameManager : MonoBehaviour
         return ret;
     }
 
-
     // book lists from server
     private List<Book> books = new List<Book>();
     private List<Book> popular_books = new List<Book>();
@@ -118,5 +120,18 @@ public class GameManager : MonoBehaviour
     {
         get => books_log ?? new List<Book>();
         set => books_log = value;
+    }
+
+    public void alert(string message)
+    {
+        // get Alert Prefab
+        GameObject alertBoardPrefab = Resources.Load<GameObject>("Prefabs/common/Alert");
+        if (alertBoard != null)
+            Destroy(alertBoard);
+
+        alertBoard = Instantiate(alertBoardPrefab);
+        alertBoard.SetActive(true);
+
+        FindObjectOfType<TextSetter>().setText(message);
     }
 }
