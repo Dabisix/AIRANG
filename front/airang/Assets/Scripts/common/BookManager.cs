@@ -151,10 +151,10 @@ public class BookManager : MonoBehaviour
     // check book info and ready for reading
     public void InitBook()
     {
+        getBookSetting();
+        getCheckPoint();
         loadContents();
         getBookInfo();
-        
-        // need_record = checkRecordVoice();
     }
 
     public void loadContents()
@@ -204,33 +204,12 @@ public class BookManager : MonoBehaviour
     #region ACCESSFILE
     public void getCheckPoint()
     {
-        // get File
-        FileManager fb = FileManager.getInstance();
-        SavedData tmp = fb.loadData();
-
-        // get CheckPoint
-        if (tmp.page_checkPoint.ContainsKey(cur_book.BookId))
-            cur_page = tmp.page_checkPoint[cur_book.BookId];
-        else
-            cur_page = 1;
+        cur_page = PlayerPrefs.GetInt("book" + cur_book.BookId, 1);
     }
 
-    public void setCheckPoint()
+    public void setCheckPoint(int page)
     {
-        // get File
-        FileManager fb = FileManager.getInstance();
-        SavedData tmp = fb.loadData();
-
-        if (cur_page == 0) cur_page = 1;
-
-        // save checkPoint
-        BookManager bm = BookManager.getInstance();
-        if (tmp.page_checkPoint.ContainsKey(cur_book.BookId))
-            tmp.page_checkPoint[cur_book.BookId] = cur_page;
-        else
-            tmp.page_checkPoint.Add(cur_book.BookId, cur_page);
-
-        fb.saveData(tmp);
+        PlayerPrefs.SetInt("book" + cur_book.BookId, page);
     }
 
     public void getBookSetting()
@@ -263,7 +242,7 @@ public class BookManager : MonoBehaviour
         // book ended or start
         if (cur_page <= 0 || cur_page > cur_book.TotalPages)
         {
-            setCheckPoint();
+            setCheckPoint(1);
             next_scene_name = "MainScene";
         }
         else

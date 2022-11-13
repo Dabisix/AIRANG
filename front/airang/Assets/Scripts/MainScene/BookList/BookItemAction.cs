@@ -61,12 +61,9 @@ public class BookItemAction : MonoBehaviour
     {
         if (bookInfo == null) return;
 
+        // read book start
         BookManager bm = BookManager.getInstance();
-
         bm.CurBook = bookInfo;
-        bm.getCheckPoint();
-        bm.getBookSetting();
-
         bm.InitBook();
     }
 }

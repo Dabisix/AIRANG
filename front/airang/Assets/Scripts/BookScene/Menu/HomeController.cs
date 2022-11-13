@@ -13,17 +13,7 @@ public class HomeController : MonoBehaviour
     private void saveCurrentPage()
     {
         // get File
-        FileManager fb = FileManager.getInstance();
-        SavedData tmp = fb.loadData();
-
-        // save checkPoint
-        BookManager bm = BookManager.getInstance();
-        if(tmp.page_checkPoint.ContainsKey(bm.CurBook.BookId))
-            tmp.page_checkPoint[bm.CurBook.BookId] = bm.CurPage;
-        else
-            tmp.page_checkPoint.Add(bm.CurBook.BookId, bm.CurPage);
-
-        fb.saveData(tmp);
+        BookManager.getInstance().setCheckPoint(BookManager.getInstance().CurPage);
     }
 
     private void GoMainScene()
