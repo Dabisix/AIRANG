@@ -33,16 +33,9 @@ public class BookSettingManager : MonoBehaviour
     {
         if (bookManager.CurBook == null) return;
 
-        // 만약 부모님 나레이션 활성화 했을시
-        if (parentVoice)
-        {
-            bookManager.ParentNarr = true;
-        }
-
         // write read record to server
         RESTManager.getInstance().Put("book/log/" + bookManager.CurBook.BookId, null);
         // language and get checkpoint
-        //bookManager.CurBook.Lang = lang;
         bookManager.CurPage = 1;
         bookManager.changeScene(true);
     }

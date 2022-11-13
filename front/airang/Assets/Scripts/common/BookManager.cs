@@ -43,9 +43,6 @@ public class BookManager : MonoBehaviour
     private bool lang; // true : Korea, false : English
     private int narr;
 
-    private bool parent_narr = false;
-    private bool need_record;
-
     // each pages infomations
     private List<GameObject> contents = new List<GameObject>();
 
@@ -105,18 +102,6 @@ public class BookManager : MonoBehaviour
             else
                 return cur_book.EScripts[cur_page];
         }
-    }
-
-    public bool ParentNarr
-    {
-        get => parent_narr;
-        set => parent_narr = value;
-    }
-
-    public bool NeedRecord
-    {
-        get => need_record;
-        set => need_record = value;
     }
     #endregion
 
@@ -257,24 +242,17 @@ public class BookManager : MonoBehaviour
     #endregion
 
     // 부모 녹음 파일 확인
-    public bool checkRecordVoice()
+    public bool needRecord()
     {
-        Debug.Log("파일 확인해보러 들어왔음");
-        //var fileNames = Directory.GetFiles(Application.persistentDataPath, "*.wav");
-
         // 폴더 이름 확인하기
         DirectoryInfo di = new DirectoryInfo(Application.persistentDataPath);
         foreach (DirectoryInfo dir in di.GetDirectories())
         {
             string FileDirectory = dir.Name;
-            Debug.Log("폴더 이름 : " + FileDirectory);
             // 현재 책아이디랑 같은 폴더가 있으면 부모 녹음 파일이 있는것, 녹음 필요없음
             if (cur_book.BookId.ToString() == FileDirectory)
-            {
                 return false;
-            }
         }
-        Debug.Log("녹음 파일 없다");
         return true;
     }
 
