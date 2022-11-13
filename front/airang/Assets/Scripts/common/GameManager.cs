@@ -140,7 +140,7 @@ public class GameManager : MonoBehaviour
 
     public delegate void m_Delegate();
 
-    public void confirm(string message, m_Delegate func)
+    public void confirm(string message, m_Delegate onConfirm)
     {
         // get Alert Prefab
         GameObject alertBoardPrefab = Resources.Load<GameObject>("Prefabs/common/Confirm");
@@ -151,6 +151,6 @@ public class GameManager : MonoBehaviour
         confirmBoard.SetActive(true);
 
         confirmBoard.GetComponentInChildren<TextSetter>().setText(message);
-        confirmBoard.GetComponentInChildren<Button>().onClick.AddListener(()=> func());
+        confirmBoard.GetComponentInChildren<Button>().onClick.AddListener(()=> onConfirm());
     }
 }
