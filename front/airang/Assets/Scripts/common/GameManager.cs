@@ -36,12 +36,6 @@ public class GameManager : MonoBehaviour
                 Destroy(this.gameObject);
             }
         }
-
-        // get Alert Prefab
-        GameObject alertBoardPrefab = Resources.Load<GameObject>("Prefabs/common/Alert");
-
-        alertBoardPrefab.SetActive(false);
-        alertBoard = Instantiate(alertBoardPrefab);
     }
 
     public void getAllBooksList()
@@ -130,7 +124,14 @@ public class GameManager : MonoBehaviour
 
     public void alert(string message)
     {
+        // get Alert Prefab
+        GameObject alertBoardPrefab = Resources.Load<GameObject>("Prefabs/common/Alert");
+        if (alertBoard != null)
+            Destroy(alertBoard);
+
+        alertBoard = Instantiate(alertBoardPrefab);
         alertBoard.SetActive(true);
+
         FindObjectOfType<TextSetter>().setText(message);
     }
 }

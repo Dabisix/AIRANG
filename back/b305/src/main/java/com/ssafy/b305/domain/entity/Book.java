@@ -33,6 +33,8 @@ public class Book {
     @Column
     private boolean aFlag;
 
+    @ElementCollection
+    private List<BookInfo> recList = new ArrayList<BookInfo>();
 
     @Builder
     public Book(Long bId, String title, String author, String kContent, String eContent, int cnt, boolean aFlag){
