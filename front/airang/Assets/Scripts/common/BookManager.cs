@@ -250,28 +250,11 @@ public class BookManager : MonoBehaviour
 
     public void getBookSetting()
     {
-        // get File
-        FileManager fb = FileManager.getInstance();
-        SavedData tmp = fb.loadData();
-
         // settings
-        lang = tmp.language;
-        narr = tmp.narration;
+        lang = PlayerPrefs.GetInt("lang", 0) == 0 ? true : false;
+        narr = PlayerPrefs.GetInt("narr", 1);
     }
-
-    public void setBookSetting(bool _lang, int narr)
-    {
-        // get File
-        FileManager fb = FileManager.getInstance();
-        SavedData tmp = fb.loadData();
-
-        // setting
-        tmp.language = _lang;
-
-
-        fb.saveData(tmp);
-    }
-#endregion
+    #endregion
 
     // 부모 녹음 파일 확인
     public bool checkRecordVoice()

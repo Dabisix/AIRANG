@@ -6,10 +6,31 @@ public class NarrationLoader : MonoBehaviour
 {
     new AudioSource audio;
 
+    GameObject narrSetting;
+
+    private void Awake()
+    {
+        // get narr setting Prefab
+        GameObject narrSettingPrefab = Resources.Load<GameObject>("Prefabs/BookScene/NarrSettingCanvas");
+
+        narrSettingPrefab.SetActive(false);
+        narrSetting = Instantiate(narrSettingPrefab);
+    }
+
     private void Start()
     {
         audio = GetComponent<AudioSource>();
         downloadNarration();
+    }
+
+    public void openNarrSetting()
+    {
+        narrSetting.SetActive(true);
+    }
+
+    public void play()
+    {
+        audio.Play();
     }
 
     public void downloadNarration()

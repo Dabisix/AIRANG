@@ -44,6 +44,9 @@ public class ScriptController : MonoBehaviour
         // Toggle lanuages
         bm.Lang = !bm.Lang;
 
+        // update to device setting
+        PlayerPrefs.SetInt("lang", bm.Lang? 0 : 1);
+
         updateImage();
         loadScript();
     }
