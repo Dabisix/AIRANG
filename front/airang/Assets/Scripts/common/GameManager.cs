@@ -6,14 +6,17 @@ using System.Collections.Generic;
 using Unity.Entities.UniversalDelegates;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using UnityEngine.Windows;
 
 public class GameManager : MonoBehaviour
 { 
     static GameManager instance = null;
 
-    // alert prefab
+    // alert object
     GameObject alertBoard;
+    // comfrim object
+    GameObject confirmBoard;
 
     // singleton Pattern implemented
     public static GameManager getInstance()
@@ -78,6 +81,8 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         // getAllBooksList();
+
+        confirm("asdf", test);
     }
 
     // json book list to List of Book object
@@ -132,6 +137,27 @@ public class GameManager : MonoBehaviour
         alertBoard = Instantiate(alertBoardPrefab);
         alertBoard.SetActive(true);
 
-        FindObjectOfType<TextSetter>().setText(message);
+        alertBoard.GetComponentInChildren<TextSetter>().setText(message);
+    }
+
+    public delegate void m_Delegate();
+
+    public void confirm(string message, m_Delegate func)
+    {
+        // get Alert Prefab
+        GameObject alertBoardPrefab = Resources.Load<GameObject>("Prefabs/common/Confirm");
+        if (confirmBoard != null)
+            Destroy(confirmBoard);
+
+        confirmBoard = Instantiate(alertBoardPrefab);
+        confirmBoard.SetActive(true);
+
+        confirmBoard.GetComponentInChildren<TextSetter>().setText(message);
+        confirmBoard.GetComponentInChildren<Button>().onClick.AddListener(()=> func());
+    }
+
+    public void test()
+    {
+        Debug.Log("asdf");
     }
 }
