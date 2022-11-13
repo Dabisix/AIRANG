@@ -81,8 +81,6 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         // getAllBooksList();
-
-        confirm("asdf", test);
     }
 
     // json book list to List of Book object
@@ -154,10 +152,5 @@ public class GameManager : MonoBehaviour
 
         confirmBoard.GetComponentInChildren<TextSetter>().setText(message);
         confirmBoard.GetComponentInChildren<Button>().onClick.AddListener(()=> func());
-    }
-
-    public void test()
-    {
-        Debug.Log("asdf");
     }
 }
