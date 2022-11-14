@@ -139,10 +139,10 @@ public class BookController {
         }catch (Exception e){
             return new ResponseEntity<>("unauthorized Token", HttpStatus.UNAUTHORIZED);
         }
-        
+
         HashMap<String, List<BookInfo>> ret = new HashMap<String, List<BookInfo>>();
         ret.put("booklist", user.getStarList());
-        
+
         return new ResponseEntity<>(ret, HttpStatus.OK);
     }
 
@@ -187,46 +187,67 @@ public class BookController {
         }
         HashMap<String, List<BookInfo>> ret = new HashMap<String, List<BookInfo>>();
         ret.put("booklist", user.getLogList());
-        
+
         return new ResponseEntity<>(ret, HttpStatus.OK);
     }
 
     @NoJwt
     @GetMapping("/narration")
-    public void getNarration(HttpServletResponse response, @RequestHeader String id, @RequestHeader String page) throws ServletException, IOException {
+    public void getNarration(HttpServletResponse response, @RequestHeader(value = "access-token") String request,
+                             @RequestHeader String id, @RequestHeader String page, @RequestHeader String type) throws ServletException, IOException {
+        // check user info
+        User user;
+        try {
+            String userEmail = jwtTokenProvider.getUserID(request);
+            user = userService.myPage(userEmail);
+            if (user == null) {
+                throw new Exception();
+            }
+        } catch (Exception e) {
+            throw new ServletException(e.getMessage());
+        }
+
         BookDetailResponseDto book = bookService.getBook(Long.parseLong(id));
         System.out.println("book ==== >>>> " + book.getTitle());
-        
+
         File file;
         ServletOutputStream stream = null;
         BufferedInputStream buf = null;
-        
+
         try {
-        	
-	        file = new File("/home/ubuntu/naver/" + book.getTitle() + "/" + page + ".mp3");
-	
-	        // Content-Type
-	        response.setContentType("audio/mpeg");
-	
-	        // Content-Disposition
-	        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + file.getName());
-	
-	        // Content-Length
-	        response.setContentLength((int) file.length());
-	
-	        FileInputStream input = new FileInputStream(file);
-	        stream = response.getOutputStream();
-	        buf = new BufferedInputStream(input);
-	        
-	        // write to body
-	        int readBytes = 0;
-	        while ((readBytes = buf.read()) != -1)
-	          stream.write(readBytes);
-      	} catch (IOException ioe) {
-      		throw new ServletException(ioe.getMessage());
-      	} finally {
-		    if (stream != null) stream.close();
-		    if (buf != null) buf.close();
-      	}
-	}
+            String root_path = "/home/ubuntu/";
+
+            if(Integer.parseInt(type) == 0){
+                root_path += "naver/" + book.getTitle();
+            }else if(Integer.parseInt(type) == 1){
+                root_path += "tts/voice/ai/" + user.getEmail() + "/" + id;
+            }
+
+            file = new File(root_path  + "/" + page + ".mp3");
+
+            // Content-Type
+            response.setContentType("audio/mpeg");
+
+            // Content-Disposition
+            response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + file.getName());
+
+            // Content-Length
+            response.setContentLength((int) file.length());
+
+            FileInputStream input = new FileInputStream(file);
+            stream = response.getOutputStream();
+            buf = new BufferedInputStream(input);
+
+            // write to body
+            int readBytes = 0;
+            while ((readBytes = buf.read()) != -1)
+                System.out.println("result => "+ buf.read());
+            stream.write(readBytes);
+        } catch (IOException ioe) {
+            throw new ServletException(ioe.getMessage());
+        } finally {
+            if (stream != null) stream.close();
+            if (buf != null) buf.close();
+        }
+    }
 }
