@@ -21,6 +21,8 @@ public class BookListLoader : MonoBehaviour
         Books,
         PopularBooks,
         ARBooks,
+        StarRecommend,
+        LogRecommend,
     };
 
     [SerializeField]
@@ -57,8 +59,13 @@ public class BookListLoader : MonoBehaviour
                     renderBooks(GameManager.getInstance().RecentBooks);
                     break;
                 case BookListType.ARBooks:
-
-                    renderBooks(FilterARBooks(GameManager.getInstance().RecentBooks));
+                    renderBooks(FilterARBooks(GameManager.getInstance().Books));
+                    break;
+                case BookListType.StarRecommend:
+                    renderBooks(GameManager.getInstance().RecommendStarBooks);
+                    break;
+                case BookListType.LogRecommend:
+                    renderBooks(GameManager.getInstance().RecommendLogBooks);
                     break;
             }
         }

@@ -62,6 +62,9 @@ public class GameManager : MonoBehaviour
         {
             // get Recently books
             books_log = ResponseToBookList(res.Text);
+            return RESTManager.getInstance().Get("book/recommend");
+        }).Then( res => {
+            ResponseRecommendToBookList(res.Text);
         }).Catch(err =>
         {
             // TODO : 네트워크 환경 확인 메세지
@@ -86,10 +89,33 @@ public class GameManager : MonoBehaviour
         JObject json = JObject.Parse(book_list);
 
         List<Book> ret = new List<Book>();
+        Debug.Log(json["booklist"]);
         foreach (var book in json["booklist"])
             ret.Add(new Book((int)book["bid"], (string)book["title"], (bool)book["aflag"]));
 
         return ret;
+    }
+    private void ResponseRecommendToBookList(string book_list)
+    {
+        JObject json = JObject.Parse(book_list);
+
+        // 읽었던책중에, 즐겨찾기한 책중에...
+        var starbook = json["starRec"]["targetBook"];
+        targetStarBook = new Book((int)starbook["bid"], (string)starbook["title"], (bool)starbook["aflag"]);
+        var logbook = json["logRec"]["targetBook"]; 
+        targetLogBook = new Book((int)logbook["bid"], (string)logbook["title"], (bool)logbook["aflag"]);
+        List<Book> starRec = new List<Book>();
+        foreach (var book in json["starRec"]["recList"]) {
+            starRec.Add(new Book((int)book["bid"], (string)book["title"], (bool)book["aflag"]));
+        }
+        books_starrecommend = starRec;
+
+        
+        List<Book> logRec = new List<Book>();
+        foreach (var book in json["logRec"]["recList"]) { 
+            logRec.Add(new Book((int)book["bid"], (string)book["title"], (bool)book["aflag"]));
+        }
+        books_logrecommend = logRec;
     }
 
     // book lists from server
@@ -107,9 +133,15 @@ public class GameManager : MonoBehaviour
         set => popular_books = value;
     }
 
+
     // my desk area book list
     private List<Book> favor_books = new List<Book>();
     private List<Book> books_log = new List<Book>();
+    private List<Book> books_starrecommend = new List<Book>();
+    private List<Book> books_logrecommend = new List<Book>();
+
+    public Book targetStarBook;
+    public Book targetLogBook;
 
     public List<Book> Favor_Books
     {
@@ -120,6 +152,17 @@ public class GameManager : MonoBehaviour
     {
         get => books_log ?? new List<Book>();
         set => books_log = value;
+    }
+
+    public List<Book> RecommendStarBooks
+    {
+        get => books_starrecommend ?? new List<Book>();
+        set => books_starrecommend = value;
+    }
+    public List<Book> RecommendLogBooks
+    {
+        get => books_logrecommend ?? new List<Book>();
+        set => books_logrecommend = value;
     }
 
     public void alert(string message)

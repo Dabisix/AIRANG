@@ -27,7 +27,8 @@ public class BookSearchOption
 
 public class RESTManager : MonoBehaviour
 {
-    private const string basePath = "https://k7b305.p.ssafy.io/api/";
+    //private const string basePath = "https://k7b305.p.ssafy.io/api/";
+    private const string basePath = "http://localhost:8081/api/";
 
     static RESTManager instance = null;
 
