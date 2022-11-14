@@ -52,9 +52,10 @@ public class NarrationLoader : MonoBehaviour
         // get Book Info
         var bookId = BookManager.getInstance().CurBook.BookId;
         var pageNum = BookManager.getInstance().CurPage;
+        var lang = BookManager.getInstance().Lang ? 0 : 1;
 
         // 기본 나레
-        RESTManager.getInstance().getNarr(bookId, pageNum - 1)
+        RESTManager.getInstance().getNarr(bookId, pageNum - 1, lang)
             .Then(res => {
                 audio.clip = ((DownloadHandlerAudioClip)res.Request.downloadHandler).audioClip;
                 audio.Play();

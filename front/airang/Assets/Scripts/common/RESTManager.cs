@@ -41,7 +41,6 @@ public class RESTManager : MonoBehaviour
 
     private void Awake()
     {
-
         if (instance == null)
         {
             instance = this;
@@ -196,13 +195,13 @@ public class RESTManager : MonoBehaviour
         });
     }
 
-    public RSG.IPromise<ResponseHelper> getNarr(int bookId, int pageNum)
+    public RSG.IPromise<ResponseHelper> getNarr(int bookId, int pageNum, int type)
     {
         var fileUrl = basePath + "book/narration";
         var fileType = AudioType.MPEG;
 
         RequestHelper requestHelper = new RequestHelper();
-        requestHelper.Headers = new Dictionary<string, string> { { "id", bookId + "" }, { "page", pageNum + "" } };
+        requestHelper.Headers = new Dictionary<string, string> { { "id", bookId + "" }, { "page", pageNum + "" }, { "type", type + "" } };
         requestHelper.DownloadHandler = new DownloadHandlerAudioClip(fileUrl, fileType);
         requestHelper.Uri = fileUrl;
 
