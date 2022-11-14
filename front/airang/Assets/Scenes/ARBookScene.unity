@@ -137,10 +137,12 @@ GameObject:
   - component: {fileID: 26016231}
   - component: {fileID: 26016236}
   - component: {fileID: 26016235}
-  - component: {fileID: 26016237}
-  - component: {fileID: 26016238}
   - component: {fileID: 26016240}
   - component: {fileID: 26016239}
+  - component: {fileID: 26016244}
+  - component: {fileID: 26016243}
+  - component: {fileID: 26016242}
+  - component: {fileID: 26016241}
   m_Layer: 0
   m_Name: AR Session Origin
   m_TagString: Untagged
@@ -229,35 +231,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AnchorPrefab: {fileID: 0}
---- !u!114 &26016237
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 26016230}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad4335e2169e21b438c7b2c91dee505e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AnchorPrefab: {fileID: 7553803952308330691, guid: a34ccb355b337c94186077bb68ef177a, type: 3}
-  m_touchedPrefab: {fileID: 0}
---- !u!114 &26016238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 26016230}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 610318a25a7479c419e9fb3fe825d1c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  arCamera: {fileID: 0}
-  m_AnchorPrefab: {fileID: 3366445463399770044, guid: a4c5dfb168c3f7b45ae606d972e60d83, type: 3}
-  m_touchedPrefab: {fileID: 0}
 --- !u!114 &26016239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -284,6 +257,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecbcc00c1ead64b459fdbbef52688d54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &26016241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26016230}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06efa5521b3f26e4996515476b00c2cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &26016242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26016230}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72e9e827ec201ad47995d5d15b01724a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arCamera: {fileID: 0}
+  m_touchedPrefab: {fileID: 0}
+--- !u!114 &26016243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26016230}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2de154939632fae4cb524a8d73b58e63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &26016244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26016230}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd164518f75180d4d8b0a42983f54771, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_touchedPrefab: {fileID: 0}
 --- !u!1 &74998279
 GameObject:
   m_ObjectHideFlags: 0
