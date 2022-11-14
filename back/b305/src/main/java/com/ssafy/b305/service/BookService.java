@@ -5,6 +5,7 @@ import com.ssafy.b305.domain.dto.BookInfoResponseDto;
 import com.ssafy.b305.domain.dto.BookRequestDto;
 import com.ssafy.b305.domain.dto.PageDto;
 import com.ssafy.b305.domain.entity.Book;
+import com.ssafy.b305.domain.entity.BookInfo;
 import com.ssafy.b305.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -77,6 +78,25 @@ public class BookService {
             }
 
         }catch (Exception e){
+            return null;
+        }
+    }
+
+    public List<BookInfoResponseDto> getRecList(Long id) {
+        List<BookInfoResponseDto> list = new ArrayList<BookInfoResponseDto>();
+        try{
+            Optional<Book> book = bookRepository.findBybId(id);
+            if(book.isPresent()){
+                for (BookInfo bookInfo : book.get().getRecList()){
+                    list.add(new BookInfoResponseDto(bookInfo));
+                }
+                return list;
+            }else{
+                System.out.println("no book id");
+                return null;
+            }
+        }catch (Exception e){
+            System.out.println("error on getBook of BookService");
             return null;
         }
     }
