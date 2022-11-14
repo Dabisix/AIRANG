@@ -42,7 +42,7 @@ public class AiNarrationController {
 
             String path = "/home/ubuntu/tts/voice/ai/" + user.getEmail() + "/" + id;
 
-            File file = new File(path);s
+            File file = new File(path);
             if (file.mkdirs()) {
                 // 책 녹음 데이터 없음. fast api로 요청하기
                 System.out.println("fast api 연결");
