@@ -4,16 +4,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Entities.UniversalDelegates;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using UnityEngine.Windows;
 
 public class GameManager : MonoBehaviour
 { 
     static GameManager instance = null;
 
-    // alert prefab
+    // alert object
     GameObject alertBoard;
+    // comfrim object
+    GameObject confirmBoard;
 
     // singleton Pattern implemented
     public static GameManager getInstance()
@@ -78,6 +82,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         // getAllBooksList();
+        confirm("asdf", delegate { Debug.Log("conf"); });
     }
 
     // json book list to List of Book object
@@ -132,6 +137,30 @@ public class GameManager : MonoBehaviour
         alertBoard = Instantiate(alertBoardPrefab);
         alertBoard.SetActive(true);
 
-        FindObjectOfType<TextSetter>().setText(message);
+        alertBoard.GetComponentInChildren<TextSetter>().setText(message);
+    }
+
+    public delegate void m_Delegate();
+
+    public void confirm(string message, m_Delegate onConfirm, m_Delegate onCancle = null)
+    {
+        // get Alert Prefab
+        GameObject alertBoardPrefab = Resources.Load<GameObject>("Prefabs/common/Confirm");
+        if (confirmBoard != null)
+            Destroy(confirmBoard);
+
+        confirmBoard = Instantiate(alertBoardPrefab);
+        confirmBoard.SetActive(true);
+        confirmBoard.GetComponentInChildren<TextSetter>().setText(message);
+
+        // add onClick callback
+        Button[] btns = confirmBoard.GetComponentsInChildren<Button>();
+        foreach(Button btn in btns)
+        {
+            if(btn.name == "Cancle")
+                if(onCancle != null) btn.onClick.AddListener(() => onCancle());
+            else
+                if(onConfirm != null) btn.onClick.AddListener(() => onConfirm());
+        }
     }
 }
