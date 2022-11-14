@@ -82,7 +82,6 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         // getAllBooksList();
-        confirm("asdf", delegate { Debug.Log("conf"); });
     }
 
     // json book list to List of Book object
