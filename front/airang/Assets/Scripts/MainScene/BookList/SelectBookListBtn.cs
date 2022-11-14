@@ -7,16 +7,8 @@ using UnityEngine.UI;
 public class SelectBookListBtn : MonoBehaviour
 {
     public GameObject[] BookListCanvas;
-    public GameObject[] MyBookListCanvas;
     public ActiveIdx activeId;
 
-    private void Start()
-    {
-        /*if(activeId.GetActiveId() == 0 && gameObject.name == "AllBookListBtn")
-		{
-            gameObject.GetComponent<Button>().transition.
-        }*/
-    }
 	public void SelectedBtn()
     {
 		switch (gameObject.name)
