@@ -15,17 +15,9 @@ public class RecordParentVoice : MonoBehaviour
     float timer;
     bool start;
 
-    BookManager bookManager;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        bookManager = BookManager.getInstance();
-    }
-
     public void readyToRecord()
     {
-        if (bookManager.Narration == 1)
+        if (BookManager.getInstance().Narration == 1)
         {
             // dont need to use record
             startRecord.SetActive(false);
@@ -82,7 +74,7 @@ public class RecordParentVoice : MonoBehaviour
         }
 
         // 책 아이디가 폴더이름이고, 그 아래 각 페이지 번호를 이름으로 녹음 파일 저장
-        SavWav.Save(Application.persistentDataPath + "/" + bookManager.CurBook.BookId + "/" + bookManager.CurPage, recordClip);
+        SavWav.Save(Application.persistentDataPath + "/" + BookManager.getInstance().CurBook.BookId + "/" + BookManager.getInstance().CurPage, recordClip);
 
         FindObjectOfType<NarrationLoader>().play();
     }
