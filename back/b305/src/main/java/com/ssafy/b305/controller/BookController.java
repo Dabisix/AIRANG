@@ -1,6 +1,7 @@
 package com.ssafy.b305.controller;
 
 import com.ssafy.b305.annotation.NoJwt;
+import com.ssafy.b305.domain.dto.BookInfoResponseDto;
 import com.ssafy.b305.domain.dto.BookRequestDto;
 import com.ssafy.b305.domain.dto.BookDetailResponseDto;
 import com.ssafy.b305.domain.dto.PageDto;
@@ -32,6 +33,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
+import java.util.Random;
 
 @RestController
 @RequestMapping("/book")
@@ -229,4 +231,53 @@ public class BookController {
 		    if (buf != null) buf.close();
       	}
 	}
+
+    @GetMapping("/recommend")
+    public ResponseEntity<?> getRecommendationList(@RequestHeader(value = "access-token") String request){
+        // check user info
+        User user;
+        try{
+            String userEmail = jwtTokenProvider.getUserID(request);
+            user = userService.myPage(userEmail);
+            if (user == null) {
+                throw new Exception();
+            }
+        }catch (Exception e){
+            return new ResponseEntity<>("unauthorized Token", HttpStatus.UNAUTHORIZED);
+        }
+
+        // get recommended list
+        HashMap<String, HashMap<String, Object>> ret = new HashMap<>();
+        try{
+            int size = user.getLogList().size();
+            if(size > 0){
+                BookInfoResponseDto logbook = new BookInfoResponseDto(user.getLogList().get(0));
+                List<BookInfoResponseDto> recList = bookService.getRecList(logbook.getBId());
+                HashMap<String, Object> value = new HashMap<>();
+                value.put("targetBook", logbook);
+                value.put("recList", recList);
+                ret.put("logRec", value);
+            }else{
+                ret.put("logRec", null);
+            }
+
+            size = user.getStarList().size();
+            if(size > 0){
+                Random rand = new Random();
+                BookInfoResponseDto starbook = new BookInfoResponseDto(user.getStarList().get(rand.nextInt(size)));
+                List<BookInfoResponseDto> recList = bookService.getRecList(starbook.getBId());
+                HashMap<String, Object> value = new HashMap<>();
+                value.put("targetBook", starbook);
+                value.put("recList", recList);
+                ret.put("starRec", value);
+            }else{
+                ret.put("starRec", null);
+            }
+
+            return new ResponseEntity<>(ret, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>("fail to select recList", HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

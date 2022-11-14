@@ -4,11 +4,9 @@ public class Book
 {
     private int book_id;
     private string book_name;
-    private int checkpoint_page;
     private int total_pages;
 
     private bool use_ar;
-    private bool lang;
 
     private List<int> use_ar_pages;
     private List<string> e_scripts;
@@ -18,7 +16,6 @@ public class Book
     {
         this.book_id = book_id;
         this.book_name = book_name;
-        this.checkpoint_page = 1;
         this.use_ar = use_ar;
 
         this.use_ar_pages = new List<int>() { 0 };
@@ -30,7 +27,6 @@ public class Book
     {
         this.book_id = book_id;
         this.book_name = book_name;
-        this.checkpoint_page = 1;
         this.use_ar = use_ar;
         this.total_pages = total_pages;
         this.use_ar_pages = use_ar_pages;
@@ -50,12 +46,6 @@ public class Book
         set => book_name = value;
     }
 
-    public int checkpointPage
-    {
-        get => checkpoint_page;
-        set => checkpoint_page = value;
-    }
-
     public int TotalPages
     {
         get => total_pages;
@@ -65,12 +55,6 @@ public class Book
     public bool UseAR
     {
         get => use_ar;
-    }
-
-    public bool Lang
-    {
-        get => lang;
-        set => lang = value;
     }
 
     public List<int> UseARPages

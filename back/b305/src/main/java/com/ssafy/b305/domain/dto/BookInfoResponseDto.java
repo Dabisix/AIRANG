@@ -1,6 +1,7 @@
 package com.ssafy.b305.domain.dto;
 
 import com.ssafy.b305.domain.entity.Book;
+import com.ssafy.b305.domain.entity.BookInfo;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,5 +16,11 @@ public class BookInfoResponseDto {
         this.bId = book.getBId();
         this.title = book.getTitle();
         this.aFlag = book.isAFlag();
+    }
+
+    public BookInfoResponseDto(BookInfo bookInfo){
+        this.bId = bookInfo.getBId();
+        this.title = bookInfo.getTitle();
+        this.aFlag = bookInfo.isAFlag();
     }
 }

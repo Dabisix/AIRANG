@@ -198,10 +198,8 @@ public class RESTManager : MonoBehaviour
 
     public RSG.IPromise<ResponseHelper> getNarr(int bookId, int pageNum)
     {
-        var fileUrl = "http://localhost:8080/api/book/narration";
+        var fileUrl = basePath + "book/narration";
         var fileType = AudioType.MPEG;
-
-    
 
         RequestHelper requestHelper = new RequestHelper();
         requestHelper.Headers = new Dictionary<string, string> { { "id", bookId + "" }, { "page", pageNum + "" } };
