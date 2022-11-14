@@ -20,6 +20,9 @@ public class BookListLoader : MonoBehaviour
         RecentBooks,
         Books,
         PopularBooks,
+        ARBooks,
+        StarRecommend,
+        LogRecommend,
     };
 
     [SerializeField]
@@ -55,9 +58,31 @@ public class BookListLoader : MonoBehaviour
                     // reder recently saw books
                     renderBooks(GameManager.getInstance().RecentBooks);
                     break;
+                case BookListType.ARBooks:
+                    renderBooks(FilterARBooks(GameManager.getInstance().Books));
+                    break;
+                case BookListType.StarRecommend:
+                    renderBooks(GameManager.getInstance().RecommendStarBooks);
+                    break;
+                case BookListType.LogRecommend:
+                    renderBooks(GameManager.getInstance().RecommendLogBooks);
+                    break;
             }
         }
     }
+
+    public List<Book> FilterARBooks(List<Book> books)
+	{
+        List<Book> ARBooks = new List<Book>();
+        for(int i = 0; i < books.Count; ++i)
+		{
+			if (books[i].UseAR)
+			{
+                ARBooks.Add(books[i]);
+			}
+		}
+        return ARBooks;
+	}
 
     public void eraseAllBooks()
     {
@@ -81,7 +106,7 @@ public class BookListLoader : MonoBehaviour
 
             // set position
             book.transform.SetParent(contentContainer);
-            book.transform.localScale = new Vector3(1.15f, 1.37f, 1);
+            book.transform.localScale = new Vector3(2.0f, 1.20f, 1);
             book.transform.localPosition = new Vector3(book.transform.position.x, book.transform.position.y, 0);
             book.transform.localRotation = Quaternion.Euler(0, 0, 0);
         }
