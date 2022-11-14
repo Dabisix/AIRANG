@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using UnityEngine.Video; // 비디오 플레이서 사용
+using UnityEngine.Video; // 비디오 플레이어 사용
 
 public class PlayRecordVideo : MonoBehaviour
 {
-    public VideoPlayer video; //직접 할당
+    public VideoPlayer screenVideo; //직접 할당
+    public VideoPlayer selfVideo;
     //VideoPlayer vp;
 
     private void Start()
@@ -18,17 +19,20 @@ public class PlayRecordVideo : MonoBehaviour
 
     public void startVideo()
     {
-        video.Play();
+        screenVideo.Play();
+        selfVideo.Play();
     }
 
     public void pauseVideo()
     {
-        video.Pause();
+        screenVideo.Pause();
+        selfVideo.Pause();
     }
 
     public void stopVideo()
     {
-        video.Stop();
+        screenVideo.Stop();
+        selfVideo.Stop();
     }
 
     private const string subject = "원하는 제목";
