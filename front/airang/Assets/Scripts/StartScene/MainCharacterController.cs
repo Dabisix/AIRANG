@@ -52,7 +52,7 @@ public class MainCharacterController : MonoBehaviour
 		{
 			targetOperatingTime = (length - obj.m_Position) / speed;
             // 시간 - 거리 / 시간
-        }
+       }
        
     }
 
