@@ -59,7 +59,7 @@ public class AnimationController : MonoBehaviour
             if (animationTransform.position == animationTargetPos)
             {
                 anim.SetBool("is"+animationName, false);
-                anim.speed = 0;
+                //anim.speed = 0;
             }
         }
     }
