@@ -32,12 +32,19 @@ public class VideoManager : MonoBehaviour
     }
     #endregion
 
+    private List<Video> videos = new List<Video>();
     private Video cur_video;
 
     public Video CurVideo
     {
         get => cur_video;
         set => cur_video = value;
+    }
+
+    public List<Video> Videos
+    {
+        get => videos ?? new List<Video>();
+        set => videos = value;
     }
 
     public void initVideo()
@@ -47,10 +54,9 @@ public class VideoManager : MonoBehaviour
 
     public void changeScene(bool isFade = false)
     {
-        Debug.Log("씬 바꿀거임");
-        //if (isFade)
-        //    StartCoroutine(GameObject.FindObjectOfType<SceneFader>().FadeAndLoadScene(SceneFader.FadeDirection.In, next_scene_name));
-        //else
-        //    SceneManager.LoadScene("PlayRecordVideo");
+        if (isFade)
+            StartCoroutine(GameObject.FindObjectOfType<SceneFader>().FadeAndLoadScene(SceneFader.FadeDirection.In, "PlayRecordVideo"));
+        else
+            SceneManager.LoadScene("PlayRecordVideo");
     }
 }

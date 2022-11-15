@@ -16,9 +16,12 @@ public class RecordVideoListLoader : MonoBehaviour
     [SerializeField]
     Transform contentContainer;
 
+    private List<Video> getVideoList = new List<Video>();
+
     private void Start()
     {
-        renderReactionVideos();
+        getVideos();
+        renderReactionVideos(getVideoList);
     }
 
     public void eraseAllBooks()
@@ -29,12 +32,11 @@ public class RecordVideoListLoader : MonoBehaviour
         }
     }
 
-    // render at content in scrollView
-    public void renderReactionVideos()
+    public void getVideos()
     {
         // 리액션 녹화 영상 가져오기
         //var fileUrl = "file://" + Application.persistentDataPath + "/" + BookManager.getInstance().CurBook.BookId.ToString() + "/" + BookManager.getInstance().CurPage.ToString() + ".wav"; //모바일용
-        var fileUrl = Application.persistentDataPath + "/reaction" ; //컴퓨터용
+        var fileUrl = Application.persistentDataPath + "/reaction"; //컴퓨터용
 
         // 리액션 녹화 폴더 안 파일 확인
         DirectoryInfo d = new DirectoryInfo(fileUrl);
@@ -42,31 +44,27 @@ public class RecordVideoListLoader : MonoBehaviour
         Debug.Log(info.Length);
         foreach (var file in info)
         {
+            // 일단 임시로 url 둘다 하나로 설정하겠다
+            getVideoList.Add(new Video("file://" + file.ToString(), "file://" + file.ToString(), file.Name));
             Debug.Log(file.Name);
         }
+    }
 
-        //RawImage display;
-
-        //WebCamDevice[] webCamDevices;
-        //WebCamTexture webCamTextures;
-
-        //display = GetComponent<RawImage>();
-
-        //// find real camara
-        //webCamDevices = WebCamTexture.devices;
-        //webCamTextures = new WebCamTexture(webCamDevices[i].name);
-
-        //webCamTextures.requestedFPS = 30;
-        //display.texture = webCamTextures;
+    // render at content in scrollView
+    public void renderReactionVideos(List<Video> videos)
+    {
 
         //책 제목, 녹화한 날짜, 비디오 영상 할당
-        for (int i = 0; i < info.Length; i++)
+        for (int i = 0; i < videos.Count; i++)
         {
+
             RenderTexture renderTexture = new RenderTexture(256, 256, 16);
             renderTexture.Create();
-            renderTexture.name = info[i].Name+" Renderer";
+            renderTexture.name = videos[i]+" Renderer";
 
             GameObject video = Instantiate(videoItemPrefab);
+            video.GetComponent<VideoItemAction>().VideoInfo = videos[i];
+            
             RawImage img = video.transform.Find("RawImage").gameObject.GetComponent<RawImage>();
             GameObject title = video.transform.Find("Title").gameObject;
            
@@ -75,8 +73,8 @@ public class RecordVideoListLoader : MonoBehaviour
             videoPlayer.targetTexture = renderTexture;
             img.texture = renderTexture;
 
-            title.GetComponent<TextMeshProUGUI>().text = info[i].Name;
-            videoPlayer.url = Path.Combine("file://" + info[i].ToString());
+            title.GetComponent<TextMeshProUGUI>().text = videos[i].Title;
+            videoPlayer.url = Path.Combine(videos[i].ScreenUrl);
 
             // set position
             video.transform.SetParent(contentContainer);

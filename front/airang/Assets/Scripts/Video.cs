@@ -6,6 +6,12 @@ public class Video
     private string self_url;
     private string title;
 
+    public Video(string screen_url, string title)
+    {
+        this.screen_url = screen_url;
+        this.title = title;
+    }
+
     public Video(string screen_url, string self_url, string title)
     {
         this.screen_url = screen_url;

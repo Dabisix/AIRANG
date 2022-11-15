@@ -14,11 +14,11 @@ public class PlayRecordVideo : MonoBehaviour
 
     private void Start()
     {
+        screenVideo.url = VideoManager.getInstance().CurVideo.ScreenUrl;
+        selfVideo.url = VideoManager.getInstance().CurVideo.SelfUrl;
+        Debug.Log(screenVideo.length);
         slider.minValue = 0;
-        slider.maxValue = (float)screenVideo.length;
-        //string path1 = "비디오 불러올 주소";
-        //vp = GetComponent<VideoPlayer>();
-        //vp.url = System.IO.Path.Combine(path1, "이름");
+        slider.maxValue = (float)screenVideo.clip.length;
     }
 
     private void Update()
@@ -43,9 +43,6 @@ public class PlayRecordVideo : MonoBehaviour
         screenVideo.Stop();
         selfVideo.Stop();
     }
-
-    private const string subject = "원하는 제목";
-    private const string body = "https://youtu.be/PYNvQIJ2cuM";
 
     public void Share()
     {
