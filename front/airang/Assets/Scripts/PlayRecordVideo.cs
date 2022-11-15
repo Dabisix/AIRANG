@@ -3,18 +3,27 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Video; // 비디오 플레이어 사용
+using UnityEngine.UI;
 
 public class PlayRecordVideo : MonoBehaviour
 {
     public VideoPlayer screenVideo; //직접 할당
     public VideoPlayer selfVideo;
+    public Slider slider;
     //VideoPlayer vp;
 
     private void Start()
     {
+        slider.minValue = 0;
+        slider.maxValue = (float)screenVideo.length;
         //string path1 = "비디오 불러올 주소";
         //vp = GetComponent<VideoPlayer>();
         //vp.url = System.IO.Path.Combine(path1, "이름");
+    }
+
+    private void Update()
+    {
+        slider.value = (float)screenVideo.time;
     }
 
     public void startVideo()
