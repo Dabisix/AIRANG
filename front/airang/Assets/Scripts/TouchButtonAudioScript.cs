@@ -10,12 +10,11 @@ public class TouchButtonAudioScript : MonoBehaviour
     AudioClip touchAudioClip;   //touch audio clip
     AudioSource audioSource; 
     private GraphicRaycaster gr;
-    private BackgroundMusicScript script;
+    public Toggle toggle;   //bgm toggle
 
     private void Awake()
     {
         gr = GetComponent<GraphicRaycaster>();
-        script = GetComponent<BackgroundMusicScript>();
         touchAudioClip = Resources.Load("Sounds/Button01") as AudioClip;
     }
 
@@ -27,7 +26,7 @@ public class TouchButtonAudioScript : MonoBehaviour
 
     public void Update()
     {
-        if (!script.toggle.isOn)
+        if (!toggle.isOn)
         {
             //터치했나 확인
             if (TryGetTouchPosition(out Vector2 touchPosition))
@@ -54,9 +53,14 @@ public class TouchButtonAudioScript : MonoBehaviour
     }
     bool TryGetTouchPosition(out Vector2 touchPosition)
     {
-        if (Input.touchCount > 0 && Time.time - _time >= 0.5f)
+        if (Input.touchCount > 0 && Time.time - _time >= 0.35f)
         {
             touchPosition = Input.GetTouch(0).position;
+            _time = Time.time;
+            return true;
+        }else if (Input.GetMouseButtonUp(0))
+        {
+            touchPosition = Input.mousePosition;
             _time = Time.time;
             return true;
         }

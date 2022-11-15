@@ -6,20 +6,31 @@ using UnityEngine.UI;
 public class BackgroundMusicScript : MonoBehaviour
 {
     public AudioSource audioSource;
-    public Toggle toggle;
+    public Toggle toggle;   //true : muted
 
     private void Start()
     {
         audioSource = GameManager.getInstance().GetComponent<AudioSource>();
         // set sync toggle music
-        if (audioSource.isPlaying)
+        if (audioSource.volume != 0f)
         {
             toggle.isOn = false;
+        }
+        else
+        {
+            toggle.isOn = true;
         }
     }
 
     public void toggleBGM()
     {
-        audioSource.mute = toggle.isOn;
+        if(toggle.isOn)
+        {
+            audioSource.volume = 0f;
+        }
+        else
+        {
+            audioSource.volume = 0.3f;
+        }
     }
 }
