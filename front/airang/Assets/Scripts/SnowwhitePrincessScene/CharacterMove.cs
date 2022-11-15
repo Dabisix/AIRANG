@@ -45,6 +45,14 @@ public class CharacterMove : MonoBehaviour
             {
                 anim.SetBool("isSitting", true);
             }
+            if (animationName == "Hello")
+            {
+                anim.SetBool("isHello", true);
+            }
+            if (animationName == "RightTurn")
+            {
+                anim.SetBool("isRightTurn", true);
+            }
 
         }
     }
