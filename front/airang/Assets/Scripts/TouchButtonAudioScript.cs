@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-[RequireComponent(typeof(BackgroundMusicScript))]
 public class TouchButtonAudioScript : MonoBehaviour
 {
     AudioClip touchAudioClip;   //touch audio clip
