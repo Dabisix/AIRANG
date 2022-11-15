@@ -5502,7 +5502,7 @@ MonoBehaviour:
   animationName: Walk
   timer: 0
   duration: 40
-  vector: {x: 10, y: 1, z: -100}
+  vector: {x: 23, y: 1, z: -100}
   anim: {fileID: 0}
 --- !u!1 &2682575647502497923
 GameObject:
@@ -7713,6 +7713,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3287983682805044014}
+  - component: {fileID: 257458299542025044}
   m_Layer: 0
   m_Name: Page08
   m_TagString: Untagged
@@ -7739,6 +7740,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &257458299542025044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3287983682805044009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4e6016108fc0fd4a9855d0350e2a2be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skyboxMaterial: {fileID: 2100000, guid: 94caf2ba4ca5e46bfaba53afcc8778dd, type: 2}
 --- !u!1 &3287983682921558157
 GameObject:
   m_ObjectHideFlags: 0
@@ -7836,10 +7850,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46be2ac41c47dfb45b94ce584ed5d5ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subCamera: {fileID: 3287983683579571959}
   speed: 0
   easeType: 0
+  subCamera: {fileID: 3287983683579571959}
   targetCamera: {fileID: 0}
+  subCameras: []
+  princessObject: {fileID: 0}
   page: 0
 --- !u!1 &3287983683579571952
 GameObject:

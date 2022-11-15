@@ -4,19 +4,12 @@ using UnityEngine;
 
 public class ChangeSkybox : MonoBehaviour
 {
-	public Material[] skyboxMaterials;
-	public int defaultPage;
-	public int page;
-	void Start()
-	{
-		RenderSettings.skybox = skyboxMaterials[defaultPage];
-	}
-
+	public Material skyboxMaterial;
 	private void Update()
 	{
-		RenderSettings.skybox = skyboxMaterials[page-1];
+		RenderSettings.skybox = skyboxMaterial;
 	}
-	// Ã¹¹ø¤Š ¾À FS000_Day_06_Sunless
+	// ì²«ë²ˆì¨° ì”¬ FS000_Day_06_Sunless
 
-	// µÎ¹øÂ° ¾À FS017_Night_Cubemap
+	// ë‘ë²ˆì§¸ ì”¬ FS017_Night_Cubemap
 }
