@@ -4,7 +4,7 @@ using UnityEngine;
 using System.ComponentModel;
 using System.IO;
 using UnityEditor;
-using UnityEditor.Recorder;
+/*using UnityEditor.Recorder;
 using UnityEditor.Recorder.Input;
 
 public class RecordingByTaggedCam : MonoBehaviour
@@ -95,3 +95,4 @@ public class RecordingByTaggedCam : MonoBehaviour
     {
     }
 }
+*/
