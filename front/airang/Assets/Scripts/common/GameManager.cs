@@ -108,11 +108,11 @@ public class GameManager : MonoBehaviour
 		{
             Debug.Log("즐겨찾기한 책 목록이 없음!");
             targetStarBook = null;
+            books_starrecommend = null;
 
         }
 		else
 		{
-            // 읽었던책중에, 즐겨찾기한 책중에...
             var starbook = json["starRec"]["targetBook"];
             targetStarBook = new Book((int)starbook["bid"], (string)starbook["title"], (bool)starbook["aflag"]);
             List<Book> starRec = new List<Book>();
@@ -121,12 +121,14 @@ public class GameManager : MonoBehaviour
                 starRec.Add(new Book((int)book["bid"], (string)book["title"], (bool)book["aflag"]));
             }
             books_starrecommend = starRec;
+            Debug.Log(books_starrecommend);
         }
 
         if (json["logRec"].Type is JTokenType.Null)
         {
             Debug.Log("읽었던 책 목록이 없음!");
             targetLogBook = null;
+            books_logrecommend = null;
         }
         else
         {
@@ -139,6 +141,7 @@ public class GameManager : MonoBehaviour
                 logRec.Add(new Book((int)book["bid"], (string)book["title"], (bool)book["aflag"]));
             }
             books_logrecommend = logRec;
+            Debug.Log(books_logrecommend);
         }
     }
 
