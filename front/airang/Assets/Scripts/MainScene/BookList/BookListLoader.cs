@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class BookListLoader : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class BookListLoader : MonoBehaviour
     GameObject bookItemPrefab;
     [SerializeField]
     Transform contentContainer;
+
+    public TextMeshProUGUI ListNullSign;
+    
 
     public enum BookListType
     {
@@ -31,6 +35,7 @@ public class BookListLoader : MonoBehaviour
     private void Start()
     {
         loadBooks(false);
+        
     }
 
 
@@ -63,9 +68,27 @@ public class BookListLoader : MonoBehaviour
                     break;
                 case BookListType.StarRecommend:
                     renderBooks(GameManager.getInstance().RecommendStarBooks);
+                    if (GameManager.getInstance().targetStarBook == null)
+                    {
+                        ListNullSign.text = "즐겨찾기한 책이 없습니다!";
+						// if booklist is null
+					}
+					else
+					{
+                        ListNullSign.text = "즐겨찾기한 " + GameManager.getInstance().targetStarBook.BookName + " 관련된 책입니다.";
+                    }
                     break;
                 case BookListType.LogRecommend:
                     renderBooks(GameManager.getInstance().RecommendLogBooks);
+                    if (GameManager.getInstance().targetLogBook == null)
+                    {
+                        ListNullSign.text = "읽었던 책이 없습니다!";
+                        // if booklist is null
+                    }
+                    else
+                    {
+                        ListNullSign.text = "방금 읽은 " + GameManager.getInstance().targetLogBook.BookName + " 관련된 책입니다.";
+                    }
                     break;
             }
         }
@@ -94,6 +117,7 @@ public class BookListLoader : MonoBehaviour
     // render at content in scrollView
     public void renderBooks(List<Book> books)
     {
+        
         for (int i = 0; i < books.Count; i++)
         {
             GameObject book = Instantiate(bookItemPrefab);
