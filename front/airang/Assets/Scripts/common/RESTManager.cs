@@ -201,7 +201,8 @@ public class RESTManager : MonoBehaviour
         var fileType = AudioType.MPEG;
 
         RequestHelper requestHelper = new RequestHelper();
-        requestHelper.Headers = new Dictionary<string, string> { { "id", bookId + "" }, { "page", pageNum + "" }, { "type", type + "" } };
+        requestHelper.Headers = new Dictionary<string, string> { { "id", bookId + "" }, { "page", pageNum + "" }, { "type", type + "" },
+            { "access-token", PlayerPrefs.GetString("accessToken") ?? "" }};
         requestHelper.DownloadHandler = new DownloadHandlerAudioClip(fileUrl, fileType);
         requestHelper.Uri = fileUrl;
 
