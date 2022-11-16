@@ -12170,6 +12170,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3803370861823395830}
+  - component: {fileID: 4810002291832592115}
   m_Layer: 0
   m_Name: Page07
   m_TagString: Untagged
@@ -12197,6 +12198,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4810002291832592115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3803370861823395825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4e6016108fc0fd4a9855d0350e2a2be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skyboxMaterial: {fileID: 2100000, guid: f5dcd562bbe8e6741845a6ba29547444, type: 2}
 --- !u!1 &3803370861944104021
 GameObject:
   m_ObjectHideFlags: 0
@@ -12294,10 +12308,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46be2ac41c47dfb45b94ce584ed5d5ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subCamera: {fileID: 3803370861552237103}
   speed: 3
   easeType: 0
+  subCamera: {fileID: 3803370861552237103}
   targetCamera: {fileID: 0}
+  subCameras: []
+  princessObject: {fileID: 0}
   page: 0
 --- !u!1 &3809124143241939178
 GameObject:
