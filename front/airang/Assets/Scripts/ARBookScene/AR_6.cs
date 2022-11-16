@@ -202,9 +202,9 @@ public class AR_6 : MonoBehaviour
                     GameObject BadQueenObject = hitobj.collider.gameObject;
                     playAudio(BadQueenObject);
                     Animator BadQueenAnim = BadQueenObject.GetComponent<Animator>();
-                    BadQueenAnim.Play("Angry");
-                    showResult AnimCeck = BadQueenObject.GetComponent<showResult>();
-                    AnimCeck.SetActvieOnResult("나쁜여왕");
+                    BadQueenAnim.Play("Angry"); 
+                    NoPrinceObject noPrinceObj = BadQueenObject.GetComponent<NoPrinceObject>();
+                    noPrinceObj.ClickNoPrince();
                 }
                 else if (hitobj.collider.name == "P_Prince")
                 {
@@ -241,8 +241,8 @@ public class AR_6 : MonoBehaviour
                     Animator HunterAnim = HunterObject.GetComponent<Animator>();
                     playAudio(HunterObject);
                     HunterAnim.Play("No");
-                    showResult AnimCeck = HunterObject.GetComponent<showResult>();
-                    AnimCeck.SetActvieOnResult("사냥꾼");
+                    NoPrinceObject noPrinceObj = HunterObject.GetComponent<NoPrinceObject>();
+                    noPrinceObj.ClickNoPrince();
                 }
                 else if (hitobj.collider.name == "Emu")
                 {
