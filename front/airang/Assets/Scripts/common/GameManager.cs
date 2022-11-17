@@ -1,17 +1,20 @@
 using Models;
 using Newtonsoft.Json.Linq;
+using Proyecto26;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using Unity.Entities.UniversalDelegates;
 using Unity.VisualScripting;
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.Windows;
 
 public class GameManager : MonoBehaviour
-{ 
+{
     static GameManager instance = null;
 
     // alert object
@@ -67,12 +70,12 @@ public class GameManager : MonoBehaviour
             // get Recently books
             books_log = ResponseToBookList(res.Text);
             return RESTManager.getInstance().Get("book/recommend");
-        }).Then( res => {
+        }).Then(res => {
             ResponseRecommendToBookList(res.Text);
         }).Catch(err =>
         {
             // TODO : 네트워크 환경 확인 메세지
-            Debug.Log(err.Message);
+            alert("책 목록을 불러오는중 \n문제가 발생하였습니다");
 
             // When server is closing
             // books = FileManager.getInstance().loadData().Books;
@@ -88,7 +91,7 @@ public class GameManager : MonoBehaviour
     }
 
     // json book list to List of Book object
-    private List<Book> ResponseToBookList(string book_list)
+    public List<Book> ResponseToBookList(string book_list)
     {
         JObject json = JObject.Parse(book_list);
 
@@ -99,7 +102,7 @@ public class GameManager : MonoBehaviour
 
         return ret;
     }
-    private void ResponseRecommendToBookList(string book_list)
+    public  void ResponseRecommendToBookList(string book_list)
     {
         JObject json = JObject.Parse(book_list);
 
