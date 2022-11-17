@@ -19,19 +19,14 @@ public class FavoriteBookSetter : MonoBehaviour
         foreach (var book in GameManager.getInstance().Favor_Books)
         {
             if (book.BookId == book_id)
-            {
                 starBtn.isOn = false;
-            }
         }
         
         // toggle event setting
         starBtn.onValueChanged.AddListener(val => {
-            GameManager.getInstance().Favor_Books.Add(BookManager.getInstance().CurBook); // change local
             requestSetFavoriteBook();
         });
     }
-
-
 
     public void requestSetFavoriteBook()
     {

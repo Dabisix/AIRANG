@@ -17,7 +17,7 @@ public class RecordParentVoice : MonoBehaviour
 
     public void readyToRecord()
     {
-        if (BookManager.getInstance().Narration == 1)
+        if (BookManager.getInstance().Narration != 2 || BookManager.getInstance().ARType != 0)
         {
             // dont need to use record
             startRecord.SetActive(false);
