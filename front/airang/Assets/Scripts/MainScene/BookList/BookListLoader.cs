@@ -32,11 +32,14 @@ public class BookListLoader : MonoBehaviour
     [SerializeField]
     public BookListType book_list_type;
 
-    private void Start()
+
+	private void Start()
     {
         loadBooks(false);
         
     }
+
+
 
 
     // load books with type of book list
