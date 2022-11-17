@@ -17,6 +17,7 @@ public class RecordParentVoice : MonoBehaviour
 
     public void readyToRecord()
     {
+        Debug.Log("녹음 상태 : " + BookManager.getInstance().Narration);
         if (BookManager.getInstance().Narration == 1)
         {
             // dont need to use record
