@@ -49,7 +49,11 @@ public class PlayRoomARScript : MonoBehaviour
                 AR로 생성된 여러 객체들을 Trackable이라고 한다
                 ARRaycastManager의 Raycast는 자체적으로 Hit 정보에 어떤 Trackable이 맞았는지 알려준다
             */
-            var hitPlane = m_PlaneManager.GetPlane(p_Hits[0].trackableId);
+
+            var hitTrackableId = p_Hits[0].trackableId;
+            _trackableId = hitTrackableId;
+            var hitPlane = m_PlaneManager.GetPlane(hitTrackableId);
+
             // Plane 정보를 가져오고 anchor를 생성, 그 Anchor위에 Prefab을 생성함
             var anchor = m_AnchorManager.AttachAnchor(hitPlane, hitPose);
             
@@ -86,10 +90,20 @@ public class PlayRoomARScript : MonoBehaviour
     // 앵커 설정 후 Plane Detection을 비활성화
     void TogglePlaneDetection()
     {
-        m_PlaneManager.enabled = !m_PlaneManager.enabled;
-        foreach (ARPlane plane in m_PlaneManager.trackables)
+        if (m_PlaneManager.currentDetectionMode == PlaneDetectionMode.None)
         {
-            plane.gameObject.SetActive(false);
+            //넓은 바닥 인식
+            m_PlaneManager.requestedDetectionMode = PlaneDetectionMode.Horizontal;
+        }
+        else
+        {
+            m_PlaneManager.requestedDetectionMode = PlaneDetectionMode.None;
+            // 원하는 Plane 제외하고 나머지를 사용 불가능하게
+            foreach (ARPlane plane in m_PlaneManager.trackables)
+            {
+                if (plane.trackableId != _trackableId)
+                    plane.gameObject.SetActive(false);
+            }
         }
     }
     
@@ -100,4 +114,6 @@ public class PlayRoomARScript : MonoBehaviour
     ARRaycastManager m_RaycastManager;
     ARAnchorManager m_AnchorManager;
     ARPlaneManager m_PlaneManager;
+    //추가 : 터치 인식할 plane 확인 위하여
+    TrackableId _trackableId;
 }

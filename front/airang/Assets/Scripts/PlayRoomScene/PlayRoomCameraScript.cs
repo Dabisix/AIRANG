@@ -4,10 +4,7 @@ using System.IO;
 
 public class PlayRoomCameraScript : MonoBehaviour
 {
-    public void ScreenShotCapture()
-    {
-        ScreenCapture.CaptureScreenshot(System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + ".png");
-    }
+    public Canvas[] uis;
 
     public void CaptureScreen()
     {
@@ -16,9 +13,26 @@ public class PlayRoomCameraScript : MonoBehaviour
 
         #if UNITY_IPHONE || UNITY_ANDROID
                 CaptureScreenForMobile(fileName);
-        #else
+#else
                 CaptureScreenForPC(fileName);
-        #endif
+#endif
+    }
+
+    private void enableCanvas(bool setup)
+    {
+        foreach(var ui in uis)
+        {
+            ui.enabled = setup;
+        }
+    }
+
+    public IEnumerator MakeScreenShot()
+    {
+        enableCanvas(false);
+
+        yield return new WaitForEndOfFrame();
+        CaptureScreen();
+        enableCanvas(true);
     }
 
     private void CaptureScreenForPC(string fileName)
