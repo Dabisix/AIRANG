@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.EditorTools;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -64,6 +65,10 @@ public class BookItemAction : MonoBehaviour
         // read book start
         BookManager bm = BookManager.getInstance();
         bm.CurBook = bookInfo;
+
+        // add read log
+        RESTManager.getInstance().Put("book/log/" + bm.CurBook.BookId, null);
+
         bm.InitBook();
     }
 }
