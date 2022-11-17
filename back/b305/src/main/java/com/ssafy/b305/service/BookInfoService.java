@@ -8,10 +8,7 @@ import com.ssafy.b305.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class BookInfoService {
@@ -83,5 +80,31 @@ public class BookInfoService {
         }
 //        }
 //            return false;
+    }
+
+    // 읽은 목록 또는 즐겨찾기 목록 중복 확인
+    public void checkDuplicate(User user, boolean type){
+        if(type==true){ //즐겨찾기 목록
+            List<BookInfo> result = new ArrayList<BookInfo>();
+            List<Long> idList = new ArrayList<Long>();
+            for(BookInfo book : user.getStarList()){
+                if(!idList.contains(book.getBId())) {
+                    idList.add(book.getBId());
+                    result.add(book);
+                }
+            }
+            user.setStarList(result);
+        }else{ // 읽은 목록
+            List<BookInfo> result = new ArrayList<BookInfo>();
+            List<Long> idList = new ArrayList<Long>();
+            for(BookInfo book : user.getLogList()){
+                if(!idList.contains(book.getBId())) {
+                    idList.add(book.getBId());
+                    result.add(book);
+                }
+            }
+            user.setLogList(result);
+        }
+        userRepository.save(user);
     }
 }

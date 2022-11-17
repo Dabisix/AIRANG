@@ -142,6 +142,8 @@ public class BookController {
             return new ResponseEntity<>("unauthorized Token", HttpStatus.UNAUTHORIZED);
         }
 
+        bookInfoService.checkDuplicate(user, true);
+
         HashMap<String, List<BookInfo>> ret = new HashMap<String, List<BookInfo>>();
         ret.put("booklist", user.getStarList());
 
@@ -187,7 +189,10 @@ public class BookController {
         }catch (Exception e){
             return new ResponseEntity<>("unauthorized Token", HttpStatus.UNAUTHORIZED);
         }
+        bookInfoService.checkDuplicate(user, false);
+
         HashMap<String, List<BookInfo>> ret = new HashMap<String, List<BookInfo>>();
+
         ret.put("booklist", user.getLogList());
 
         return new ResponseEntity<>(ret, HttpStatus.OK);
