@@ -9468,7 +9468,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1565516555}
         m_TargetAssemblyTypeName: PlayRoomCameraScript, Assembly-CSharp
-        m_MethodName: CaptureScreen
+        m_MethodName: clickCameraButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9528,7 +9528,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26dac1b2ece53be46a7015e2747614fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uis: []
+  uis:
+  - {fileID: 1727297958}
+  - {fileID: 1056662586}
+  - {fileID: 717312387}
+  - {fileID: 1187293178}
 --- !u!1 &1568184322
 GameObject:
   m_ObjectHideFlags: 0
@@ -10587,6 +10591,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toggle: {fileID: 0}
+--- !u!223 &1727297958 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 4962433828830478592, guid: b9bb0540abec81f4981dfb591195ec04, type: 3}
+  m_PrefabInstance: {fileID: 1727297949}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1728571549
 GameObject:
   m_ObjectHideFlags: 0

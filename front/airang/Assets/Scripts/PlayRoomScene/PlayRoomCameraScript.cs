@@ -18,21 +18,23 @@ public class PlayRoomCameraScript : MonoBehaviour
 #endif
     }
 
-    private void enableCanvas(bool setup)
+    public void clickCameraButton()
     {
-        foreach(var ui in uis)
-        {
-            ui.enabled = setup;
-        }
+        StartCoroutine(MakeScreenShot());
+        StopCoroutine(MakeScreenShot());
     }
 
     public IEnumerator MakeScreenShot()
     {
-        enableCanvas(false);
+        foreach (var ui in uis)
+        {
+            ui.enabled = false;
+        }
 
         yield return new WaitForEndOfFrame();
         CaptureScreen();
-        enableCanvas(true);
+        uis[0].enabled = true;
+        uis[1].enabled = true;
     }
 
     private void CaptureScreenForPC(string fileName)
