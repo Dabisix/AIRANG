@@ -22,8 +22,12 @@ public class BookPrefabButtonScripts : MonoBehaviour
     //go next page
     public void goNext()
     {
-        // record end
-        FindObjectOfType<RecordParentVoice>().OnClickEnd();
+        //지금 녹음 상태일때 
+        if(BookManager.getInstance().Narration == 2)
+        {
+            // record end
+            FindObjectOfType<RecordParentVoice>().OnClickEnd();
+        }
 
         BookManager.getInstance().CurPage += 1;
         BookManager.getInstance().changeScene();

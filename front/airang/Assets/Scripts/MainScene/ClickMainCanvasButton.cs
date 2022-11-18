@@ -53,6 +53,16 @@ public class ClickMainCanvasButton : MonoBehaviour
         searchBar.SetActive(false);
     }
 
+    public void ClickBtnRecord()
+    {
+        SceneManager.LoadScene("RecordListScene");
+    }
+
+    public void ClickHomeInRecordScene()
+    {
+       SceneManager.LoadScene("MainScene");
+    }
+
     private void loadBookListWithViewName(string scroll_view_name)
     {
         GameObject recent_book_scroll_view = GameObject.Find(scroll_view_name);
