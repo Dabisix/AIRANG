@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayRoomUIScript : MonoBehaviour
 {
     public Canvas frameCanvas;
     public GameObject[] frames;
     public Canvas characterCanvas;
+    public ToggleGroup characterToggles;
+    public GameObject[] characterLists;
+
     
     private int beforeFrameIndex;
 
@@ -54,6 +58,14 @@ public class PlayRoomUIScript : MonoBehaviour
     }
     public void changeCharacterPrefabs(int menuIndex)
     {
-        
+        unActiveAllCharacterPrefabs();
+        characterLists[menuIndex].SetActive(true);
+    }
+    public void unActiveAllCharacterPrefabs()
+    {
+        foreach(var obj in characterLists)
+        {
+            obj.SetActive(false);
+        }
     }
 }

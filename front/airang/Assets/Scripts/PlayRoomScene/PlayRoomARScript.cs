@@ -18,9 +18,9 @@ public class PlayRoomARScript : MonoBehaviour
     void RemoveAllAnchors()
     {
         // Anchor와 인스턴스화된 Object 모두 삭제
-        foreach (var anchor in m_AnchorPoints)
-            Destroy(anchor);
-        m_AnchorPoints.Clear();
+        //foreach (var anchor in m_AnchorPoints)
+        //    Destroy(anchor);
+        //m_AnchorPoints.Clear();
         Destroy(m_RendedObject);
     }
 
@@ -98,12 +98,6 @@ public class PlayRoomARScript : MonoBehaviour
         m_RendedObject = created;
     }
 
-    // 랜덤한 3D위치 정하기 (but 높이 = y 는 그대로)
-    Vector3 setRandomVector(Vector3 point)
-    {
-        return new Vector3(point.x + Random.value * 100, point.y, point.z + Random.value * 100);
-    }
-
     // 앵커 설정 후 Plane Detection을 비활성화
     void TogglePlaneDetection()
     {
@@ -133,6 +127,12 @@ public class PlayRoomARScript : MonoBehaviour
         }
         touchPosition = default;
         return false;
+    }
+
+    public void getNewCharacter(string modelName)
+    {
+        RemoveAllAnchors();
+        m_LoadedPrefab = Instantiate(loadPrefab(modelName), m_AnchorPoints[0].transform);
     }
 
     static List<ARRaycastHit> p_Hits = new List<ARRaycastHit>();
