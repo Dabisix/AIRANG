@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ClickMainCanvasButton : MonoBehaviour
 {
@@ -70,5 +71,9 @@ public class ClickMainCanvasButton : MonoBehaviour
         {
             navigation[i].SetActive(true);
         }
+    }
+    public void ClickPlayRoomBtn()
+    {
+        SceneManager.LoadScene("PlayRoomScene");
     }
 }
