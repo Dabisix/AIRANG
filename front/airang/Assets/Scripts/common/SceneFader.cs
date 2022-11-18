@@ -54,7 +54,9 @@ public class SceneFader : MonoBehaviour
     public IEnumerator FadeAndLoadScene(FadeDirection fadeDirection, string sceneToLoad)
     {
         yield return Fade(fadeDirection);
-        SceneManager.LoadScene(sceneToLoad);
+
+        LoadingSceneManager.LoadScene(sceneToLoad);
+        //SceneManager.LoadScene(sceneToLoad);
     }
 
     private void SetColorImage(ref float alpha, FadeDirection fadeDirection)

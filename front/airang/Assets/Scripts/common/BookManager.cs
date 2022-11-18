@@ -298,6 +298,7 @@ public class BookManager : MonoBehaviour
         if (isFade)
             StartCoroutine(GameObject.FindObjectOfType<SceneFader>().FadeAndLoadScene(SceneFader.FadeDirection.In, next_scene_name));
         else
-            SceneManager.LoadScene(next_scene_name);
+            //SceneManager.LoadScene(next_scene_name);
+            LoadingSceneManager.LoadScene(next_scene_name);
     }
 }
