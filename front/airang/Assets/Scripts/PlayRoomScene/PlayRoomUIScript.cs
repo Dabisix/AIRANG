@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayRoomUIScript : MonoBehaviour
 {
@@ -67,5 +68,10 @@ public class PlayRoomUIScript : MonoBehaviour
         {
             obj.SetActive(false);
         }
+    }
+
+    public void goMain()
+    {
+        SceneManager.LoadScene("MainScene");
     }
 }
