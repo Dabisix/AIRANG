@@ -24,7 +24,7 @@ public class PlayRoomUIScript : MonoBehaviour
     {
         frameCanvas.enabled = false;
     }
-    public void toggleFrameMenu(int idx)
+    public void toggleFramePrefabs(int idx)
     {
         if(beforeFrameIndex > 0 && beforeFrameIndex == idx)
         {
@@ -37,7 +37,7 @@ public class PlayRoomUIScript : MonoBehaviour
         }
         beforeFrameIndex = idx;
     }
-    private void closeAllFrame()
+    public void closeAllFrame()
     {
         foreach(var obj in frames)
         {
@@ -54,6 +54,6 @@ public class PlayRoomUIScript : MonoBehaviour
     }
     public void changeCharacterPrefabs(int menuIndex)
     {
-
+        
     }
 }

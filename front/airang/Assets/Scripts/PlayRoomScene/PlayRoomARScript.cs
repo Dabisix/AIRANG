@@ -37,6 +37,12 @@ public class PlayRoomARScript : MonoBehaviour
         //랜덤 세트 가져오기
         int setNumber = Random.Range(0, 2);
         m_LoadedPrefab = loadPrefab("Set"+setNumber);
+
+        for (int i = 0; i < m_LoadedPrefab.transform.childCount; i++)
+        {
+            GameObject child = m_LoadedPrefab.transform.GetChild(i).gameObject;
+            child.AddComponent(typeof(PlayRoomModelScript));
+        }
     }
     void Update()
     {
@@ -67,6 +73,18 @@ public class PlayRoomARScript : MonoBehaviour
                 createPrefab();
                 TogglePlaneDetection();
             }
+        }else if(TryGetTouchPosition(out Vector2 touchPosition))
+        {
+            //터치 된 경우
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(touchPosition);
+            Physics.Raycast(ray, out hit);
+
+            //어떤 것을 건드렸나 확인
+            if (hit.collider.name.Contains("Model"))
+            {
+                hit.transform.GetComponent<PlayRoomModelScript>().touched();
+            }
         }
     }
 
@@ -77,7 +95,6 @@ public class PlayRoomARScript : MonoBehaviour
         float scale = Screen.height / 1200f;
 
         var created = Instantiate(m_LoadedPrefab, m_AnchorPoints[0].transform);
-        created.AddComponent<PlayRoomModelScript>();
         m_RendedObject = created;
     }
 
@@ -106,7 +123,18 @@ public class PlayRoomARScript : MonoBehaviour
             }
         }
     }
-    
+
+    bool TryGetTouchPosition(out Vector2 touchPosition)
+    {
+        if (Input.touchCount > 0)
+        {
+            touchPosition = Input.GetTouch(0).position;
+            return true;
+        }
+        touchPosition = default;
+        return false;
+    }
+
     static List<ARRaycastHit> p_Hits = new List<ARRaycastHit>();
     List<ARAnchor> m_AnchorPoints;
     GameObject m_RendedObject;
@@ -116,4 +144,6 @@ public class PlayRoomARScript : MonoBehaviour
     ARPlaneManager m_PlaneManager;
     //추가 : 터치 인식할 plane 확인 위하여
     TrackableId _trackableId;
+    // 추가 : 터치한 위치 확인 위하여
+    Vector2 touchPosition;
 }
