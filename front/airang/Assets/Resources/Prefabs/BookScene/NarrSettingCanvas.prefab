@@ -241,7 +241,7 @@ MonoBehaviour:
   timeOfTravel: 0.3
   canvas: {fileID: 3988645566899063234}
   panel: {fileID: 3988645567586344955}
-  to: {x: 0, y: 400, z: 0}
+  to: {x: 0, y: 0, z: 0}
   from: {x: 0, y: 2200, z: 0}
 --- !u!1 &3988645566735096874
 GameObject:
@@ -1082,11 +1082,11 @@ RectTransform:
   m_Father: {fileID: 3988645566899063262}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 200}
-  m_SizeDelta: {x: -800, y: -400}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1200, y: 800}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &3988645567586344950
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1102,7 +1102,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3988645567586344955}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
