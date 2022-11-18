@@ -18,8 +18,6 @@ public class PlayRoomModelScript : MonoBehaviour
     private Vector3 targetPos;  //도착지점
     private float duration; //몇초동안 움직일 것인가
 
-    public Camera camera;
-
     private void Awake()
     {
         anim = gameObject.GetComponentInChildren<Animator>();
@@ -27,14 +25,6 @@ public class PlayRoomModelScript : MonoBehaviour
     }
     private void Start()
     {
-        foreach (var param in anim.parameters)
-        {
-            if (param.Equals("actionID"))
-            {
-                hasIntegerId = true;
-                break;
-            }
-        }
         animationIdle();
         waitTime = 0;   //바로 움직이자
         isMove = false;
@@ -76,44 +66,37 @@ public class PlayRoomModelScript : MonoBehaviour
     // 가는 모션
     private void animationGo()
     {
-        if (!hasIntegerId)
+        try
         {
-            try
-            {
-                anim.Play("Walk");
-            }
-            catch
-            {
-                anim.Play("Jump");
-            }
+            anim.Play("Walk");
         }
-        else
+        catch
         {
-            anim.SetInteger("actionID", 2);
+            anim.Play("walk_01");
         }
     }
     // 멈추는 모션
     private void animationIdle()
     {
-        if (!hasIntegerId)
+        try
         {
             anim.Play("Idle_A");
         }
-        else
+        catch
         {
-            anim.SetInteger("actionID", 1);
+            anim.Play("idle_01");
         }
     }
     // 인사
     private void animationHi()
     {
-        if (!hasIntegerId)
+        try
         {
             anim.Play("Bounce");
         }
-        else
+        catch
         {
-            anim.SetInteger("actionID", 2);
+            anim.Play("win_dance_01");
         }
     }
 
@@ -156,19 +139,5 @@ public class PlayRoomModelScript : MonoBehaviour
         }
         duration = (Mathf.Abs(point.x - x) + Mathf.Abs(point.z - z))*2f;
         return new Vector3(x, point.y, z);
-    }
-
-
-    // 해당 모델의 지정한 애니메이션 재생
-    public void playAnimation(string emotionName)
-    {
-        if (hasIntegerId)
-        {
-            anim.SetInteger("actionID", int.Parse(emotionName));
-        }
-        else
-        {
-            anim.Play(emotionName);
-        }
     }
 }
