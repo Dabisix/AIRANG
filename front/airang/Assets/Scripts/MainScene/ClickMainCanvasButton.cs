@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ClickMainCanvasButton : MonoBehaviour
 {
@@ -50,6 +51,16 @@ public class ClickMainCanvasButton : MonoBehaviour
 
         // Active search button
         searchBar.SetActive(false);
+    }
+
+    public void ClickBtnRecord()
+    {
+        SceneManager.LoadScene("RecordListScene");
+    }
+
+    public void ClickHomeInRecordScene()
+    {
+       SceneManager.LoadScene("MainScene");
     }
 
     private void loadBookListWithViewName(string scroll_view_name)
