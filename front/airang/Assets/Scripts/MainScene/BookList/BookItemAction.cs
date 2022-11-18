@@ -67,7 +67,6 @@ public class BookItemAction : MonoBehaviour
 
         // add read log
         RESTManager.getInstance().Put("book/log/" + bm.CurBook.BookId, null);
-
         bm.InitBook();
     }
 }
