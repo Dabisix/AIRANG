@@ -4,18 +4,21 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Video; // 비디오 플레이어 사용
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayRecordVideo : MonoBehaviour
 {
     public VideoPlayer screenVideo; //직접 할당
     public VideoPlayer selfVideo;
     public Slider slider;
+    public TextMeshProUGUI title;
     //VideoPlayer vp;
 
     private void Start()
     {
         screenVideo.url = VideoManager.getInstance().CurVideo.ScreenUrl;
         selfVideo.url = VideoManager.getInstance().CurVideo.SelfUrl;
+        title.text = VideoManager.getInstance().CurVideo.Title;
         Debug.Log(screenVideo.length);
         slider.minValue = 0;
         slider.maxValue = (float)screenVideo.clip.length;

@@ -55,8 +55,8 @@ public class VideoManager : MonoBehaviour
     public void changeScene(bool isFade = false)
     {
         if (isFade)
-            StartCoroutine(GameObject.FindObjectOfType<SceneFader>().FadeAndLoadScene(SceneFader.FadeDirection.In, "PlayRecordVideo"));
+            StartCoroutine(GameObject.FindObjectOfType<SceneFader>().FadeAndLoadScene(SceneFader.FadeDirection.In, "RecordVideoDetailScene"));
         else
-            SceneManager.LoadScene("PlayRecordVideo");
+            SceneManager.LoadScene("RecordVideoDetailScene");
     }
 }

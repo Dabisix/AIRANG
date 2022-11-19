@@ -35,7 +35,7 @@ public class RecordVideoListLoader : MonoBehaviour
     public void getVideos()
     {
         // 리액션 녹화 영상 가져오기
-        //var fileUrl = "file://" + Application.persistentDataPath + "/" + BookManager.getInstance().CurBook.BookId.ToString() + "/" + BookManager.getInstance().CurPage.ToString() + ".wav"; //모바일용
+        //var fileUrl = "file://" + Application.persistentDataPath; //모바일용
         var fileUrl = Application.persistentDataPath + "/reaction"; //컴퓨터용
 
         // 리액션 녹화 폴더 안 파일 확인
@@ -63,6 +63,7 @@ public class RecordVideoListLoader : MonoBehaviour
             renderTexture.name = videos[i]+" Renderer";
 
             GameObject video = Instantiate(videoItemPrefab);
+            video.transform.localScale = new Vector3(0.67f, 0.67f, 0.67f);
             video.GetComponent<VideoItemAction>().VideoInfo = videos[i];
             
             RawImage img = video.transform.Find("RawImage").gameObject.GetComponent<RawImage>();
