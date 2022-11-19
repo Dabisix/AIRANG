@@ -7,17 +7,12 @@ public class HomeController : MonoBehaviour
     public void OnHomeClicked()
     {
         saveCurrentPage();
-        GoMainScene();
+        BookManager.getInstance().goToMain();
     }
 
     private void saveCurrentPage()
     {
         // get File
         BookManager.getInstance().setCheckPoint(BookManager.getInstance().CurPage);
-    }
-
-    private void GoMainScene()
-    {
-        StartCoroutine(FindObjectOfType<SceneFader>().FadeAndLoadScene(SceneFader.FadeDirection.In, "MainScene"));
     }
 }

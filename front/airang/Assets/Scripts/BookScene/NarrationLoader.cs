@@ -1,5 +1,4 @@
 using Proyecto26;
-using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -33,7 +32,7 @@ public class NarrationLoader : MonoBehaviour
 
     public void play()
     {
-        // setting record
+        // setting record button and audio setting
         FindObjectOfType<RecordParentVoice>().readyToRecord();
 
         int narr_setting = BookManager.getInstance().Narration;
@@ -44,7 +43,12 @@ public class NarrationLoader : MonoBehaviour
         else if (narr_setting == 1)
             downloadNarration();
         else
-            loadParentNarr();
+        {
+            // AR page not use Parent Narration
+            if(BookManager.getInstance().ARType == 0)
+                loadParentNarr();
+        }
+            
     }
 
     public void downloadNarration()
