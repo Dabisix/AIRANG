@@ -158,14 +158,13 @@ public class BookManager : MonoBehaviour
     {
         getBookSetting();
         getCheckPoint();
-        loadContents();
         getBookInfo();
+        loadContents();
     }
 
     public void loadContents()
     {
         GameObject[] objects = Resources.LoadAll<GameObject>("book" + cur_book.BookId);
-
         contents.Clear();
         contents.Add(null);
         for (int i = 0; i < objects.Length; i++)
@@ -298,7 +297,7 @@ public class BookManager : MonoBehaviour
         if (isFade)
             StartCoroutine(GameObject.FindObjectOfType<SceneFader>().FadeAndLoadScene(SceneFader.FadeDirection.In, next_scene_name));
         else
-            //SceneManager.LoadScene(next_scene_name);
-            LoadingSceneManager.LoadScene(next_scene_name);
+            SceneManager.LoadScene(next_scene_name);
+            //LoadingSceneManager.LoadScene(next_scene_name);
     }
 }

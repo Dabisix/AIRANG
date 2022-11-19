@@ -3,24 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class LoadingSceneManager : MonoBehaviour
 {
-
+    public TextMeshProUGUI Percent;
     public static string nextScene;
+
+
+
     [SerializeField]
     Image progressBar;
 
     // Start is called before the first frame update
     void Start()
     {
+        Application.backgroundLoadingPriority = ThreadPriority.High;
         StartCoroutine(LoadScene());
     }
 
     public static void LoadScene(string sceneName)
 	{
         nextScene = sceneName;
-        SceneManager.LoadScene("LoadingScene");
+        SceneManager.LoadSceneAsync("LoadingScene");
 	}
 
     IEnumerator LoadScene()
@@ -47,8 +52,9 @@ public class LoadingSceneManager : MonoBehaviour
                 if (progressBar.fillAmount == 1.0f)
 				{
                     op.allowSceneActivation = true;
-                    yield break;
-				}
+                    yield return new AsyncOperation();
+
+                }
 			}
 		}
 	}
