@@ -67,7 +67,7 @@ public class BookItemAction : MonoBehaviour
 
         // confirm recording
         WebCamController.getInstance().startRecording();
-
+        WebCamController.getInstance().WebCam.Pause();
 
         // add read log
         RESTManager.getInstance().Put("book/log/" + bm.CurBook.BookId, null);

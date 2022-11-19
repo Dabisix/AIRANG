@@ -8,12 +8,6 @@ using System;
 using NatML.Recorders.Inputs;
 using UnityEngine.SceneManagement;
 using System.IO;
-#if UNITY_EDITOR
-using UnityEditor.Recorder;
-using UnityEditor.Recorder.Input;
-
-using UnityEditor;
-#endif
 
 [RequireComponent(typeof(AudioSource))]
 public class WebCamController : MonoBehaviour
@@ -45,6 +39,7 @@ public class WebCamController : MonoBehaviour
     }
     #endregion
 
+    private RealtimeClock recordingClock;
     public bool isRecording = false;
     private string bookname;
     private string date;
@@ -59,16 +54,38 @@ public class WebCamController : MonoBehaviour
 
     public void startRecording()
     {
+        if (isRecording) return;
+
         isRecording = true;
+
         bookname = BookManager.getInstance().BookName;
         date = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
 
-        startCamRecording();
+        recordingClock = new RealtimeClock();
         startScreenRecording();
+        startCamRecording();
+    }
+
+    public void pauseRecording()
+    {
+        if (!isRecording) return;
+
+        turnOffScreen();
+        webCamTexture.Pause();
+    }
+
+    public void resumeRecording()
+    {
+        if (!isRecording) return;
+
+        turnOnScreen();
+        turnOnWebCamTexture();
     }
 
     public void stopRecording()
     {
+        if (!isRecording) return;
+
         isRecording = false;
 
         stopScreenRecording();
@@ -76,9 +93,8 @@ public class WebCamController : MonoBehaviour
     }
 
     #region WebCam
-    private RealtimeClock recordingClock;
     private WebCamTexture webCamTexture;
-    private MP4Recorder recorder;
+    private MP4Recorder camRecorder;
 
     private AudioInput audioInput;
     private AudioSource microphoneSource;
@@ -97,6 +113,7 @@ public class WebCamController : MonoBehaviour
         var webCamDevices = WebCamTexture.devices;
         foreach (var camDevice in webCamDevices)
         {
+            Debug.Log("Cam " + camDevice.name);
             if (camDevice.isFrontFacing)
             {
                 frontCamName = camDevice.name;
@@ -128,12 +145,11 @@ public class WebCamController : MonoBehaviour
 
         turnOnWebCamTexture();
 
-        recordingClock = new RealtimeClock();
-        recorder = new MP4Recorder(webCamTexture.width, webCamTexture.height, 30);
-        // recorder = new MP4Recorder(webCamTexture.width, webCamTexture.height, 30, AudioSettings.outputSampleRate, (int) AudioSettings.speakerMode);
+        camRecorder = new MP4Recorder(webCamTexture.width, webCamTexture.height, 30);
+        // camRecorder = new MP4Recorder(webCamTexture.width, webCamTexture.height, 30, AudioSettings.outputSampleRate, (int) AudioSettings.speakerMode);
 
         // unmute microphone
-        // audioInput = new AudioInput(recorder, recordingClock, microphoneSource, true);
+        // audioInput = new AudioInput(camRecorder, recordingClock, microphoneSource, true);
         // microphoneSource.mute = audioInput == null;
 
         recordVideoCoroutine = StartCoroutine(recording());
@@ -142,10 +158,9 @@ public class WebCamController : MonoBehaviour
     private IEnumerator recording()
     {
         // Create a clock for generating recording timestamps
-        var clock = new RealtimeClock();
         for (int i = 0; ; i++)
         {
-            recorder.CommitFrame(webCamTexture.GetPixels32(), clock.timestamp);
+            camRecorder.CommitFrame(webCamTexture.GetPixels32(), recordingClock.timestamp);
             yield return new WaitForEndOfFrame();
         }
     }
@@ -154,13 +169,13 @@ public class WebCamController : MonoBehaviour
     {
         StopCoroutine(recordVideoCoroutine);
 
-        var recordoingPath = await recorder.FinishWriting();
+        var recordoingPath = await camRecorder.FinishWriting();
 
         // save to Gallery
         NativeGallery.Permission permission =
             NativeGallery.SaveVideoToGallery(recordoingPath, "airang",
-                bookname + "  " + date + ".mp4",
-                (success, path) => Debug.Log("Media saved : " + success + " " + path));
+                "cam_" + bookname + "  " + date + ".mp4",
+                (success, path) => Debug.Log("Cam Media saved : " + success + " " + path));
 
         turnOffWebCamTexture();
     }
@@ -176,64 +191,38 @@ public class WebCamController : MonoBehaviour
     }
     #endregion
 
-
-    #region Screen
-    RecorderController m_RecorderController;
-    MovieRecorderSettings m_Settings = null;
-    private bool m_RecordAudio = true;
-
-    private FileInfo OutputFile
-    {
-        get
-        {
-            var fileName = m_Settings.OutputFile + ".mp4";
-            return new FileInfo(fileName);
-        }
-    }
+    #region SCREEN
+    private MP4Recorder screenRecorder;
+    private ScreenInput screenInput;
 
     private void startScreenRecording()
     {
-        var controllerSettings = ScriptableObject.CreateInstance<RecorderControllerSettings>();
-        m_RecorderController = new RecorderController(controllerSettings);
+        screenRecorder = new MP4Recorder(Screen.width, Screen.height, 30);
 
-        var mediaOutputFolder = new DirectoryInfo(Path.Combine(Application.dataPath, "..", "SampleRecordings"));
-
-        m_Settings = ScriptableObject.CreateInstance<MovieRecorderSettings>();
-        m_Settings.name = "Recorder";
-        m_Settings.Enabled = true;
-
-
-        m_Settings.OutputFormat = MovieRecorderSettings.VideoRecorderOutputFormat.MP4;
-        m_Settings.VideoBitRateMode = VideoBitrateMode.High;
-
-        m_Settings.ImageInputSettings = new GameViewInputSettings
-        {
-            OutputWidth = 2000,
-            OutputHeight = 1200
-        };
-
-        m_Settings.AudioInputSettings.PreserveAudio = m_RecordAudio;
-
-        // Simple file name (no wildcards) so that FileInfo constructor works in OutputFile getter.
-        m_Settings.OutputFile = mediaOutputFolder.FullName + "/" + "video";
-
-        // Setup Recording
-        controllerSettings.AddRecorderSettings(m_Settings);
-        controllerSettings.SetRecordModeToManual();
-        controllerSettings.FrameRate = 60.0f;
-
-
-        RecorderOptions.VerboseMode = false;
-        m_RecorderController.PrepareRecording();
-        m_RecorderController.StartRecording();
-
-        Debug.Log($"Started recording for file {OutputFile.FullName}");
+        turnOnScreen();
     }
 
-    private void stopScreenRecording()
+    private async void stopScreenRecording()
     {
-        Debug.Log("End Recording");
-        m_RecorderController.StopRecording();
+        turnOffScreen();
+
+        var recordoingPath = await screenRecorder.FinishWriting();
+
+        // save to Gallery
+        NativeGallery.Permission permission =
+            NativeGallery.SaveVideoToGallery(recordoingPath, "airang",
+                "scr_" + bookname + "  " + date + ".mp4",
+                (success, path) => Debug.Log("Screen Media saved : " + success + " " + path));
+    }
+
+    private void turnOnScreen()
+    {
+        screenInput = new ScreenInput(screenRecorder, recordingClock);
+    }
+
+    private void turnOffScreen()
+    {
+        screenInput.Dispose();
     }
     #endregion
 

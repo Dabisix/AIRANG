@@ -4071,7 +4071,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2050410999}
   - component: {fileID: 2050411001}
-  - component: {fileID: 2050411000}
+  - component: {fileID: 2050411002}
   m_Layer: 0
   m_Name: Recorder
   m_TagString: Untagged
@@ -4094,19 +4094,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2050411000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2050410998}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79394bbaf98049541b7188b9a954f175, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isRecording: 0
 --- !u!82 &2050411001
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4203,6 +4190,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2050411002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2050410998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8873f87f0b9eb743b4e804dace222c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRecording: 0
 --- !u!1 &2057811249
 GameObject:
   m_ObjectHideFlags: 0

@@ -242,8 +242,7 @@ public class BookManager : MonoBehaviour
     public void goToMain()
     {
         // stop recording
-        if(WebCamController.getInstance().isRecording)
-            WebCamController.getInstance().stopRecording();
+        WebCamController.getInstance().stopRecording();
 
         // request book list
         GameManager gm = GameManager.getInstance();
@@ -289,8 +288,7 @@ public class BookManager : MonoBehaviour
         else
         {
             // WebCamRecording pause
-            if(WebCamController.getInstance().isRecording)
-                WebCamController.getInstance().WebCam.Pause();
+            WebCamController.getInstance().pauseRecording();
 
             if (cur_book.UseARPages[cur_page] > 0) // use AR
                 next_scene_name = "ARBookScene";
