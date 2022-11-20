@@ -1,17 +1,7 @@
-using Models;
 using Newtonsoft.Json.Linq;
-using Proyecto26;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
-using Unity.Entities.UniversalDelegates;
-using Unity.VisualScripting;
-using UnityEditor.PackageManager.Requests;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using UnityEngine.Windows;
 
 public class GameManager : MonoBehaviour
 {
@@ -106,23 +96,46 @@ public class GameManager : MonoBehaviour
     {
         JObject json = JObject.Parse(book_list);
 
-        // 읽었던책중에, 즐겨찾기한 책중에...
-        var starbook = json["starRec"]["targetBook"];
-        targetStarBook = new Book((int)starbook["bid"], (string)starbook["title"], (bool)starbook["aflag"]);
-        var logbook = json["logRec"]["targetBook"]; 
-        targetLogBook = new Book((int)logbook["bid"], (string)logbook["title"], (bool)logbook["aflag"]);
-        List<Book> starRec = new List<Book>();
-        foreach (var book in json["starRec"]["recList"]) {
-            starRec.Add(new Book((int)book["bid"], (string)book["title"], (bool)book["aflag"]));
-        }
-        books_starrecommend = starRec;
+        Debug.Log(json);
+        if(json["starRec"].Type is JTokenType.Null)
+		{
+            Debug.Log("즐겨찾기한 책 목록이 없음!");
+            targetStarBook = null;
+            books_starrecommend = null;
 
-        
-        List<Book> logRec = new List<Book>();
-        foreach (var book in json["logRec"]["recList"]) { 
-            logRec.Add(new Book((int)book["bid"], (string)book["title"], (bool)book["aflag"]));
         }
-        books_logrecommend = logRec;
+		else
+		{
+            var starbook = json["starRec"]["targetBook"];
+            targetStarBook = new Book((int)starbook["bid"], (string)starbook["title"], (bool)starbook["aflag"]);
+            List<Book> starRec = new List<Book>();
+            foreach (var book in json["starRec"]["recList"])
+            {
+                starRec.Add(new Book((int)book["bid"], (string)book["title"], (bool)book["aflag"]));
+            }
+            books_starrecommend = starRec;
+            Debug.Log(books_starrecommend);
+        }
+
+        if (json["logRec"].Type is JTokenType.Null)
+        {
+            Debug.Log("읽었던 책 목록이 없음!");
+            targetLogBook = null;
+            books_logrecommend = null;
+        }
+        else
+        {
+            var logbook = json["logRec"]["targetBook"];
+            targetLogBook = new Book((int)logbook["bid"], (string)logbook["title"], (bool)logbook["aflag"]);
+
+            List<Book> logRec = new List<Book>();
+            foreach (var book in json["logRec"]["recList"])
+            {
+                logRec.Add(new Book((int)book["bid"], (string)book["title"], (bool)book["aflag"]));
+            }
+            books_logrecommend = logRec;
+            Debug.Log(books_logrecommend);
+        }
     }
 
     // book lists from server
@@ -150,7 +163,7 @@ public class GameManager : MonoBehaviour
     public Book targetStarBook;
     public Book targetLogBook;
 
-    public List<Book> Favor_Books
+	public List<Book> Favor_Books
     {
         get => favor_books ?? new List<Book>();
         set => favor_books = value;

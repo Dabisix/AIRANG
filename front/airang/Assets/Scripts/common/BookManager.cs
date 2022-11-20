@@ -189,9 +189,8 @@ public class BookManager : MonoBehaviour
                 cur_book.KScripts.Add(text);
             foreach (string text in bookInfo["econtent"])
                 cur_book.EScripts.Add(text);
-
             // set total pages
-            cur_book.TotalPages = cur_book.KScripts.Count;
+            cur_book.TotalPages = cur_book.KScripts.Count-1;
 
             // set AR info (in code)
             setARInfo();
