@@ -1,4 +1,5 @@
 using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -198,9 +199,7 @@ public class GameManager : MonoBehaviour
         alertBoard.GetComponentInChildren<TextSetter>().setText(message);
     }
 
-    public delegate void m_Delegate();
-
-    public void confirm(string message, m_Delegate onConfirm, m_Delegate onCancle = null)
+    public void confirm(string message, Action onConfirm, Action onCancle)
     {
         // get Alert Prefab
         GameObject alertBoardPrefab = Resources.Load<GameObject>("Prefabs/common/Confirm");
@@ -215,10 +214,18 @@ public class GameManager : MonoBehaviour
         Button[] btns = confirmBoard.GetComponentsInChildren<Button>();
         foreach(Button btn in btns)
         {
-            if(btn.name == "Cancle")
-                if(onCancle != null) btn.onClick.AddListener(() => onCancle());
+            if(btn.name == "Confirm")
+                btn.onClick.AddListener(new UnityEngine.Events.UnityAction(onConfirm));
             else
-                if(onConfirm != null) btn.onClick.AddListener(() => onConfirm());
+                btn.onClick.AddListener(new UnityEngine.Events.UnityAction(onCancle));
         }
+    }
+
+    // recording flag in player setting
+    // 0 : always asking, 1 : no asking and not used, 2 : always use with no asking
+    public int AskingRecording
+    {
+        get { return PlayerPrefs.GetInt("needRec", 0); }
+        set { PlayerPrefs.SetInt("needRec", value); }        
     }
 }
