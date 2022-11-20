@@ -71,7 +71,8 @@ public class WebCamController : MonoBehaviour
         if (!isRecording) return;
 
         turnOffScreen();
-        webCamTexture.Pause();
+        turnOffWebCamTexture();
+        // webCamTexture.Pause();
     }
 
     public void resumeRecording()
@@ -106,7 +107,7 @@ public class WebCamController : MonoBehaviour
         get => webCamTexture;
     }
 
-    private void getFrontCamera()
+    public void getFrontCamera()
     {
         // setting webcamra front
         string frontCamName = null;
@@ -158,9 +159,10 @@ public class WebCamController : MonoBehaviour
     private IEnumerator recording()
     {
         // Create a clock for generating recording timestamps
-        for (int i = 0; ; i++)
+        for (int i = 0;;i++)
         {
-            camRecorder.CommitFrame(webCamTexture.GetPixels32(), recordingClock.timestamp);
+            if(webCamTexture.isPlaying)
+                camRecorder.CommitFrame(webCamTexture.GetPixels32(), recordingClock.timestamp);
             yield return new WaitForEndOfFrame();
         }
     }
