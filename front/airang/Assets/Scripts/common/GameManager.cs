@@ -1,8 +1,6 @@
 using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
-using System.Security.Cryptography;
-using Unity.Entities.UniversalDelegates;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -217,9 +215,9 @@ public class GameManager : MonoBehaviour
         foreach(Button btn in btns)
         {
             if(btn.name == "Confirm")
-                if (onConfirm != null) btn.onClick.AddListener(new UnityEngine.Events.UnityAction(onConfirm));
+                btn.onClick.AddListener(new UnityEngine.Events.UnityAction(onConfirm));
             else
-                if (onCancle != null) btn.onClick.AddListener(new UnityEngine.Events.UnityAction(onCancle));
+                btn.onClick.AddListener(new UnityEngine.Events.UnityAction(onCancle));
         }
     }
 
