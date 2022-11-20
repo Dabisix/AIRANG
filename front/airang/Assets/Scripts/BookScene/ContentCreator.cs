@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.AddressableAssets;
 
 public class ContentCreator : MonoBehaviour
 {
@@ -14,8 +15,11 @@ public class ContentCreator : MonoBehaviour
 
     public void renderContent()
     {
-        if (m_RendedObject != null)
+        if (m_RendedObject != null) {
             Destroy(m_RendedObject);
+        }
+
+
         else
         {
             m_RendedObject = Instantiate(m_Prefab, new Vector3(0, 0), new Quaternion(0, 0, 0, 0));

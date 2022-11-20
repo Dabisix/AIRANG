@@ -6,9 +6,17 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+//using UnityEngine.AddressableAssets;
+//using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class BookManager : MonoBehaviour
 {
+
+    //public List<string> keys = new List<string>() ;
+    //AsyncOperationHandle<IList<GameObject>> loadHandle;
+
+    //private int[] BOOK_INDEX_DIZE = new int[4] { 0, 0, 31, 15 };
+
     #region SINGLETON
     static BookManager instance = null;
 
@@ -44,7 +52,7 @@ public class BookManager : MonoBehaviour
     private int narr;
 
     // each pages infomations
-    private List<GameObject> contents = new List<GameObject>();
+    public List<GameObject> contents = new List<GameObject>();
 
     // AR Constant
     Dictionary<int, Dictionary<int, int>> AR_INFO;
@@ -107,6 +115,7 @@ public class BookManager : MonoBehaviour
 
     private void Start()
     {
+      
         // get hardcoded info
         initARInfo();
     }
@@ -156,19 +165,45 @@ public class BookManager : MonoBehaviour
     // check book info and ready for reading
     public void InitBook()
     {
+        //keys.Clear();
+        //for (int i = 0; i < BOOK_INDEX_DIZE[cur_book.BookId]; ++i)
+        //{
+        //    if (i < 9)
+        //    {
+        //        keys.Add("Book" + cur_book.BookId.ToString() + "/Page0" + (i + 1).ToString());
+        //    }
+        //    else
+        //    {
+        //        keys.Add("Book" + cur_book.BookId.ToString() + "/Page" + (i + 1).ToString());
+        //    }
+        //}
         getBookSetting();
         getCheckPoint();
         getBookInfo();
-        loadContents();
     }
 
-    public void loadContents()
+    public IEnumerator loadContents()
     {
+        //contents.Clear();
+        //contents.Add(null);
+        //loadHandle = Addressables.LoadAssetsAsync<GameObject>(
+        //     keys,
+        //     addressable =>
+        //     {
+        //         Debug.Log(addressable);
+        //         contents.Add(addressable);
+
+        //         // 렌더링이 다할때까지 기다려라.
+        //     }, Addressables.MergeMode.Union, // How to combine multiple labels 
+        //     false); // Whether to fail and release if any asset fails to load
+        //yield return loadHandle;
         GameObject[] objects = Resources.LoadAll<GameObject>("book" + cur_book.BookId);
+
         contents.Clear();
         contents.Add(null);
         for (int i = 0; i < objects.Length; i++)
             contents.Add(objects[i]);
+        yield return new WaitForFixedUpdate();
     }
 
     public bool getBookInfo()
