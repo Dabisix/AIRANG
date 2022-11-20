@@ -97,7 +97,7 @@
 
 ## ✨ ER Diagram
 
-<img width="100%" alt="erd" src="https://user-images.githubusercontent.com/33210124/202905948-469fc27e-ea25-476b-a424-68a93c53ae57.png)" ><br>
+<img width="100%" alt="erd" src="https://user-images.githubusercontent.com/33210124/202911953-463a96e3-189e-42fd-869d-706bf2857547.png" ><br>
 [ER Diagram](https://airang.notion.site/E-R-Diagram-74b7eccd41c8428387125c19a1c601da)
 
 
