@@ -13,7 +13,11 @@
         </div>
       </div>
       <div class="right-box">
-        <a href="" download class="download">
+        <a
+          href="https://k7b305.p.ssafy.io/apk/airang.apk"
+          download="airang.apk"
+          class="download"
+        >
           <img src="./assets/download.png" alt="download" />
         </a>
         <div class="text">
@@ -201,9 +205,117 @@ body::-webkit-scrollbar-track {
   cursor: pointer;
   z-index: 100;
 
+  @media (max-width: 480px) {
+    width: 80px;
+    height: 110px;
+  }
+
+  @media (max-width: 768px) {
+    width: 80px;
+    height: 110px;
+  }
+
+  @media all and (min-width: 768px) and (max-width: 1024px) {
+    width: 100px;
+    height: 130px;
+  }
+
   img {
     width: 100%;
     height: 100%;
+  }
+}
+
+#contents > div > h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  margin: auto;
+  margin-bottom: 3%;
+
+  @media all and (min-width: 768px) and (max-width: 1024px) {
+    font-size: 30px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 25px;
+  }
+  @media (max-width: 480px) {
+    font-size: 18px;
+  }
+
+  .img-box {
+    width: 95px;
+    height: 99px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media all and (min-width: 768px) and (max-width: 1024px) {
+      width: 80px;
+      height: 85px;
+    }
+
+    @media (max-width: 768px) {
+      width: 65px;
+      height: 70px;
+    }
+
+    @media (max-width: 480px) {
+      width: 35px;
+      height: 40px;
+    }
+
+    &:first-of-type {
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    &:last-of-type {
+      width: 88px;
+      height: 62px;
+
+      @media all and (min-width: 768px) and (max-width: 1024px) {
+        width: 78px;
+        height: 57px;
+      }
+
+      @media (max-width: 768px) {
+        width: 68px;
+        height: 47px;
+      }
+
+      @media (max-width: 480px) {
+        width: 50px;
+        height: 35px;
+      }
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+  span {
+    font-family: "ONE-Mobile-POP";
+    font-size: 43px;
+    @media all and (min-width: 768px) and (max-width: 1024px) {
+      font-size: 30px;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 25px;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 18px;
+    }
+
+    &:last-of-type {
+      color: #63432c;
+    }
   }
 }
 
@@ -214,11 +326,32 @@ body::-webkit-scrollbar-track {
   background-repeat: round;
   height: 100vh;
 
+  @media (max-width: 768px) {
+    background-size: cover;
+  }
+
+  @media all and (min-width: 768px) and (max-width: 1024px) {
+    height: auto;
+    padding: 10% 0;
+  }
+
   .left-box {
     width: 70%;
     display: flex;
     flex-direction: column;
     padding-left: 3%;
+
+    @media all and (min-width: 768px) and (max-width: 1024px) {
+      width: 65%;
+    }
+
+    @media (max-width: 768px) {
+      width: 60%;
+    }
+
+    @media (max-width: 480px) {
+      width: 50%;
+    }
 
     .logo {
       height: 25%;
@@ -230,6 +363,10 @@ body::-webkit-scrollbar-track {
         margin: 5% 0 0 5%;
         display: block;
         width: 150px;
+
+        @media (max-width: 768px) {
+          width: 120px;
+        }
       }
     }
 
@@ -252,6 +389,18 @@ body::-webkit-scrollbar-track {
     display: flex;
     flex-direction: column;
 
+    @media all and (min-width: 768px) and (max-width: 1024px) {
+      width: 35%;
+    }
+
+    @media (max-width: 768px) {
+      width: 40%;
+    }
+
+    @media (max-width: 480px) {
+      width: 50%;
+    }
+
     .download {
       width: 100%;
       display: flex;
@@ -261,13 +410,19 @@ body::-webkit-scrollbar-track {
         width: 60%;
       }
     }
+
     .text {
       height: 70%;
       padding-top: 5%;
       padding-left: 4%;
       text-shadow: 0 0 1px #444444;
       font-size: 28px;
-
+      @media all and (min-width: 768px) and (max-width: 1024px) {
+        font-size: 25px;
+      }
+      @media (max-width: 768px) {
+        font-size: 22px;
+      }
       span {
         font-family: "ONE-Mobile-POP";
         color: #63432c;
@@ -278,43 +433,6 @@ body::-webkit-scrollbar-track {
 
 .page2 {
   padding: 7% 0;
-  h1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 3%;
-
-    .img-box {
-      width: 100px;
-      height: 100px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      &:first-of-type {
-        align-items: flex-end;
-        img {
-          width: 95px;
-          height: 99px;
-        }
-      }
-
-      &:last-of-type {
-        img {
-          width: 88px;
-          height: 62px;
-        }
-      }
-    }
-    span {
-      font-family: "ONE-Mobile-POP";
-      font-size: 43px;
-
-      &:last-of-type {
-        color: #63432c;
-      }
-    }
-  }
   .page2-bg {
     width: 67%;
     margin: auto;
@@ -328,39 +446,6 @@ body::-webkit-scrollbar-track {
   padding: 7% 0 8%;
   height: auto;
   background-color: #ffe9d8;
-  h1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 3%;
-
-    .img-box {
-      width: 100px;
-      height: 100px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      &:first-of-type {
-        align-items: flex-end;
-        img {
-          width: 95px;
-          height: 99px;
-        }
-      }
-
-      &:last-of-type {
-        img {
-          width: 88px;
-          height: 62px;
-        }
-      }
-    }
-    span {
-      font-family: "ONE-Mobile-POP";
-      font-size: 43px;
-    }
-  }
   .ar-img {
     width: 100%;
     position: relative;
@@ -382,39 +467,6 @@ body::-webkit-scrollbar-track {
 
 .page4 {
   padding: 7% 0;
-  h1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 3%;
-
-    .img-box {
-      width: 100px;
-      height: 100px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      &:first-of-type {
-        align-items: flex-end;
-        img {
-          width: 95px;
-          height: 99px;
-        }
-      }
-
-      &:last-of-type {
-        img {
-          width: 88px;
-          height: 62px;
-        }
-      }
-    }
-    span {
-      font-family: "ONE-Mobile-POP";
-      font-size: 43px;
-    }
-  }
   .narr-img {
     width: 100%;
     img {
@@ -429,39 +481,6 @@ body::-webkit-scrollbar-track {
   padding: 7% 0 8%;
   height: auto;
   background-color: #ffe9d8;
-  h1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 3%;
-
-    .img-box {
-      width: 100px;
-      height: 100px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      &:first-of-type {
-        align-items: flex-end;
-        img {
-          width: 95px;
-          height: 99px;
-        }
-      }
-
-      &:last-of-type {
-        img {
-          width: 88px;
-          height: 62px;
-        }
-      }
-    }
-    span {
-      font-family: "ONE-Mobile-POP";
-      font-size: 43px;
-    }
-  }
 
   .one-cut-img {
     width: 50%;
@@ -475,6 +494,18 @@ body::-webkit-scrollbar-track {
       font-size: 23px;
       text-align: center;
       font-weight: bold;
+
+      @media all and (min-width: 768px) and (max-width: 1024px) {
+        font-size: 20px;
+      }
+
+      @media (max-width: 768px) {
+        font-size: 16px;
+      }
+
+      @media (max-width: 480px) {
+        font-size: 14px;
+      }
     }
   }
 }
@@ -490,305 +521,13 @@ body::-webkit-scrollbar-track {
   }
   text-align: center;
   line-height: 1.5;
-}
 
-@media all and (max-width: 768px) {
-  #contents {
-    > div {
-      height: auto;
-    }
-
-    .page1 {
-      background-size: cover;
-      padding: 5% 0;
-
-      .left-box {
-        width: 70%;
-        display: flex;
-        flex-direction: column;
-        padding-left: 3%;
-
-        .logo {
-          height: 25%;
-          width: 100%;
-          display: flex;
-          align-items: center;
-
-          img {
-            margin: 5% 0 0 5%;
-            display: block;
-            width: 100px;
-          }
-        }
-
-        .page1-img {
-          width: 100%;
-          height: 75%;
-          display: flex;
-          align-items: flex-end;
-          padding-bottom: 5%;
-
-          img {
-            display: block;
-            width: 72%;
-            margin-left: 8%;
-          }
-        }
-      }
-      .right-box {
-        width: 30%;
-        display: flex;
-        flex-direction: column;
-
-        .download {
-          width: 100%;
-          display: flex;
-          align-items: flex-end;
-          height: 30%;
-          img {
-            width: 60%;
-          }
-        }
-        .text {
-          height: 70%;
-          padding-top: 5%;
-          padding-left: 4%;
-          text-shadow: 0 0 1px #444444;
-          font-size: 19px;
-
-          span {
-            font-family: "ONE-Mobile-POP";
-            color: #63432c;
-          }
-        }
-      }
-    }
-
-    .page2 {
-      padding: 7% 0;
-      h1 {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 3%;
-        font-size: 28px;
-
-        .img-box {
-          width: 100px;
-          height: 100px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-
-          &:first-of-type {
-            align-items: flex-end;
-            img {
-              width: 75px;
-              height: 79px;
-            }
-          }
-
-          &:last-of-type {
-            img {
-              width: 77px;
-              height: 51px;
-            }
-          }
-        }
-        span {
-          font-family: "ONE-Mobile-POP";
-          font-size: 30px;
-
-          &:last-of-type {
-            color: #63432c;
-          }
-        }
-      }
-      .page2-bg {
-        width: 67%;
-        margin: auto;
-        img {
-          width: 100%;
-        }
-      }
-    }
-
-    .page3 {
-      padding: 7% 0 8%;
-      height: auto;
-      background-color: #ffe9d8;
-
-      h1 {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 3%;
-        font-size: 28px;
-
-        .img-box {
-          width: 100px;
-          height: 100px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-
-          &:first-of-type {
-            align-items: flex-end;
-            img {
-              width: 75px;
-              height: 79px;
-            }
-          }
-
-          &:last-of-type {
-            img {
-              width: 77px;
-              height: 51px;
-            }
-          }
-        }
-        span {
-          font-family: "ONE-Mobile-POP";
-          font-size: 30px;
-
-          &:last-of-type {
-            color: #63432c;
-          }
-        }
-      }
-      .ar-img {
-        width: 100%;
-        position: relative;
-        img {
-          width: 50%;
-          display: block;
-          margin: auto;
-          margin-left: 20%;
-
-          &:last-of-type {
-            width: 25%;
-            position: absolute;
-            right: 15%;
-            top: 38%;
-          }
-        }
-      }
-    }
-
-    .page4 {
-      padding: 7% 0;
-      h1 {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 3%;
-        font-size: 28px;
-
-        .img-box {
-          width: 100px;
-          height: 100px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-
-          &:first-of-type {
-            align-items: flex-end;
-            img {
-              width: 75px;
-              height: 79px;
-            }
-          }
-
-          &:last-of-type {
-            img {
-              width: 77px;
-              height: 51px;
-            }
-          }
-        }
-        span {
-          font-family: "ONE-Mobile-POP";
-          font-size: 30px;
-
-          &:last-of-type {
-            color: #63432c;
-          }
-        }
-      }
-      .narr-img {
-        width: 100%;
-        img {
-          display: block;
-          width: 50%;
-          margin: auto;
-        }
-      }
-    }
-
-    .page5 {
-      padding: 7% 0 8%;
-      height: auto;
-      background-color: #ffe9d8;
-      h1 {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 3%;
-        font-size: 28px;
-
-        .img-box {
-          width: 100px;
-          height: 100px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-
-          &:first-of-type {
-            align-items: flex-end;
-            img {
-              width: 75px;
-              height: 79px;
-            }
-          }
-
-          &:last-of-type {
-            img {
-              width: 77px;
-              height: 51px;
-            }
-          }
-        }
-        span {
-          font-family: "ONE-Mobile-POP";
-          font-size: 28px;
-
-          &:last-of-type {
-            color: #63432c;
-          }
-        }
-      }
-      .one-cut-img {
-        width: 50%;
-        margin: auto;
-
-        img {
-          width: 100%;
-        }
-        p {
-          margin-top: 6%;
-          font-size: 19px;
-          text-align: center;
-          font-weight: bold;
-        }
-      }
-    }
+  @media (max-width: 768px) {
+    font-size: 13px;
   }
-}
-@media all and (max-width: 768px) {
-  #contents {
-    > div {
-      //height: auto;
-    }
+
+  @media (max-width: 480px) {
+    font-size: 11px;
   }
 }
 </style>
