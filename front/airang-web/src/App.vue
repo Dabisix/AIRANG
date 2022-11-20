@@ -23,7 +23,7 @@
       </div>
     </div>
     <div class="page2">
-      <h1 data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
+      <h1 data-aos="fade-up" data-aos-delay="100" data-aos-duration="1200">
         <div class="img-box">
           <img src="./assets/arang.png" alt="arang" />
         </div>
@@ -36,13 +36,13 @@
         class="page2-bg"
         data-aos="fade-up"
         data-aos-duration="2000"
-        data-aos-delay="110"
+        data-aos-delay="120"
       >
         <img src="./assets/page2-bg.png" alt="page2 img" />
       </div>
     </div>
     <div class="page3">
-      <h1 data-aos="fade-up" data-aos-delay="120" data-aos-duration="1000">
+      <h1 data-aos="fade-up" data-aos-delay="140" data-aos-duration="1000">
         <div class="img-box">
           <img src="./assets/arang.png" alt="arang" />
         </div>
@@ -55,7 +55,7 @@
       <div
         class="ar-img"
         data-aos="fade-up"
-        data-aos-delay="130"
+        data-aos-delay="160"
         data-aos-duration="1000"
       >
         <img src="./assets/ar.gif" alt="ar" />
@@ -63,7 +63,7 @@
       </div>
     </div>
     <div class="page4">
-      <h1 data-aos="fade-up" data-aos-delay="140" data-aos-duration="1000">
+      <h1 data-aos="fade-up" data-aos-delay="180" data-aos-duration="1000">
         <div class="img-box">
           <img src="./assets/arang.png" alt="arang" />
         </div>
@@ -75,12 +75,40 @@
       <div
         class="narr-img"
         data-aos="fade-up"
-        data-aos-delay="150"
+        data-aos-delay="200"
         data-aos-duration="1000"
       >
         <img src="./assets/narr.png" alt="narr" />
       </div>
     </div>
+    <div class="page5">
+      <h1 data-aos="fade-up" data-aos-delay="220" data-aos-duration="1000">
+        <div class="img-box">
+          <img src="./assets/arang.png" alt="arang" />
+        </div>
+        <div class="img-box">
+          <img src="./assets/number4.png" alt="number1" />
+        </div>
+        <span>아이랑 한컷</span>으로 추억 남기기!
+      </h1>
+      <div
+        class="one-cut-img"
+        data-aos="fade-up"
+        data-aos-delay="240"
+        data-aos-duration="1000"
+      >
+        <img src="./assets/hancut.png" alt="hancut" />
+        <p>원하는 캐릭터를 선택하고 프레임도 골라보세요!</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <img src="./assets/arang.png" alt="arang" />
+
+    <b>아이랑 (AiRang)</b> <br />
+    Frontend | 김수빈 우상욱 이화연 정수빈 <br />
+    Backend | 박서은 육다빈 <br />
+    Copyright 2022 AiRang. All rights reserved.
   </div>
 </template>
 
@@ -393,6 +421,373 @@ body::-webkit-scrollbar-track {
       display: block;
       width: 50%;
       margin: auto;
+    }
+  }
+}
+
+.page5 {
+  padding: 7% 0 8%;
+  height: auto;
+  background-color: #ffe9d8;
+  h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3%;
+
+    .img-box {
+      width: 100px;
+      height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &:first-of-type {
+        align-items: flex-end;
+        img {
+          width: 95px;
+          height: 99px;
+        }
+      }
+
+      &:last-of-type {
+        img {
+          width: 88px;
+          height: 62px;
+        }
+      }
+    }
+    span {
+      font-family: "ONE-Mobile-POP";
+      font-size: 43px;
+    }
+  }
+
+  .one-cut-img {
+    width: 50%;
+    margin: auto;
+
+    img {
+      width: 100%;
+    }
+    p {
+      margin-top: 6%;
+      font-size: 23px;
+      text-align: center;
+      font-weight: bold;
+    }
+  }
+}
+
+.footer {
+  padding: 2% 0;
+  font-size: 15px;
+  img {
+    display: block;
+    margin: auto;
+    width: 5%;
+    height: 5%;
+  }
+  text-align: center;
+  line-height: 1.5;
+}
+
+@media all and (max-width: 768px) {
+  #contents {
+    > div {
+      height: auto;
+    }
+
+    .page1 {
+      background-size: cover;
+      padding: 5% 0;
+
+      .left-box {
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+        padding-left: 3%;
+
+        .logo {
+          height: 25%;
+          width: 100%;
+          display: flex;
+          align-items: center;
+
+          img {
+            margin: 5% 0 0 5%;
+            display: block;
+            width: 100px;
+          }
+        }
+
+        .page1-img {
+          width: 100%;
+          height: 75%;
+          display: flex;
+          align-items: flex-end;
+          padding-bottom: 5%;
+
+          img {
+            display: block;
+            width: 72%;
+            margin-left: 8%;
+          }
+        }
+      }
+      .right-box {
+        width: 30%;
+        display: flex;
+        flex-direction: column;
+
+        .download {
+          width: 100%;
+          display: flex;
+          align-items: flex-end;
+          height: 30%;
+          img {
+            width: 60%;
+          }
+        }
+        .text {
+          height: 70%;
+          padding-top: 5%;
+          padding-left: 4%;
+          text-shadow: 0 0 1px #444444;
+          font-size: 19px;
+
+          span {
+            font-family: "ONE-Mobile-POP";
+            color: #63432c;
+          }
+        }
+      }
+    }
+
+    .page2 {
+      padding: 7% 0;
+      h1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 3%;
+        font-size: 28px;
+
+        .img-box {
+          width: 100px;
+          height: 100px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          &:first-of-type {
+            align-items: flex-end;
+            img {
+              width: 75px;
+              height: 79px;
+            }
+          }
+
+          &:last-of-type {
+            img {
+              width: 77px;
+              height: 51px;
+            }
+          }
+        }
+        span {
+          font-family: "ONE-Mobile-POP";
+          font-size: 30px;
+
+          &:last-of-type {
+            color: #63432c;
+          }
+        }
+      }
+      .page2-bg {
+        width: 67%;
+        margin: auto;
+        img {
+          width: 100%;
+        }
+      }
+    }
+
+    .page3 {
+      padding: 7% 0 8%;
+      height: auto;
+      background-color: #ffe9d8;
+
+      h1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 3%;
+        font-size: 28px;
+
+        .img-box {
+          width: 100px;
+          height: 100px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          &:first-of-type {
+            align-items: flex-end;
+            img {
+              width: 75px;
+              height: 79px;
+            }
+          }
+
+          &:last-of-type {
+            img {
+              width: 77px;
+              height: 51px;
+            }
+          }
+        }
+        span {
+          font-family: "ONE-Mobile-POP";
+          font-size: 30px;
+
+          &:last-of-type {
+            color: #63432c;
+          }
+        }
+      }
+      .ar-img {
+        width: 100%;
+        position: relative;
+        img {
+          width: 50%;
+          display: block;
+          margin: auto;
+          margin-left: 20%;
+
+          &:last-of-type {
+            width: 25%;
+            position: absolute;
+            right: 15%;
+            top: 38%;
+          }
+        }
+      }
+    }
+
+    .page4 {
+      padding: 7% 0;
+      h1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 3%;
+        font-size: 28px;
+
+        .img-box {
+          width: 100px;
+          height: 100px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          &:first-of-type {
+            align-items: flex-end;
+            img {
+              width: 75px;
+              height: 79px;
+            }
+          }
+
+          &:last-of-type {
+            img {
+              width: 77px;
+              height: 51px;
+            }
+          }
+        }
+        span {
+          font-family: "ONE-Mobile-POP";
+          font-size: 30px;
+
+          &:last-of-type {
+            color: #63432c;
+          }
+        }
+      }
+      .narr-img {
+        width: 100%;
+        img {
+          display: block;
+          width: 50%;
+          margin: auto;
+        }
+      }
+    }
+
+    .page5 {
+      padding: 7% 0 8%;
+      height: auto;
+      background-color: #ffe9d8;
+      h1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 3%;
+        font-size: 28px;
+
+        .img-box {
+          width: 100px;
+          height: 100px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          &:first-of-type {
+            align-items: flex-end;
+            img {
+              width: 75px;
+              height: 79px;
+            }
+          }
+
+          &:last-of-type {
+            img {
+              width: 77px;
+              height: 51px;
+            }
+          }
+        }
+        span {
+          font-family: "ONE-Mobile-POP";
+          font-size: 28px;
+
+          &:last-of-type {
+            color: #63432c;
+          }
+        }
+      }
+      .one-cut-img {
+        width: 50%;
+        margin: auto;
+
+        img {
+          width: 100%;
+        }
+        p {
+          margin-top: 6%;
+          font-size: 19px;
+          text-align: center;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
+@media all and (max-width: 768px) {
+  #contents {
+    > div {
+      //height: auto;
     }
   }
 }
