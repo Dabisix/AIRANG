@@ -1,15 +1,9 @@
-using Models;
 using Newtonsoft.Json.Linq;
-using Proyecto26;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using Unity.Entities.UniversalDelegates;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using UnityEngine.Windows;
 
 public class GameManager : MonoBehaviour
 {

@@ -78,7 +78,7 @@ public class BookListLoader : MonoBehaviour
 					}
 					else
 					{
-                        ListNullSign.text = "즐겨찾기한 " + GameManager.getInstance().targetStarBook.BookName + " 관련된 책입니다.";
+                        ListNullSign.text = "즐겨찾기한 <b>[" + GameManager.getInstance().targetStarBook.BookName + "]</b> 관련된 책입니다.";
                     }
                     break;
                 case BookListType.LogRecommend:
@@ -90,7 +90,7 @@ public class BookListLoader : MonoBehaviour
                     }
                     else
                     {
-                        ListNullSign.text = "방금 읽은 " + GameManager.getInstance().targetLogBook.BookName + " 관련된 책입니다.";
+                        ListNullSign.text = "방금 읽은 <b>[" + GameManager.getInstance().targetLogBook.BookName + "]</b> 관련된 책입니다.";
                     }
                     break;
             }

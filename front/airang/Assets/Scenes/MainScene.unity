@@ -933,7 +933,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 83872004}
-  m_Enabled: 0
+  m_Enabled: 1
 --- !u!20 &83872006
 Camera:
   m_ObjectHideFlags: 0
@@ -2523,7 +2523,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8166101513065946259, guid: 84c5d280501fdc945a2cd0a5d2180daf, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 84c5d280501fdc945a2cd0a5d2180daf, type: 3}
 --- !u!1 &281048810 stripped
 GameObject:
@@ -3935,7 +3936,6 @@ GameObject:
   m_Component:
   - component: {fileID: 547454567}
   - component: {fileID: 547454566}
-  - component: {fileID: 547454565}
   m_Layer: 0
   m_Name: BookListCamera
   m_TagString: Untagged
@@ -3943,14 +3943,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &547454565
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 547454564}
-  m_Enabled: 1
 --- !u!20 &547454566
 Camera:
   m_ObjectHideFlags: 0
@@ -4959,7 +4951,6 @@ GameObject:
   m_Component:
   - component: {fileID: 690405178}
   - component: {fileID: 690405177}
-  - component: {fileID: 690405176}
   m_Layer: 0
   m_Name: MyDeskCamera
   m_TagString: Untagged
@@ -4967,14 +4958,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &690405176
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 690405175}
-  m_Enabled: 0
 --- !u!20 &690405177
 Camera:
   m_ObjectHideFlags: 0
@@ -12141,7 +12124,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1601384045}
   - component: {fileID: 1601384044}
-  - component: {fileID: 1601384043}
   m_Layer: 0
   m_Name: HomeCamera
   m_TagString: Untagged
@@ -12149,14 +12131,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1601384043
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1601384042}
-  m_Enabled: 0
 --- !u!20 &1601384044
 Camera:
   m_ObjectHideFlags: 0
