@@ -1,5 +1,21 @@
 {
   "dependencies": {
+    "ai.natml.hub": {
+      "version": "1.0.15",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://registry.npmjs.com"
+    },
+    "ai.natml.natcorder": {
+      "version": "1.9.1",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "ai.natml.hub": "1.0.15"
+      },
+      "url": "https://registry.npmjs.com"
+    },
     "com.unity.burst": {
       "version": "1.6.6",
       "depth": 1,
@@ -475,6 +491,13 @@
         "com.unity.inputsystem": "1.3.0"
       },
       "url": "https://packages.unity.com"
+    },
+    "com.yasirkula.nativegallery": {
+      "version": "https://github.com/yasirkula/UnityNativeGallery.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "6f11f15a0bd38a107183ced511876f8e287ae16d"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",

@@ -241,6 +241,9 @@ public class BookManager : MonoBehaviour
 
     public void goToMain()
     {
+        // stop recording
+        WebCamController.getInstance().stopRecording();
+
         // request book list
         GameManager gm = GameManager.getInstance();
 
@@ -282,16 +285,23 @@ public class BookManager : MonoBehaviour
             goToMain();
             return;
         }
-        else
+        
+        if(!cur_book.UseAR) // not use ARBook(only text)
         {
-            if (cur_book.UseARPages[cur_page] > 0) // use AR
-                next_scene_name = "ARBookScene";
-            else // not use AR
-                next_scene_name = "BookScene";
-
-            // not use ARBook(only text)
-            if (!cur_book.UseAR)
-                next_scene_name = "NonPicBookPagingScene";
+            WebCamController.getInstance().pauseRecording();
+            next_scene_name = "NonPicBookPagingScene";
+        }
+        else if (cur_book.UseARPages[cur_page] > 0) // use AR
+        {
+            // WebCamRecording stop
+            WebCamController.getInstance().stopRecording();
+            next_scene_name = "ARBookScene";
+        }
+        else // not use AR
+        {
+            // WebCamRecording pause
+            WebCamController.getInstance().pauseRecording();
+            next_scene_name = "BookScene";
         }
 
         Debug.Log("changeScene : page - " + cur_page);

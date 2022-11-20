@@ -7,6 +7,7 @@ public class AppSettingButtonFunction : MonoBehaviour
 {
     // User Modify 
     GameObject userModifyPrefab;
+    GameObject questionPrefab;
 
     private void Start()
     {
@@ -16,6 +17,12 @@ public class AppSettingButtonFunction : MonoBehaviour
             settingPrefab.SetActive(false);
             userModifyPrefab = Instantiate(settingPrefab);
         }
+        if (questionPrefab == null)
+        {
+            GameObject settingPrefab = Resources.Load("Prefabs/MainScene/Question") as GameObject;
+            settingPrefab.SetActive(false);
+            questionPrefab = Instantiate(settingPrefab);
+        }
     }
 
     public void activeUserModify()
@@ -23,10 +30,21 @@ public class AppSettingButtonFunction : MonoBehaviour
         StartCoroutine(GameObject.FindObjectOfType<UIMovementHandler>().LerpBackObject());
         setUserModifyActive();
     }
+    public void activeQuestion()
+    {
+        StartCoroutine(GameObject.FindObjectOfType<UIMovementHandler>().LerpBackObject());
+        setQuestionActive();
+    }
 
     private void setUserModifyActive()
     {
         userModifyPrefab.SetActive(true);
+    }
+
+    private void setQuestionActive()
+    {
+        Debug.Log("ahdid" + questionPrefab);
+        questionPrefab.SetActive(true);
     }
 
     //로그아웃
