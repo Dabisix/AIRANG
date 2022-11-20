@@ -82,4 +82,8 @@ public class ClickMainCanvasButton : MonoBehaviour
             navigation[i].SetActive(true);
         }
     }
+    public void ClickPlayRoomBtn()
+    {
+        SceneManager.LoadScene("PlayRoomScene");
+    }
 }
