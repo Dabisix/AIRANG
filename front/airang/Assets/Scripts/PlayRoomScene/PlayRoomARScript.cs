@@ -95,7 +95,7 @@ public class PlayRoomARScript : MonoBehaviour
         {
             m_RendedObject.AddComponent(typeof(PlayRoomModelScript));
         }
-        Destroy(m_LoadedPrefab);
+        //Destroy(m_LoadedPrefab);
     }
 
     // 앵커 설정 후 Plane Detection을 비활성화
