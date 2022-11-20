@@ -1,7 +1,7 @@
 # 아이랑(AiRang)
 <img src="https://user-images.githubusercontent.com/33210124/202468753-2d77b037-ba22-4aef-bf91-7a1c641beca1.png" width="100%"><br>
 
-## ✨ [UCC]() 
+## ✨ [UCC](https://youtu.be/RatmUjSNe2Q) 
 
 
 ## ✨ Overview
