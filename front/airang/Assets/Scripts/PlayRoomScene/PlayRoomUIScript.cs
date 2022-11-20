@@ -11,8 +11,10 @@ public class PlayRoomUIScript : MonoBehaviour
     public Canvas characterCanvas;
     public ToggleGroup characterToggles;
     public GameObject[] characterLists;
+    private bool isFirst;
 
-    
+    public GameObject playRoomArScript;
+
     private int beforeFrameIndex;
 
     private void Awake()
@@ -20,6 +22,7 @@ public class PlayRoomUIScript : MonoBehaviour
         closeAllFrame();
         closeCharacterMenuUI();
         closeFrameMenuUI();
+        isFirst = true;
     }
     public void openFrameMenuUI()
     {
@@ -52,6 +55,12 @@ public class PlayRoomUIScript : MonoBehaviour
     public void openCharacterMenuUI()
     {
         characterCanvas.enabled = true;
+        if (isFirst)
+        {
+            unActiveAllCharacterPrefabs();
+            characterLists[0].SetActive(true);
+            isFirst = false;
+        }
     }
     public void closeCharacterMenuUI()
     {
@@ -72,6 +81,7 @@ public class PlayRoomUIScript : MonoBehaviour
 
     public void goMain()
     {
+        playRoomArScript.GetComponent<PlayRoomARScript>().ResetArPlane();
         SceneManager.LoadScene("MainScene");
     }
 }

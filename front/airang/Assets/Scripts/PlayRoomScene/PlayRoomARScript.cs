@@ -17,11 +17,16 @@ public class PlayRoomARScript : MonoBehaviour
     // 모든 Anchor를 삭제
     void RemoveAllAnchors()
     {
-        // Anchor와 인스턴스화된 Object 모두 삭제
-        //foreach (var anchor in m_AnchorPoints)
-        //    Destroy(anchor);
-        //m_AnchorPoints.Clear();
         Destroy(m_RendedObject);
+    }
+
+    public void ResetArPlane()
+    {
+        foreach (var anchor in m_AnchorPoints)
+            Destroy(anchor);
+        m_AnchorPoints.Clear();
+        Destroy(m_RendedObject);
+        m_PlaneManager.requestedDetectionMode = PlaneDetectionMode.Horizontal;
     }
 
     void Awake()
@@ -37,12 +42,6 @@ public class PlayRoomARScript : MonoBehaviour
         //랜덤 세트 가져오기
         int setNumber = Random.Range(0, 2);
         m_LoadedPrefab = loadPrefab("Set"+setNumber);
-
-        for (int i = 0; i < m_LoadedPrefab.transform.childCount; i++)
-        {
-            GameObject child = m_LoadedPrefab.transform.GetChild(i).gameObject;
-            child.AddComponent(typeof(PlayRoomModelScript));
-        }
     }
     void Update()
     {
@@ -83,7 +82,7 @@ public class PlayRoomARScript : MonoBehaviour
             //어떤 것을 건드렸나 확인
             if (hit.collider.name.Contains("Model"))
             {
-                hit.transform.GetComponent<PlayRoomModelScript>().touched();
+                m_RendedObject.GetComponent<PlayRoomModelScript>().touched(hit.collider.name);
             }
         }
     }
@@ -91,11 +90,12 @@ public class PlayRoomARScript : MonoBehaviour
     // 로드한 prefab을 새로 create
     void createPrefab()
     {
-        Transform originTransform = m_AnchorPoints[0].transform;
-        float scale = Screen.height / 1200f;
-
-        var created = Instantiate(m_LoadedPrefab, m_AnchorPoints[0].transform);
-        m_RendedObject = created;
+        m_RendedObject = Instantiate(m_LoadedPrefab, m_AnchorPoints[0].transform);
+        if (m_LoadedPrefab.name.Contains("Set"))
+        {
+            m_RendedObject.AddComponent(typeof(PlayRoomModelScript));
+        }
+        Destroy(m_LoadedPrefab);
     }
 
     // 앵커 설정 후 Plane Detection을 비활성화
@@ -132,7 +132,8 @@ public class PlayRoomARScript : MonoBehaviour
     public void getNewCharacter(string modelName)
     {
         RemoveAllAnchors();
-        m_LoadedPrefab = Instantiate(loadPrefab(modelName), m_AnchorPoints[0].transform);
+        m_LoadedPrefab = loadPrefab(modelName);
+        createPrefab();
     }
 
     static List<ARRaycastHit> p_Hits = new List<ARRaycastHit>();
