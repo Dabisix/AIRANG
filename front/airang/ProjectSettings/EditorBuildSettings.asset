@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/PressToStartScene.unity
+    guid: 99797ed54e78ec14497dbaf95dd303a8
+  - enabled: 1
+    path: Assets/Scenes/StartScene.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/MainScene.unity
+    guid: 8c0551f67fd42314a861e0ca13ec740d
+  - enabled: 1
+    path: Assets/Scenes/BookScene.unity
+    guid: a1d98573bc3473a40a110857a6b4ef69
+  - enabled: 1
+    path: Assets/Scenes/ARBookScene.unity
+    guid: 211ce390acf9e0949b1ac2d323a5279e
+  - enabled: 1
+    path: Assets/Scenes/NonPicBookPagingScene.unity
+    guid: e05714bfc23c66043bc08f4ea17e5490
+  - enabled: 1
+    path: Assets/Scenes/RecordListScene.unity
+    guid: 0b609b13152f50e439a030685bb9e1a9
+  - enabled: 1
+    path: Assets/Scenes/RecordVideoDetailScene.unity
+    guid: f8f92920da7a607488136102959ae05e
+  m_configObjects:
+    UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 71267ad563675644a9b428cc04ae4f0c, type: 2}
+    UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: bbbfd479a827c864da20bba509a5517f, type: 2}
+    com.unity.xr.magicleap.magic_leap_settings: {fileID: 11400000, guid: c3d4528d62079df4c84ded558d991e75, type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: da7175e6c20ff4e48b45dbcee8525a57, type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: e07802c8dc164bd40bbb0beff849c538, type: 2}
