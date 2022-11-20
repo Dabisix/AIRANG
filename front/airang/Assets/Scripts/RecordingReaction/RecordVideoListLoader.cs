@@ -16,12 +16,12 @@ public class RecordVideoListLoader : MonoBehaviour
     [SerializeField]
     Transform contentContainer;
 
-    private List<Video> getVideoList = new List<Video>();
+    private List<Video> VideoList = new List<Video>();
 
     private void Start()
     {
         getVideos();
-        renderReactionVideos(getVideoList);
+        renderReactionVideos(VideoList);
     }
 
     public void eraseAllBooks()
@@ -32,21 +32,55 @@ public class RecordVideoListLoader : MonoBehaviour
         }
     }
 
+    private string GetAndroidExternalStoragePath()
+    {
+        if (Application.platform != RuntimePlatform.Android)
+            return Application.persistentDataPath;
+
+        var jc = new AndroidJavaClass("android.os.Environment");
+        var path = jc.CallStatic<AndroidJavaObject>("getExternalStoragePublicDirectory",
+            jc.GetStatic<string>("DIRECTORY_DCIM"))
+            .Call<string>("getAbsolutePath");
+        return path;
+    }
+
     public void getVideos()
     {
         // 리액션 녹화 영상 가져오기
-        //var fileUrl = "file://" + Application.persistentDataPath; //모바일용
-        var fileUrl = Application.persistentDataPath + "/reaction"; //컴퓨터용
+        var fileUrl = GetAndroidExternalStoragePath() + "/airang";
+        // var fileUrl = "file://" + Application.persistentDataPath; //모바일용
+        // var fileUrl = Application.persistentDataPath + "/reaction"; //컴퓨터용
 
         // 리액션 녹화 폴더 안 파일 확인
         DirectoryInfo d = new DirectoryInfo(fileUrl);
         FileInfo[] info = d.GetFiles("*.mp4");
-        Debug.Log(info.Length);
+
+        string cam_file = "";
+        string scr_file = "";
+
         foreach (var file in info)
         {
-            // 일단 임시로 url 둘다 하나로 설정하겠다
-            getVideoList.Add(new Video("file://" + file.ToString(), "file://" + file.ToString(), file.Name));
-            Debug.Log(file.Name);
+            if (!file.Name.Contains("airang_"))
+                continue;
+
+            if (cam_file == "") {
+                if (file.Name.Contains("cam"))
+                    cam_file = "file://" + file.ToString();
+            } else
+            {
+                if (file.Name.Contains("scr"))
+                    scr_file = "file://" + file.ToString();
+                else
+                    cam_file = "";
+            }
+
+            if(cam_file != "" && scr_file != "")
+            {
+                Debug.Log(file.Name);
+                VideoList.Add(new Video(cam_file, scr_file, file.Name));
+                cam_file = "";
+                scr_file = "";
+            }
         }
     }
 

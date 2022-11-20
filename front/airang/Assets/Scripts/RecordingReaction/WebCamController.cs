@@ -176,7 +176,7 @@ public class WebCamController : MonoBehaviour
         // save to Gallery
         NativeGallery.Permission permission =
             NativeGallery.SaveVideoToGallery(recordoingPath, "airang",
-                "cam_" + bookname + "  " + date + ".mp4",
+                "airang_"  + date + "_" + bookname + "_cam.mp4",
                 (success, path) => Debug.Log("Cam Media saved : " + success + " " + path));
 
         turnOffWebCamTexture();
@@ -213,7 +213,7 @@ public class WebCamController : MonoBehaviour
         // save to Gallery
         NativeGallery.Permission permission =
             NativeGallery.SaveVideoToGallery(recordoingPath, "airang",
-                "scr_" + bookname + "  " + date + ".mp4",
+                "airang_" + date + "_" + bookname + "_scr.mp4",
                 (success, path) => Debug.Log("Screen Media saved : " + success + " " + path));
     }
 
