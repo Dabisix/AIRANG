@@ -6,6 +6,8 @@ public class PlayRoomCameraScript : MonoBehaviour
 {
     public Canvas[] uis;
     private bool isCapturing;
+    public AudioClip captureAudioClip;
+    public Canvas captureCanvas;
 
     public void CaptureScreen()
     {
@@ -37,9 +39,13 @@ public class PlayRoomCameraScript : MonoBehaviour
         }
 
         yield return new WaitForEndOfFrame();
+        gameObject.transform.GetComponent<AudioSource>().PlayOneShot(captureAudioClip);
         CaptureScreen();
+        captureCanvas.enabled = true;
+        yield return new WaitForSecondsRealtime(1f);
         uis[0].enabled = true;
         uis[1].enabled = true;
+        captureCanvas.enabled = false;
         isCapturing = false;
     }
 
