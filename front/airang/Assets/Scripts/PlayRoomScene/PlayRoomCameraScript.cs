@@ -5,6 +5,7 @@ using System.IO;
 public class PlayRoomCameraScript : MonoBehaviour
 {
     public Canvas[] uis;
+    private bool isCapturing;
 
     public void CaptureScreen()
     {
@@ -20,12 +21,16 @@ public class PlayRoomCameraScript : MonoBehaviour
 
     public void clickCameraButton()
     {
-        StartCoroutine(MakeScreenShot());
-        StopCoroutine(MakeScreenShot());
+        if (!isCapturing)
+        {
+            StartCoroutine(MakeScreenShot());
+            StopCoroutine(MakeScreenShot());
+        }
     }
 
     public IEnumerator MakeScreenShot()
     {
+        isCapturing = true;
         foreach (var ui in uis)
         {
             ui.enabled = false;
@@ -35,6 +40,7 @@ public class PlayRoomCameraScript : MonoBehaviour
         CaptureScreen();
         uis[0].enabled = true;
         uis[1].enabled = true;
+        isCapturing = false;
     }
 
     private void CaptureScreenForPC(string fileName)
@@ -47,6 +53,8 @@ public class PlayRoomCameraScript : MonoBehaviour
         Texture2D texture = ScreenCapture.CaptureScreenshotAsTexture();
 
         // do something with texture
+
+        //저장
         NativeGallery.Permission permission = NativeGallery.CheckPermission(NativeGallery.PermissionType.Write);
         if (permission == NativeGallery.Permission.Denied)
         {

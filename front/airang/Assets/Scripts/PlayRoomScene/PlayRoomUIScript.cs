@@ -11,17 +11,20 @@ public class PlayRoomUIScript : MonoBehaviour
     public Canvas characterCanvas;
     public ToggleGroup characterToggles;
     public GameObject[] characterLists;
+    public Canvas photoCanvas;
     private bool isFirst;
 
     public GameObject playRoomArScript;
 
     private int beforeFrameIndex;
+    
 
     private void Awake()
     {
         closeAllFrame();
         closeCharacterMenuUI();
         closeFrameMenuUI();
+        photoCanvas.enabled = false;
         isFirst = true;
     }
     public void openFrameMenuUI()
