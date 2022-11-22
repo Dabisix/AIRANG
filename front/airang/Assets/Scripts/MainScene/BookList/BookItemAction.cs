@@ -86,9 +86,14 @@ public class BookItemAction : MonoBehaviour
             // add read log
             RESTManager.getInstance().Put("book/log/" + bm.CurBook.BookId, null);
             bm.InitBook();
-        } else
+        } else // need Recording == 2
         {
+            WebCamController.getInstance().startRecording();
+            WebCamController.getInstance().WebCam.Pause();
 
+            // add read log
+            RESTManager.getInstance().Put("book/log/" + bm.CurBook.BookId, null);
+            bm.InitBook();
         }
     }
 }
