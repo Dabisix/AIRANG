@@ -227,7 +227,7 @@ public class GameManager : MonoBehaviour
     // 0 : always asking, 1 : no asking and not used, 2 : always use with no asking
     public int AskingRecording
     {
-        get { return PlayerPrefs.GetInt("needRec", 0); }
+        get { return PlayerPrefs.GetInt("needRec", 1); }
         set { PlayerPrefs.SetInt("needRec", value); }        
     }
 }

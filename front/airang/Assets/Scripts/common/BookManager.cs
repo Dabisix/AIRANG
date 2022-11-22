@@ -73,7 +73,6 @@ public class BookManager : MonoBehaviour
 
     public int ARType
     {
-        // 0 : none, 1+ : scene by scene
         get => cur_book.UseARPages[cur_page];
     }
 
@@ -243,16 +242,7 @@ public class BookManager : MonoBehaviour
     public void goToMain()
     {
         // stop recording
-        var wcc = WebCamController.getInstance();
-        var bm = BookManager.getInstance();
-
-        if(wcc.isRecording)
-        {
-            if (bm.ARType > 0) // if AR Scene dont need to call stop
-                wcc.isRecording = false;
-            else
-                wcc.stopRecording();
-        }
+        WebCamController.getInstance().stopRecording();
 
         // request book list
         GameManager gm = GameManager.getInstance();
@@ -284,7 +274,6 @@ public class BookManager : MonoBehaviour
 
     public void changeScene(bool isFade = false)
     {
-        var wcc = WebCamController.getInstance();
         string next_scene_name = this.gameObject.scene.name;
 
         // book ended or start
@@ -299,27 +288,19 @@ public class BookManager : MonoBehaviour
         
         if(!cur_book.UseAR) // not use ARBook(only text)
         {
-            if(wcc.isRecording) wcc.pauseRecording();
+            WebCamController.getInstance().pauseRecording();
             next_scene_name = "NonPicBookPagingScene";
         }
         else if (cur_book.UseARPages[cur_page] > 0) // use AR
         {
-            // WebCamRecording stop but not recording stop
-            if (wcc.isRecording)
-            {
-                wcc.stopRecording();
-                wcc.isRecording = true;
-            }
-
-            wcc.prevIsARScene = true;
+            // WebCamRecording stop
+            WebCamController.getInstance().stopRecording();
             next_scene_name = "ARBookScene";
         }
         else // not use AR
         {
             // WebCamRecording pause
-            if (wcc.isRecording && !wcc.prevIsARScene)
-                wcc.pauseRecording();
-
+            WebCamController.getInstance().pauseRecording();
             next_scene_name = "BookScene";
         }
 
