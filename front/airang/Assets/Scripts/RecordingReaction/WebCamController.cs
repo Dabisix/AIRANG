@@ -41,8 +41,6 @@ public class WebCamController : MonoBehaviour
 
     private RealtimeClock recordingClock;
     public bool isRecording = false;
-    public bool prevIsARScene = false;
-
     private string frontCamName = null;
 
     private string bookname;
@@ -58,7 +56,6 @@ public class WebCamController : MonoBehaviour
 
     public void startRecording()
     {
-        Debug.Log("wcc : start recording");
         isRecording = true;
 
         bookname = BookManager.getInstance().BookName;
@@ -72,16 +69,15 @@ public class WebCamController : MonoBehaviour
     public void pauseRecording()
     {
         if (!isRecording) return;
-        Debug.Log("wcc : pause recording");
 
         turnOffScreen();
+        // turnOffWebCamTexture();
         webCamTexture.Pause();
     }
 
     public void resumeRecording()
     {
         if (!isRecording) return;
-        Debug.Log("wcc : resume recording");
 
         turnOnScreen();
         turnOnWebCamTexture();
@@ -90,7 +86,6 @@ public class WebCamController : MonoBehaviour
     public void stopRecording()
     {
         if (!isRecording) return;
-        Debug.Log("wcc : stop recording");
 
         isRecording = false;
 
@@ -119,7 +114,7 @@ public class WebCamController : MonoBehaviour
         var webCamDevices = WebCamTexture.devices;
         foreach (var camDevice in webCamDevices)
         {
-            Debug.Log("wcc : Cam " + camDevice.name);
+            Debug.Log("Cam " + camDevice.name);
             if (camDevice.isFrontFacing)
             {
                 frontCamName = camDevice.name;
@@ -127,7 +122,7 @@ public class WebCamController : MonoBehaviour
             }
         }
 
-        webCamTexture = new WebCamTexture(frontCamName);
+        webCamTexture = new WebCamTexture(frontCamName);        
     }
 
     private IEnumerator setMicrophone()
@@ -189,7 +184,6 @@ public class WebCamController : MonoBehaviour
 
     private void turnOnWebCamTexture()
     {
-        Debug.Log("wcc : webcam name -" + webCamTexture.deviceName);
         webCamTexture.Play();
     }
 
@@ -233,7 +227,6 @@ public class WebCamController : MonoBehaviour
         screenInput.Dispose();
     }
     #endregion
-
 
     private void OnDestroy()
     {

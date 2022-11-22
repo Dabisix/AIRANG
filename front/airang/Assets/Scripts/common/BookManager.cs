@@ -73,7 +73,6 @@ public class BookManager : MonoBehaviour
 
     public int ARType
     {
-        // 0 : none, 1+ : scene by scene
         get => cur_book.UseARPages[cur_page];
     }
 
@@ -244,15 +243,9 @@ public class BookManager : MonoBehaviour
     {
         // stop recording
         var wcc = WebCamController.getInstance();
-        var bm = BookManager.getInstance();
 
         if(wcc.isRecording)
-        {
-            if (bm.ARType > 0) // if AR Scene dont need to call stop
-                wcc.isRecording = false;
-            else
-                wcc.stopRecording();
-        }
+            wcc.stopRecording();
 
         // request book list
         GameManager gm = GameManager.getInstance();
@@ -299,25 +292,24 @@ public class BookManager : MonoBehaviour
         
         if(!cur_book.UseAR) // not use ARBook(only text)
         {
-            if(wcc.isRecording) wcc.pauseRecording();
+            // WebCamRecording pause
+            if (wcc.isRecording) 
+                wcc.pauseRecording();
+
             next_scene_name = "NonPicBookPagingScene";
         }
         else if (cur_book.UseARPages[cur_page] > 0) // use AR
         {
-            // WebCamRecording stop but not recording stop
+            // WebCamRecording stop
             if (wcc.isRecording)
-            {
                 wcc.stopRecording();
-                wcc.isRecording = true;
-            }
 
-            wcc.prevIsARScene = true;
             next_scene_name = "ARBookScene";
         }
         else // not use AR
         {
             // WebCamRecording pause
-            if (wcc.isRecording && !wcc.prevIsARScene)
+            if (wcc.isRecording)
                 wcc.pauseRecording();
 
             next_scene_name = "BookScene";

@@ -6,24 +6,10 @@ public class RecordingResume : MonoBehaviour
 {
     void Start()
     {
+        // only used in Non-pic book, and not AR pages
         var wcc = WebCamController.getInstance();
-        if (wcc.isRecording)
-        {
-            Debug.Log("wcc : " + wcc.prevIsARScene);
-            if (wcc.prevIsARScene)
-            {
-                // if previous scene is AR, It shoud re start recording
-                Debug.Log("wcc : prev is AR, recording start again");
-                wcc.prevIsARScene = false;
-                wcc.getFrontCamera();
-                wcc.startRecording();
-            } else
-            {
-                // just resume recording
-                wcc.resumeRecording();
-            }
-        }
 
-        wcc.prevIsARScene = false;
+        if(wcc.isRecording)
+            wcc.resumeRecording();   
     }
 }
