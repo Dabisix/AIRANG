@@ -41,6 +41,8 @@ public class WebCamController : MonoBehaviour
 
     private RealtimeClock recordingClock;
     public bool isRecording = false;
+    private string frontCamName = null;
+
     private string bookname;
     private string date;
 
@@ -54,8 +56,6 @@ public class WebCamController : MonoBehaviour
 
     public void startRecording()
     {
-        if (isRecording) return;
-
         isRecording = true;
 
         bookname = BookManager.getInstance().BookName;
@@ -71,8 +71,8 @@ public class WebCamController : MonoBehaviour
         if (!isRecording) return;
 
         turnOffScreen();
-        turnOffWebCamTexture();
-        // webCamTexture.Pause();
+        // turnOffWebCamTexture();
+        webCamTexture.Pause();
     }
 
     public void resumeRecording()
@@ -110,7 +110,7 @@ public class WebCamController : MonoBehaviour
     public void getFrontCamera()
     {
         // setting webcamra front
-        string frontCamName = null;
+        frontCamName = null;
         var webCamDevices = WebCamTexture.devices;
         foreach (var camDevice in webCamDevices)
         {
@@ -227,7 +227,6 @@ public class WebCamController : MonoBehaviour
         screenInput.Dispose();
     }
     #endregion
-
 
     private void OnDestroy()
     {
