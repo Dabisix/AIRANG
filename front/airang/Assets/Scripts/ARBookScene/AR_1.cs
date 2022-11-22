@@ -256,8 +256,8 @@ public class AR_1 : MonoBehaviour
                 turtleAnim.SetBool("isWalk", false);
                 rabbitAnim.SetBool("isJump", false);
                 Debug.Log("다음 페이지로 이동할 시간");
-                //BookManager.getInstance().CurPage += 1;
-                //BookManager.getInstance().changeScene();
+                BookManager.getInstance().CurPage += 1;
+                BookManager.getInstance().changeScene();
                 isMove = false; //애니메이션 중지
             }
         }

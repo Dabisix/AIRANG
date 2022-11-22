@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ClickMainCanvasButton : MonoBehaviour
 {
@@ -52,6 +53,16 @@ public class ClickMainCanvasButton : MonoBehaviour
         searchBar.SetActive(false);
     }
 
+    public void ClickBtnRecord()
+    {
+        SceneManager.LoadScene("RecordListScene");
+    }
+
+    public void ClickHomeInRecordScene()
+    {
+       SceneManager.LoadScene("MainScene");
+    }
+
     private void loadBookListWithViewName(string scroll_view_name)
     {
         GameObject recent_book_scroll_view = GameObject.Find(scroll_view_name);
@@ -70,5 +81,9 @@ public class ClickMainCanvasButton : MonoBehaviour
         {
             navigation[i].SetActive(true);
         }
+    }
+    public void ClickPlayRoomBtn()
+    {
+        SceneManager.LoadScene("PlayRoomScene");
     }
 }

@@ -733,6 +733,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 290369225292686252}
+  - component: {fileID: 2716285505829429788}
   m_Layer: 0
   m_Name: Page21
   m_TagString: Untagged
@@ -764,6 +765,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2716285505829429788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295314414584341622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4e6016108fc0fd4a9855d0350e2a2be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skyboxMaterial: {fileID: 2100000, guid: e11f5b66aad75483b8cd16ee18a0c917, type: 2}
 --- !u!1 &305573417048864323
 GameObject:
   m_ObjectHideFlags: 0
@@ -97851,7 +97865,7 @@ Animator:
   m_GameObject: {fileID: 7180507998759889719}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: d7bc27ceeb1e9904b83ecaff110feffc, type: 3}
-  m_Controller: {fileID: 9100000, guid: 1f7a6e5f5e0110c49b41e9a112207c8e, type: 2}
+  m_Controller: {fileID: 9100000, guid: d3c25cd2a2658b74b8f75bdec610015f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

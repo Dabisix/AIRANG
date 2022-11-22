@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class BookItemAction : MonoBehaviour
@@ -13,7 +12,7 @@ public class BookItemAction : MonoBehaviour
     private Book bookInfo;
 
     private const string BOOK_COVER_PATH = "BookCovers/";
-    private const int NUM_DEFAULT_BOOK_IMAGE = 4;
+    private const int NUM_DEFAULT_BOOK_IMAGE = 6;
 
     public Book Book
     {
@@ -64,6 +63,32 @@ public class BookItemAction : MonoBehaviour
         // read book start
         BookManager bm = BookManager.getInstance();
         bm.CurBook = bookInfo;
-        bm.InitBook();
+
+        // confirm recording
+        int needRecording = GameManager.getInstance().AskingRecording;
+        if (needRecording == 0)
+        {
+            GameManager.getInstance().confirm("읽는 모습을 녹화하시겠습니까?", () =>
+            {
+                WebCamController.getInstance().startRecording();
+                WebCamController.getInstance().WebCam.Pause();
+
+                // add read log
+                RESTManager.getInstance().Put("book/log/" + bm.CurBook.BookId, null);
+                bm.InitBook();
+            }, () => {
+                // add read log
+                RESTManager.getInstance().Put("book/log/" + bm.CurBook.BookId, null);
+                bm.InitBook();
+            });
+        } else if(needRecording == 1) 
+        {
+            // add read log
+            RESTManager.getInstance().Put("book/log/" + bm.CurBook.BookId, null);
+            bm.InitBook();
+        } else
+        {
+
+        }
     }
 }

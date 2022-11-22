@@ -1,17 +1,13 @@
-using Models;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using Unity.Entities.UniversalDelegates;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using UnityEngine.Windows;
 
 public class GameManager : MonoBehaviour
-{ 
+{
     static GameManager instance = null;
 
     // alert object
@@ -66,10 +62,13 @@ public class GameManager : MonoBehaviour
         {
             // get Recently books
             books_log = ResponseToBookList(res.Text);
+            return RESTManager.getInstance().Get("book/recommend");
+        }).Then(res => {
+            ResponseRecommendToBookList(res.Text);
         }).Catch(err =>
         {
             // TODO : 네트워크 환경 확인 메세지
-            Debug.Log(err.Message);
+            alert("책 목록을 불러오는중 \n문제가 발생하였습니다");
 
             // When server is closing
             // books = FileManager.getInstance().loadData().Books;
@@ -85,15 +84,61 @@ public class GameManager : MonoBehaviour
     }
 
     // json book list to List of Book object
-    private List<Book> ResponseToBookList(string book_list)
+    public List<Book> ResponseToBookList(string book_list)
     {
         JObject json = JObject.Parse(book_list);
 
         List<Book> ret = new List<Book>();
+        Debug.Log(json["booklist"]);
         foreach (var book in json["booklist"])
             ret.Add(new Book((int)book["bid"], (string)book["title"], (bool)book["aflag"]));
 
         return ret;
+    }
+    public  void ResponseRecommendToBookList(string book_list)
+    {
+        JObject json = JObject.Parse(book_list);
+
+        Debug.Log(json);
+        if(json["starRec"].Type is JTokenType.Null)
+		{
+            Debug.Log("즐겨찾기한 책 목록이 없음!");
+            targetStarBook = null;
+            books_starrecommend = null;
+
+        }
+		else
+		{
+            var starbook = json["starRec"]["targetBook"];
+            targetStarBook = new Book((int)starbook["bid"], (string)starbook["title"], (bool)starbook["aflag"]);
+            List<Book> starRec = new List<Book>();
+            foreach (var book in json["starRec"]["recList"])
+            {
+                starRec.Add(new Book((int)book["bid"], (string)book["title"], (bool)book["aflag"]));
+            }
+            books_starrecommend = starRec;
+            Debug.Log(books_starrecommend);
+        }
+
+        if (json["logRec"].Type is JTokenType.Null)
+        {
+            Debug.Log("읽었던 책 목록이 없음!");
+            targetLogBook = null;
+            books_logrecommend = null;
+        }
+        else
+        {
+            var logbook = json["logRec"]["targetBook"];
+            targetLogBook = new Book((int)logbook["bid"], (string)logbook["title"], (bool)logbook["aflag"]);
+
+            List<Book> logRec = new List<Book>();
+            foreach (var book in json["logRec"]["recList"])
+            {
+                logRec.Add(new Book((int)book["bid"], (string)book["title"], (bool)book["aflag"]));
+            }
+            books_logrecommend = logRec;
+            Debug.Log(books_logrecommend);
+        }
     }
 
     // book lists from server
@@ -111,11 +156,17 @@ public class GameManager : MonoBehaviour
         set => popular_books = value;
     }
 
+
     // my desk area book list
     private List<Book> favor_books = new List<Book>();
     private List<Book> books_log = new List<Book>();
+    private List<Book> books_starrecommend = new List<Book>();
+    private List<Book> books_logrecommend = new List<Book>();
 
-    public List<Book> Favor_Books
+    public Book targetStarBook;
+    public Book targetLogBook;
+
+	public List<Book> Favor_Books
     {
         get => favor_books ?? new List<Book>();
         set => favor_books = value;
@@ -124,6 +175,17 @@ public class GameManager : MonoBehaviour
     {
         get => books_log ?? new List<Book>();
         set => books_log = value;
+    }
+
+    public List<Book> RecommendStarBooks
+    {
+        get => books_starrecommend ?? new List<Book>();
+        set => books_starrecommend = value;
+    }
+    public List<Book> RecommendLogBooks
+    {
+        get => books_logrecommend ?? new List<Book>();
+        set => books_logrecommend = value;
     }
 
     public void alert(string message)
@@ -139,9 +201,7 @@ public class GameManager : MonoBehaviour
         alertBoard.GetComponentInChildren<TextSetter>().setText(message);
     }
 
-    public delegate void m_Delegate();
-
-    public void confirm(string message, m_Delegate onConfirm, m_Delegate onCancle = null)
+    public void confirm(string message, Action onConfirm, Action onCancle)
     {
         // get Alert Prefab
         GameObject alertBoardPrefab = Resources.Load<GameObject>("Prefabs/common/Confirm");
@@ -156,10 +216,18 @@ public class GameManager : MonoBehaviour
         Button[] btns = confirmBoard.GetComponentsInChildren<Button>();
         foreach(Button btn in btns)
         {
-            if(btn.name == "Cancle")
-                if(onCancle != null) btn.onClick.AddListener(() => onCancle());
+            if(btn.name == "Confirm")
+                btn.onClick.AddListener(new UnityEngine.Events.UnityAction(onConfirm));
             else
-                if(onConfirm != null) btn.onClick.AddListener(() => onConfirm());
+                btn.onClick.AddListener(new UnityEngine.Events.UnityAction(onCancle));
         }
+    }
+
+    // recording flag in player setting
+    // 0 : always asking, 1 : no asking and not used, 2 : always use with no asking
+    public int AskingRecording
+    {
+        get { return PlayerPrefs.GetInt("needRec", 1); }
+        set { PlayerPrefs.SetInt("needRec", value); }        
     }
 }

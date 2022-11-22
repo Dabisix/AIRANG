@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Entities.UniversalDelegates;
 using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
 using static System.Net.WebRequestMethods;
@@ -27,7 +26,7 @@ public class BookSearchOption
 
 public class RESTManager : MonoBehaviour
 {
-    private const string basePath = "https://k7b305.p.ssafy.io/api/";
+   private const string basePath = "https://k7b305.p.ssafy.io/api/";
 
     static RESTManager instance = null;
 
@@ -41,7 +40,6 @@ public class RESTManager : MonoBehaviour
 
     private void Awake()
     {
-
         if (instance == null)
         {
             instance = this;
@@ -196,13 +194,14 @@ public class RESTManager : MonoBehaviour
         });
     }
 
-    public RSG.IPromise<ResponseHelper> getNarr(int bookId, int pageNum)
+    public RSG.IPromise<ResponseHelper> getNarr(int bookId, int pageNum, int type)
     {
         var fileUrl = basePath + "book/narration";
         var fileType = AudioType.MPEG;
 
         RequestHelper requestHelper = new RequestHelper();
-        requestHelper.Headers = new Dictionary<string, string> { { "id", bookId + "" }, { "page", pageNum + "" } };
+        requestHelper.Headers = new Dictionary<string, string> { { "id", bookId + "" }, { "page", pageNum + "" }, { "type", type + "" },
+            { "access-token", PlayerPrefs.GetString("accessToken") ?? "" }};
         requestHelper.DownloadHandler = new DownloadHandlerAudioClip(fileUrl, fileType);
         requestHelper.Uri = fileUrl;
 

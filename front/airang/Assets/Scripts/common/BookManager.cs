@@ -189,9 +189,8 @@ public class BookManager : MonoBehaviour
                 cur_book.KScripts.Add(text);
             foreach (string text in bookInfo["econtent"])
                 cur_book.EScripts.Add(text);
-
             // set total pages
-            cur_book.TotalPages = cur_book.KScripts.Count;
+            cur_book.TotalPages = cur_book.KScripts.Count-1;
 
             // set AR info (in code)
             setARInfo();
@@ -240,26 +239,80 @@ public class BookManager : MonoBehaviour
         return true;
     }
 
+    public void goToMain()
+    {
+        // stop recording
+        var wcc = WebCamController.getInstance();
+
+        if(wcc.isRecording)
+            wcc.stopRecording();
+
+        // request book list
+        GameManager gm = GameManager.getInstance();
+
+        RESTManager.getInstance().Get("book/star").Then(res =>
+        {
+            // get Favorite books
+            gm.Favor_Books = gm.ResponseToBookList(res.Text);
+            return RESTManager.getInstance().Get("book/log");
+        }).Then(res =>
+        {
+            // get Recently books
+            gm.RecentBooks = gm.ResponseToBookList(res.Text);
+            return RESTManager.getInstance().Get("book/recommend");
+
+        }).Then(res =>
+        {
+            gm.ResponseRecommendToBookList(res.Text);
+
+            // move to main Scene
+            Debug.Log("changeScene : page - " + cur_page);
+            StartCoroutine(GameObject.FindObjectOfType<SceneFader>().FadeAndLoadScene(SceneFader.FadeDirection.In, "MainScene"));
+        }).Catch(err =>
+        {
+            gm.alert("책 목록을 불러오는중 \n문제가 발생하였습니다");
+            StartCoroutine(GameObject.FindObjectOfType<SceneFader>().FadeAndLoadScene(SceneFader.FadeDirection.In, "MainScene"));
+        });
+    }
+
     public void changeScene(bool isFade = false)
     {
+        var wcc = WebCamController.getInstance();
         string next_scene_name = this.gameObject.scene.name;
 
         // book ended or start
         if (cur_page <= 0 || cur_page > cur_book.TotalPages)
         {
+            // reset checkpoint
             setCheckPoint(1);
-            next_scene_name = "MainScene";
-        }
-        else
-        {
-            if (cur_book.UseARPages[cur_page] > 0) // use AR
-                next_scene_name = "ARBookScene";
-            else // not use AR
-                next_scene_name = "BookScene";
 
-            // not use ARBook(only text)
-            if (!cur_book.UseAR)
-                next_scene_name = "NonPicBookPagingScene";
+            goToMain();
+            return;
+        }
+        
+        if(!cur_book.UseAR) // not use ARBook(only text)
+        {
+            // WebCamRecording pause
+            if (wcc.isRecording) 
+                wcc.pauseRecording();
+
+            next_scene_name = "NonPicBookPagingScene";
+        }
+        else if (cur_book.UseARPages[cur_page] > 0) // use AR
+        {
+            // WebCamRecording stop
+            if (wcc.isRecording)
+                wcc.stopRecording();
+
+            next_scene_name = "ARBookScene";
+        }
+        else // not use AR
+        {
+            // WebCamRecording pause
+            if (wcc.isRecording)
+                wcc.pauseRecording();
+
+            next_scene_name = "BookScene";
         }
 
         Debug.Log("changeScene : page - " + cur_page);
