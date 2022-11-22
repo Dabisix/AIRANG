@@ -22,14 +22,14 @@ public class BookPrefabButtonScripts : MonoBehaviour
     //go next page
     public void goNext()
     {
-        var bm = BookManager.getInstance();
-        var wcc = WebCamController.getInstance();
-
         //지금 녹음 상태일때 
-        if(bm.Narration == 2) 
-            FindObjectOfType<RecordParentVoice>().OnClickEnd(); // record end
+        if(BookManager.getInstance().Narration == 2)
+        {
+            // record end
+            FindObjectOfType<RecordParentVoice>().OnClickEnd();
+        }
 
-        bm.CurPage += 1;
-        bm.changeScene();
+        BookManager.getInstance().CurPage += 1;
+        BookManager.getInstance().changeScene();
     }
 }
