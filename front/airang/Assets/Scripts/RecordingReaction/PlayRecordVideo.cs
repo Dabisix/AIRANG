@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Video; // 비디오 플레이어 사용
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayRecordVideo : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class PlayRecordVideo : MonoBehaviour
     public VideoPlayer selfVideo;
     public Slider slider;
     public TextMeshProUGUI title;
-    //VideoPlayer vp;
+    public Button backBtn;
 
     private void Start()
     {
@@ -45,6 +46,11 @@ public class PlayRecordVideo : MonoBehaviour
     {
         screenVideo.Stop();
         selfVideo.Stop();
+    }
+
+    public void clickBackBtn()
+    {
+        SceneManager.LoadScene("RecordListScene");
     }
 
     public void Share()
