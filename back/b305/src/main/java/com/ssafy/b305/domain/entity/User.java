@@ -34,6 +34,9 @@ public class User {
     @Column
     private String name;
 
+    @Column
+    private String recording;
+
     @ElementCollection
     private List<BookInfo> logList = new ArrayList<BookInfo>();
 

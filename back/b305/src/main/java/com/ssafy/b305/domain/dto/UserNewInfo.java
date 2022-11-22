@@ -9,5 +9,8 @@ import lombok.*;
 @Builder
 public class UserNewInfo {
     String name;
+
     String pw;
+
+    String recording;
 }

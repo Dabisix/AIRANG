@@ -120,11 +120,12 @@ public class UserService {
 
         if (oUser.isPresent()) {
             User u = oUser.get();
-            if(newInfo.getName() != "")
+            if(newInfo.getName() != "" && newInfo.getName() != null)
                 u.setName(newInfo.getName());
-            if(newInfo.getPw() != "")
+            if(newInfo.getPw() != "" && newInfo.getPw() != null)
                 u.setPw(BCrypt.hashpw(newInfo.getPw(), BCrypt.gensalt()));
-
+            if(newInfo.getRecording() != "" && newInfo.getRecording() != null)
+                u.setRecording(newInfo.getRecording());
             userRepository.save(u);
 
             return 1;
