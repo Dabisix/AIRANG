@@ -36,6 +36,10 @@ public class PlayRoomARScript : MonoBehaviour
         m_AnchorManager = GetComponent<ARAnchorManager>();
         m_PlaneManager = GetComponent<ARPlaneManager>();
         m_AnchorPoints = new List<ARAnchor>();
+        m_CameraManager = GetComponentInChildren<ARCameraManager>();
+        m_FaceManager = GetComponent<ARFaceManager>();
+        isSelfCam = false;
+        m_FaceManager.enabled = false;
     }
     private void Start()
     {
@@ -136,6 +140,28 @@ public class PlayRoomARScript : MonoBehaviour
         createPrefab();
     }
 
+    public void changeCameraManager()
+    {
+        isSelfCam = !isSelfCam;
+        RemoveAllAnchors();
+        if (isSelfCam)
+        {
+            m_CameraManager.requestedFacingDirection = CameraFacingDirection.User;
+            m_PlaneManager.enabled = false;
+            m_RaycastManager.enabled = false;
+            m_AnchorManager.enabled = false;
+            m_FaceManager.enabled = true;
+        }
+        else
+        {
+            m_CameraManager.requestedFacingDirection = CameraFacingDirection.World;
+            m_PlaneManager.enabled = false;
+            m_RaycastManager.enabled = true;
+            m_AnchorManager.enabled = true;
+            m_FaceManager.enabled = true;
+        }
+    }
+
     static List<ARRaycastHit> p_Hits = new List<ARRaycastHit>();
     List<ARAnchor> m_AnchorPoints;
     GameObject m_RendedObject;
@@ -147,4 +173,9 @@ public class PlayRoomARScript : MonoBehaviour
     TrackableId _trackableId;
     // 추가 : 터치한 위치 확인 위하여
     Vector2 touchPosition;
+
+    //추가 : 카메라 변경시 사용하는 매니저 변경
+    ARCameraManager m_CameraManager;
+    ARFaceManager m_FaceManager;
+    private bool isSelfCam;
 }
