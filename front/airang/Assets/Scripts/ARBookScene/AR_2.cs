@@ -11,6 +11,7 @@ using UnityEngine.XR.ARSubsystems;
 
 public class AR_2 : MonoBehaviour
 {
+    public SetBeforeAR setBeforeAR;
     public void loadContentPrefab()
     {
         RemoveAllAnchors();
@@ -76,6 +77,7 @@ public class AR_2 : MonoBehaviour
             // plane 크기에 따라 prefab 크기 설정 f이상이면 저장 (최소크기)
             if (hitPlane.size.x * hitPlane.size.y > 2.5f)
             {
+                setBeforeAR.GetPlane();
                 // Plane 정보를 가져오고 anchor를 생성, 그 Anchor위에 Prefab을 생성함
                 var anchor = m_AnchorManager.AttachAnchor(hitPlane, hitPose);
 
