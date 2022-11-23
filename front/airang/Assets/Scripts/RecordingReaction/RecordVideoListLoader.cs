@@ -10,6 +10,7 @@ using UnityEngine.UI;
 using System.Linq;
 using Unity.XR.CoreUtils;
 using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
+using UnityEngine.SceneManagement;
 
 public class RecordVideoListLoader : MonoBehaviour
 {
@@ -29,9 +30,7 @@ public class RecordVideoListLoader : MonoBehaviour
     public void eraseAllBooks()
     {
         for (int i = 0; i < contentContainer.childCount; i++)
-        {
             Destroy(contentContainer.GetChild(i).gameObject);
-        }
     }
 
     private string GetAndroidExternalStoragePath()
