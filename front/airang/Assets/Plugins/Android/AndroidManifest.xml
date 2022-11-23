@@ -12,6 +12,6 @@
             </intent-filter>
             <meta-data android:name="unityplayer.UnityActivity" android:value="true" />
         </activity>
-		<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" tools:node="replace"/>
     </application>
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" tools:node="replace"/>
 </manifest>
