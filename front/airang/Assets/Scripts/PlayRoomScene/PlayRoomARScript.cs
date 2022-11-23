@@ -49,44 +49,59 @@ public class PlayRoomARScript : MonoBehaviour
     }
     void Update()
     {
-        // Raycast 함수로 화면의 정중앙에서 레이져를 쏘고 해당 경로에 생성된 AR Plane이 있을 경우
-        // 여기 코드에서는 렌더링된 Anchor가 1개 미만일 경우라는 조건도 추가함
-        if (m_AnchorPoints.Count < 1 && m_RaycastManager.Raycast(new Vector2(Screen.width * 0.5f, Screen.height * 0.5f), p_Hits, TrackableType.PlaneWithinPolygon))
+        if (!isSelfCam)
         {
-            var hitPose = p_Hits[0].pose;
-            /*
-                AR로 생성된 여러 객체들을 Trackable이라고 한다
-                ARRaycastManager의 Raycast는 자체적으로 Hit 정보에 어떤 Trackable이 맞았는지 알려준다
-            */
-
-            var hitTrackableId = p_Hits[0].trackableId;
-            _trackableId = hitTrackableId;
-            var hitPlane = m_PlaneManager.GetPlane(hitTrackableId);
-
-            // Plane 정보를 가져오고 anchor를 생성, 그 Anchor위에 Prefab을 생성함
-            var anchor = m_AnchorManager.AttachAnchor(hitPlane, hitPose);
-            
-            if (anchor == null)
+            // Raycast 함수로 화면의 정중앙에서 레이져를 쏘고 해당 경로에 생성된 AR Plane이 있을 경우
+            // 여기 코드에서는 렌더링된 Anchor가 1개 미만일 경우라는 조건도 추가함
+            if (m_AnchorPoints.Count < 1 && m_RaycastManager.Raycast(new Vector2(Screen.width * 0.5f, Screen.height * 0.5f), p_Hits, TrackableType.PlaneWithinPolygon))
             {
-                Debug.Log("Error creating anchor.");
+                var hitPose = p_Hits[0].pose;
+                /*
+                    AR로 생성된 여러 객체들을 Trackable이라고 한다
+                    ARRaycastManager의 Raycast는 자체적으로 Hit 정보에 어떤 Trackable이 맞았는지 알려준다
+                */
+
+                var hitTrackableId = p_Hits[0].trackableId;
+                _trackableId = hitTrackableId;
+                var hitPlane = m_PlaneManager.GetPlane(hitTrackableId);
+
+                // Plane 정보를 가져오고 anchor를 생성, 그 Anchor위에 Prefab을 생성함
+                var anchor = m_AnchorManager.AttachAnchor(hitPlane, hitPose);
+
+                if (anchor == null)
+                {
+                    Debug.Log("Error creating anchor.");
+                }
+                else
+                {
+                    m_AnchorPoints.Add(anchor);
+                    createPrefab();
+                    TogglePlaneDetection();
+                }
             }
-            else
+            else if (TryGetTouchPosition(out Vector2 touchPosition))
             {
-                m_AnchorPoints.Add(anchor);
-                createPrefab();
-                TogglePlaneDetection();
+                //터치 된 경우
+                RaycastHit hit;
+                Ray ray = Camera.main.ScreenPointToRay(touchPosition);
+                Physics.Raycast(ray, out hit);
+
+                //어떤 것을 건드렸나 확인
+                if (hit.collider.name.Contains("Model"))
+                {
+                    m_RendedObject.GetComponent<PlayRoomModelScript>().touched(hit.collider.name);
+                }
             }
-        }else if(TryGetTouchPosition(out Vector2 touchPosition))
+        }
+        else
         {
-            //터치 된 경우
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(touchPosition);
-            Physics.Raycast(ray, out hit);
-
-            //어떤 것을 건드렸나 확인
-            if (hit.collider.name.Contains("Model"))
+            if(faceMaterial == null)
             {
-                m_RendedObject.GetComponent<PlayRoomModelScript>().touched(hit.collider.name);
+                faceMaterial = loadMaterial("Face00");
+            }
+            foreach(ARFace face in m_FaceManager.trackables)
+            {
+                face.GetComponent<MeshRenderer>().material = faceMaterial;
             }
         }
     }
@@ -143,6 +158,7 @@ public class PlayRoomARScript : MonoBehaviour
     public void changeCameraManager()
     {
         isSelfCam = !isSelfCam;
+        ResetArPlane();
         RemoveAllAnchors();
         if (isSelfCam)
         {
@@ -155,11 +171,23 @@ public class PlayRoomARScript : MonoBehaviour
         else
         {
             m_CameraManager.requestedFacingDirection = CameraFacingDirection.World;
-            m_PlaneManager.enabled = false;
+            m_PlaneManager.enabled = true;
             m_RaycastManager.enabled = true;
             m_AnchorManager.enabled = true;
-            m_FaceManager.enabled = true;
+            m_FaceManager.enabled = false;
         }
+    }
+
+    public void setFace(string name)
+    {
+        faceMaterial = loadMaterial(name);
+        m_FaceManager.facePrefab.GetComponent<MeshRenderer>().material = faceMaterial;
+        //m_FaceManager.facePrefab = loadPrefab(name);
+    }
+
+    public Material loadMaterial(string name)
+    {
+        return Resources.Load("Prefabs/PlayRoomScene/" + name) as Material;
     }
 
     static List<ARRaycastHit> p_Hits = new List<ARRaycastHit>();
@@ -178,4 +206,5 @@ public class PlayRoomARScript : MonoBehaviour
     ARCameraManager m_CameraManager;
     ARFaceManager m_FaceManager;
     private bool isSelfCam;
+    private Material faceMaterial;
 }
