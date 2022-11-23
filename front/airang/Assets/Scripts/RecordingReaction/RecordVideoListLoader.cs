@@ -123,7 +123,7 @@ public class RecordVideoListLoader : MonoBehaviour
             texture.ReadPixels(new Rect(0, 0, 256, 256), 0, 0);
             texture.Apply();
 
-            //texture = ResampleAndCrop(texture, 256, 256);
+            //captured_texture = ResampleAndCrop(captured_texture, 256, 256);
             Debug.Log("이미지?? : "+Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f)));
             GameObject preview = video.transform.Find("Preview").gameObject;
             preview.GetComponent<Image>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
