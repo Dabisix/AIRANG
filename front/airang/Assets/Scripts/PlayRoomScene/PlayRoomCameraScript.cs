@@ -1,8 +1,6 @@
 using UnityEngine;
 using System.Collections;
 using System.IO;
-using UnityEngine.UI;
-using System.Text.RegularExpressions;
 
 public class PlayRoomCameraScript : MonoBehaviour
 {
@@ -10,18 +8,14 @@ public class PlayRoomCameraScript : MonoBehaviour
     private bool isCapturing;
     public AudioClip captureAudioClip;
     public Canvas captureCanvas;
-    public RawImage captureImage;
-
-    private Texture2D captured_texture;
-    private string fileName;
 
     public void CaptureScreen()
     {
         string timestamp = System.DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
-        fileName = "AIRANG-SCREENSHOT-" + timestamp + ".png";
+        string fileName = "AIRANG-SCREENSHOT-" + timestamp + ".png";
 
         #if UNITY_IPHONE || UNITY_ANDROID
-                CaptureScreenForMobile();
+                CaptureScreenForMobile(fileName);
 #else
                 CaptureScreenForPC(fileName);
 #endif
@@ -49,6 +43,10 @@ public class PlayRoomCameraScript : MonoBehaviour
         CaptureScreen();
         captureCanvas.enabled = true;
         yield return new WaitForSecondsRealtime(1f);
+        uis[0].enabled = true;
+        uis[1].enabled = true;
+        captureCanvas.enabled = false;
+        isCapturing = false;
     }
 
     private void CaptureScreenForPC(string fileName)
@@ -56,42 +54,12 @@ public class PlayRoomCameraScript : MonoBehaviour
         ScreenCapture.CaptureScreenshot("~/Downloads/" + fileName);
     }
 
-    private void CaptureScreenForMobile()
+    private void CaptureScreenForMobile(string fileName)
     {
-        captured_texture = ScreenCapture.CaptureScreenshotAsTexture();
+        Texture2D texture = ScreenCapture.CaptureScreenshotAsTexture();
 
-        // show preview image
-        captureImage.texture = captured_texture;
-    }
+        // do something with texture
 
-    public void captureEnd()
-    {
-        // UI update
-        uis[0].enabled = true;
-        uis[1].enabled = true;
-        captureCanvas.enabled = false;
-        // capture end
-        isCapturing = false;
-
-        // cleanup
-        Object.Destroy(captured_texture);
-    }
-
-
-    #region Result Canvas interactions
-    public void shareResult()
-    {
-        string filePath = Path.Combine(Application.temporaryCachePath, fileName);
-        File.WriteAllBytes(filePath, captured_texture.EncodeToPNG());
-
-        new NativeShare().AddFile(filePath)
-            .SetSubject("Airang").SetText("아이랑 한 컷")
-            .SetCallback((result, shareTarget) => Debug.Log("Share result: " + result + ", selected app: " + shareTarget))
-            .Share();
-    }
-
-    public void saveResult()
-    {
         //저장
         NativeGallery.Permission permission = NativeGallery.CheckPermission(NativeGallery.PermissionType.Write);
         if (permission == NativeGallery.Permission.Denied)
@@ -102,13 +70,13 @@ public class PlayRoomCameraScript : MonoBehaviour
             }
         }
         string albumName = "AIRANG";
-        NativeGallery.SaveImageToGallery(captured_texture, albumName, fileName, (success, path) =>
+        NativeGallery.SaveImageToGallery(texture, albumName, fileName, (success, path) =>
         {
             Debug.Log(success);
             Debug.Log(path);
         });
 
-        captureEnd();
+        // cleanup
+        Object.Destroy(texture);
     }
-    #endregion
 }
