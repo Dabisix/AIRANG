@@ -101,7 +101,7 @@ public class AR_5 : MonoBehaviour
 
             // plane 크기에 따라 prefab 크기 설정 f이상이면 저장 (최소크기)
             Debug.Log("hitPlane.size.x * hitPlane.size.y" + (hitPlane.size.x * hitPlane.size.y));
-            if (hitPlane.size.x * hitPlane.size.y > 3f)
+            if (hitPlane.size.x * hitPlane.size.y > 1f)
             {
                 // Plane 정보를 가져오고 anchor를 생성, 그 Anchor위에 Prefab을 생성함
                 var anchor = m_AnchorManager.AttachAnchor(hitPlane, hitPose);

@@ -83,22 +83,25 @@ public class AR_6 : MonoBehaviour
             // plane 크기에 따라 prefab 크기 설정 f이상이면 저장 (최소크기)
             Debug.Log("hitPlane.size.x * hitPlane.size.y" + (hitPlane.size.x * hitPlane.size.y));
 
-            // Plane 정보를 가져오고 anchor를 생성, 그 Anchor위에 Prefab을 생성함
-            var anchor = m_AnchorManager.AttachAnchor(hitPlane, hitPose);
-
-            // prefab 크기 변경
-            anchor.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
-            var created = Instantiate(m_AnchorPrefab, anchor.transform);
-
-            if (anchor == null)
+            if (hitPlane.size.x * hitPlane.size.y > 1f)
             {
-                Debug.Log("Error creating anchor.");
-            }
-            else
-            {
-                m_AnchorPoints.Add(anchor);
-                m_RendedObject = created;
-                TogglePlaneDetection();
+                // Plane 정보를 가져오고 anchor를 생성, 그 Anchor위에 Prefab을 생성함
+                var anchor = m_AnchorManager.AttachAnchor(hitPlane, hitPose);
+
+                // prefab 크기 변경
+                anchor.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+                var created = Instantiate(m_AnchorPrefab, anchor.transform);
+
+                if (anchor == null)
+                {
+                    Debug.Log("Error creating anchor.");
+                }
+                else
+                {
+                    m_AnchorPoints.Add(anchor);
+                    m_RendedObject = created;
+                    TogglePlaneDetection();
+                }
             }
         }
         else if (TryGetTouchPosition(out Vector2 touchPosition))
