@@ -8,6 +8,7 @@ using System.Collections;
 
 public class AR_6 : MonoBehaviour
 {
+    public SetBeforeAR setBeforeAR;
     public void loadContentPrefab()
     {
         RemoveAllAnchors();
@@ -85,6 +86,7 @@ public class AR_6 : MonoBehaviour
 
             if (hitPlane.size.x * hitPlane.size.y > 1f)
             {
+                setBeforeAR.GetPlane();
                 // Plane 정보를 가져오고 anchor를 생성, 그 Anchor위에 Prefab을 생성함
                 var anchor = m_AnchorManager.AttachAnchor(hitPlane, hitPose);
 

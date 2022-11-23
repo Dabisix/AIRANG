@@ -36,7 +36,9 @@ public class AR_5 : MonoBehaviour
     AudioSource audio;
 
     int touchNum = 0;
-    float timer = 0f;
+	float timer = 0f;
+
+    public SetBeforeAR setBeforeAR;
 
     public void loadContentPrefab()
     {
@@ -103,6 +105,7 @@ public class AR_5 : MonoBehaviour
             Debug.Log("hitPlane.size.x * hitPlane.size.y" + (hitPlane.size.x * hitPlane.size.y));
             if (hitPlane.size.x * hitPlane.size.y > 1f)
             {
+                setBeforeAR.GetPlane();
                 // Plane 정보를 가져오고 anchor를 생성, 그 Anchor위에 Prefab을 생성함
                 var anchor = m_AnchorManager.AttachAnchor(hitPlane, hitPose);
 
@@ -326,6 +329,4 @@ public class AR_5 : MonoBehaviour
 
     //추가 : 터치 인식할 plane 확인 위하여
     TrackableId _trackableId;
-    // 추가 : 터치된 지점 확인 위한 모양
-    public GameObject m_touchedPrefab;
 }

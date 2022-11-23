@@ -8,6 +8,7 @@ using System.Collections;
 
 public class AR_1 : MonoBehaviour
 {
+    public SetBeforeAR setBeforeAR;
     Animator turtleAnim;
     Animator rabbitAnim;
     bool isMove = false;
@@ -100,6 +101,7 @@ public class AR_1 : MonoBehaviour
             Debug.Log("hitPlane.size.x * hitPlane.size.y" + (hitPlane.size.x * hitPlane.size.y));
             if (hitPlane.size.x * hitPlane.size.y > 3f)
             {
+                setBeforeAR.GetPlane();
                 // Plane 정보를 가져오고 anchor를 생성, 그 Anchor위에 Prefab을 생성함
                 var anchor = m_AnchorManager.AttachAnchor(hitPlane, hitPose);
 
