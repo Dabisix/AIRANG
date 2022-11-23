@@ -49,10 +49,6 @@ public class PlayRoomCameraScript : MonoBehaviour
         CaptureScreen();
         captureCanvas.enabled = true;
         yield return new WaitForSecondsRealtime(1f);
-        /*uis[0].enabled = true;
-        uis[1].enabled = true;
-        captureCanvas.enabled = false;*/
-        
     }
 
     private void CaptureScreenForPC(string fileName)
