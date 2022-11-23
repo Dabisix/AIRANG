@@ -1,9 +1,8 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Security.Cryptography;
-using Unity.Entities.UniversalDelegates;
 using UnityEngine;
+using UnityEngine.Android;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -81,6 +80,8 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         // getAllBooksList();
+        if (Permission.HasUserAuthorizedPermission(Permission.ExternalStorageRead))
+            Permission.RequestUserPermission(Permission.ExternalStorageRead);
     }
 
     // json book list to List of Book object
