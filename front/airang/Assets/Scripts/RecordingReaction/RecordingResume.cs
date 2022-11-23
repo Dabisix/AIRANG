@@ -6,6 +6,10 @@ public class RecordingResume : MonoBehaviour
 {
     void Start()
     {
-        WebCamController.getInstance().resumeRecording();   
+        // only used in Non-pic book, and not AR pages
+        var wcc = WebCamController.getInstance();
+
+        if(wcc.isRecording)
+            wcc.resumeRecording();   
     }
 }
