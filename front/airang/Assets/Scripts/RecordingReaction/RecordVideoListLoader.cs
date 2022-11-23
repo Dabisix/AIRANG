@@ -38,11 +38,21 @@ public class RecordVideoListLoader : MonoBehaviour
         if (Application.platform != RuntimePlatform.Android)
             return Application.persistentDataPath;
 
-        var jc = new AndroidJavaClass("android.os.Environment");
-        var path = jc.CallStatic<AndroidJavaObject>("getExternalStoragePublicDirectory",
-            jc.GetStatic<string>("DIRECTORY_DCIM"))
-            .Call<string>("getAbsolutePath");
-        return path;
+        NativeGallery.Permission permission = NativeGallery.CheckPermission(NativeGallery.PermissionType.Read);
+        if (permission == NativeGallery.Permission.Denied)
+        {
+            if (NativeGallery.CanOpenSettings())
+                NativeGallery.OpenSettings();
+            return null;
+        }
+        else
+        {
+            var jc = new AndroidJavaClass("android.os.Environment");
+            var path = jc.CallStatic<AndroidJavaObject>("getExternalStoragePublicDirectory",
+                jc.GetStatic<string>("DIRECTORY_DCIM"))
+                .Call<string>("getAbsolutePath");
+            return path;
+        }
     }
 
     public void getVideos()
