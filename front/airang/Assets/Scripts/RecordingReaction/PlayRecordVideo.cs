@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.Video; // 비디오 플레이어 사용
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
+using Unity.Entities.UniversalDelegates;
 
 public class PlayRecordVideo : MonoBehaviour
 {
@@ -16,10 +18,17 @@ public class PlayRecordVideo : MonoBehaviour
 
     private void Start()
     {
-        screenVideo.url = VideoManager.getInstance().CurVideo.ScreenUrl;
-        selfVideo.url = VideoManager.getInstance().CurVideo.SelfUrl;
-        title.text = VideoManager.getInstance().CurVideo.Title;
-        Debug.Log(screenVideo.length);
+        var vm = VideoManager.getInstance();
+
+        // title format modify
+        string tmp_title = vm.CurVideo.Title.Substring(9);
+        tmp_title = tmp_title.Substring(0, tmp_title.Length - 8);
+
+        // video info initlize
+        screenVideo.url = vm.CurVideo.ScreenUrl;
+        selfVideo.url = vm.CurVideo.SelfUrl;
+        title.text = tmp_title;
+
         slider.minValue = 0;
         slider.maxValue = (float)screenVideo.clip.length;
     }
@@ -47,7 +56,7 @@ public class PlayRecordVideo : MonoBehaviour
         selfVideo.Stop();
     }
 
-    public void Share()
+    public void Share() // not used
     {
 		using (AndroidJavaClass intentClass = new AndroidJavaClass("android.content.Intent")) 
 		using (AndroidJavaObject intentObject = new AndroidJavaObject("android.content.Intent")) {
@@ -60,5 +69,10 @@ public class PlayRecordVideo : MonoBehaviour
 			using (AndroidJavaObject jChooser = intentClass.CallStatic<AndroidJavaObject>("createChooser", intentObject, "Share Via"))
 			currentActivity.Call("startActivity", jChooser);
 		}
+    }
+
+    public void goToListScene()
+    {
+        SceneManager.LoadScene("RecordListScene");
     }
 }
