@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
+using UnityEngine.XR.ARCore;
+using Unity.Collections;
 
 [RequireComponent(typeof(ARAnchorManager))]
 [RequireComponent(typeof(ARRaycastManager))]
@@ -38,6 +40,7 @@ public class PlayRoomARScript : MonoBehaviour
         m_AnchorPoints = new List<ARAnchor>();
         m_CameraManager = GetComponentInChildren<ARCameraManager>();
         m_FaceManager = GetComponent<ARFaceManager>();
+        sessionOrigin = GetComponent<ARSessionOrigin>();
         isSelfCam = false;
         m_FaceManager.enabled = false;
     }
@@ -49,6 +52,7 @@ public class PlayRoomARScript : MonoBehaviour
     }
     void Update()
     {
+        //셀프캠 아닐때
         if (!isSelfCam)
         {
             // Raycast 함수로 화면의 정중앙에서 레이져를 쏘고 해당 경로에 생성된 AR Plane이 있을 경우
@@ -95,14 +99,62 @@ public class PlayRoomARScript : MonoBehaviour
         }
         else
         {
-            if(faceMaterial == null)
+            //셀프캠인 경우
+            if (isMaterial)
             {
-                faceMaterial = loadMaterial("Face00");
+                //Material 사용하는 경우
+                setFaceMaterial();
             }
-            foreach(ARFace face in m_FaceManager.trackables)
+            else
             {
-                face.GetComponent<MeshRenderer>().material = faceMaterial;
+                //Prefab 사용하는 경우
+                ARCoreFaceSubsystem subsystem = (ARCoreFaceSubsystem)m_FaceManager.subsystem;
+                foreach (ARFace face in m_FaceManager.trackables)
+                {
+                    subsystem.GetRegionPoses(face.trackableId, Unity.Collections.Allocator.Persistent, ref faceRegions);
+
+                    foreach (ARCoreFaceRegionData faceRegion in faceRegions)
+                    {
+                        ARCoreFaceRegion regionType = faceRegion.region;
+                        if (regionType == ARCoreFaceRegion.NoseTip)
+                        {
+                            if (!noseObject)
+                            {
+                                noseObject = Instantiate(nosePrefab, sessionOrigin.trackablesParent);
+                            }
+                            noseObject.transform.localPosition = faceRegion.pose.position;
+                            noseObject.transform.localRotation = faceRegion.pose.rotation;
+                        }
+                        else if (regionType == ARCoreFaceRegion.ForeheadLeft)
+                        {
+                            if (!leftHeadObject)
+                            {
+                                leftHeadObject = Instantiate(leftHeadPrefab, sessionOrigin.trackablesParent);
+                            }
+                            leftHeadObject.transform.localPosition = faceRegion.pose.position;
+                            leftHeadObject.transform.localRotation = faceRegion.pose.rotation;
+                        }
+                        else if (regionType == ARCoreFaceRegion.ForeheadRight)
+                        {
+                            if (!rightHeadObject)
+                            {
+                                rightHeadObject = Instantiate(rightHeadPrefab, sessionOrigin.trackablesParent);
+                            }
+                            rightHeadObject.transform.localPosition = faceRegion.pose.position;
+                            rightHeadObject.transform.localRotation = faceRegion.pose.rotation;
+                        }
+
+                    }
+                }
             }
+        }
+    }
+
+    void setFaceMaterial()
+    {
+        foreach (ARFace face in m_FaceManager.trackables)
+        {
+            face.GetComponent<MeshRenderer>().material = faceMaterial;
         }
     }
 
@@ -160,6 +212,8 @@ public class PlayRoomARScript : MonoBehaviour
         isSelfCam = !isSelfCam;
         ResetArPlane();
         RemoveAllAnchors();
+        DeleteAllFace();
+        setFaceMaterial();
         if (isSelfCam)
         {
             m_CameraManager.requestedFacingDirection = CameraFacingDirection.User;
@@ -180,9 +234,28 @@ public class PlayRoomARScript : MonoBehaviour
 
     public void setFace(string name)
     {
-        faceMaterial = loadMaterial(name);
-        m_FaceManager.facePrefab.GetComponent<MeshRenderer>().material = faceMaterial;
-        //m_FaceManager.facePrefab = loadPrefab(name);
+        DeleteAllFace();
+        setFaceMaterial();
+        isMaterial = false;
+        if (name.StartsWith("M_"))
+        {
+            faceMaterial = loadMaterial(name);
+            isMaterial = true;
+        }
+        else
+        {
+            nosePrefab = loadPrefab(name+"/Nose");
+            leftHeadPrefab = loadPrefab(name + "/LeftHead");
+            rightHeadPrefab = loadPrefab(name + "/RightHead");
+        }
+    }
+
+    private void DeleteAllFace()
+    {
+        Destroy(noseObject);
+        Destroy(leftHeadObject);
+        Destroy(rightHeadObject);
+        faceMaterial = loadMaterial("M_Face00");
     }
 
     public Material loadMaterial(string name)
@@ -206,5 +279,16 @@ public class PlayRoomARScript : MonoBehaviour
     ARCameraManager m_CameraManager;
     ARFaceManager m_FaceManager;
     private bool isSelfCam;
+
+    //추가 : 셀프캠 변경시 사용하는 오브젝트
+    private bool isMaterial;
     private Material faceMaterial;
+    NativeArray<ARCoreFaceRegionData> faceRegions;
+    ARSessionOrigin sessionOrigin;
+    GameObject noseObject;
+    GameObject leftHeadObject;
+    GameObject rightHeadObject;
+    GameObject nosePrefab;
+    GameObject leftHeadPrefab;
+    GameObject rightHeadPrefab;
 }

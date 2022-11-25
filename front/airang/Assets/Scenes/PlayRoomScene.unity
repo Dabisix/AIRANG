@@ -294,7 +294,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Face02
+          m_StringArgument: M_Face01
           m_BoolArgument: 0
         m_CallState: 2
   m_IsOn: 0
@@ -744,14 +744,14 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1535978531}
         m_TargetAssemblyTypeName: PlayRoomARScript, Assembly-CSharp
-        m_MethodName: setFaceScript
-        m_Mode: 6
+        m_MethodName: setFace
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Face00
+          m_StringArgument: M_Face00
           m_BoolArgument: 0
         m_CallState: 2
   m_IsOn: 1
@@ -5973,7 +5973,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: bd50c40d0cfb9094b8dd6c86facd8cf7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 691c4431d87a6a24b9c39a498b105c5b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10530,7 +10530,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: bd50c40d0cfb9094b8dd6c86facd8cf7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 114ea77967645d14191d29b2eaa91348, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -11140,8 +11140,8 @@ GameObject:
   - component: {fileID: 1535978532}
   - component: {fileID: 1535978533}
   - component: {fileID: 1535978530}
-  - component: {fileID: 1535978531}
   - component: {fileID: 1535978534}
+  - component: {fileID: 1535978531}
   m_Layer: 0
   m_Name: AR Session Origin
   m_TagString: Untagged
