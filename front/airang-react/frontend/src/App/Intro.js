@@ -22,99 +22,44 @@ class Intro extends Component {
     return (
       <div className="page-intro">
         <div id="PageIntro">
-          <h2 style={{ color: "#FD9E66" }}>Mimic Recording Studio</h2>
+          <h2 style={{ color: "#FD9E66" }}>아이랑(AiRang) Recording Studio</h2>
           <h1>Help us build the voice(s) of Mycroft!</h1>
           <p>
-            Mycroft's open source Mimic technologies are Text-to-Speech engines,
-            which take a piece of written text and convert it into spoken audio.
-            The latest generation of this technology uses machine learning
-            techniques to create a model, which can speak a specific language,
-            sounding like the voice on which it was trained.
+            Mycroft의 오픈 소스 Mimic 기술은 Text-to-Speech 엔진이며, 서면
+            텍스트를 음성 오디오로 변환합니다. 이 기술의 최신 세대는 기계 학습을
+            사용합니다. 특정 언어를 말할 수 있는 모델을 만드는 기술, 훈련된
+            목소리처럼 들립니다.
           </p>
-          <p>
-            The Mimic Recording Studio simplifies the collection of training
-            data from individuals, each of which can be used to produce a
-            distinct voice for Mimic.
-          </p>
-
           <div className="instructions">
             <i className="fas fa-book-open" />
             <h2>guide</h2>
-            <p>
-              Mimic II preserves the rhythm, tone and pronunciation from source
-              recordings. As a result, it is important for all recordings to use
-              a consistent voice for the personality of the final product.
-            </p>
 
-            <p>
-              To help with this, adopt the assistant persona for all recordings:
-            </p>
-
+            <p>또한 음성 녹음에 대한 다음 조언을 따르십시오.</p>
             <ul className="persona-desc">
               <li>
-                <span className="li-title">
-                  The assistant is knowledgeable and confident, yet humble.
-                </span>
-                <br /> The assistant has access to all the world's information,
-                but is aware of his or her own limitations, and doesn't mind
-                being corrected.
+                좋은 마이크와 조용한 녹음실 설정을 사용하십시오(컴퓨터 팬,
+                에어컨 등 없음).
               </li>
               <li>
-                <span className="li-title">
-                  The assistant loves knowledge and enjoys sharing information
-                  with others.
-                </span>
-                <br /> This enjoyment can be clearly heard in the energy and
-                enthusiasm in his or her voice.
+                깨끗한 숫자/약어와 좋은 음소 적용 범위를 가진 텍스트 코퍼스를
+                사용하십시오.
               </li>
               <li>
-                <span className="li-title">
-                  The assistant is persistent, optimistic and upbeat.
-                </span>
-                <br /> Even if there are errors or misunderstandings, the tone
-                should be positive, without any sign of frustration.
+                중립적이지만 자연스러운 말투로 읽고 글자를 삼키지 마십시오.
               </li>
               <li>
-                <span className="li-title">
-                  The assistant is professional without being stiff or overly
-                  formal.
-                </span>
-                <br /> The assistant speaks with an efficient, yet unrushed
-                pace, similar to what you might hear from a news anchor.
+                구두점으로 톤과 피치를 조정합니다. 일정한 기록 속도를
+                사용하십시오.
               </li>
+              <li>
+                배경 소음이 있는지 정기적으로 높은 볼륨으로 녹음을 확인하십시오.
+              </li>
+              <li>
+                정기적으로 휴식을 취하고 하루에 4시간 이상 녹음하지 마십시오
+              </li>
+              <li>오류없이 기록하십시오.</li>
             </ul>
-
-            <hr></hr>
-            <p>
-              In addition please follow these advices for your voice recordings:
-            </p>
-            <ul className="persona-desc">
-              <li>
-                <b>Use a good microphone and a quiet recording room setup</b>{" "}
-                (no computers fans, air conditioning, ...).
-              </li>
-              <li>
-                Use a text corpus with cleaned numbers/abbreviations and good
-                phoneme coverage.
-              </li>
-              <li>
-                Read neutral, but with a natural speech flow and do not swallow
-                up letters.
-              </li>
-              <li>Adjust tone and pitch with punctuations.</li>
-              <li>Use a constant recording speed.</li>
-              <li>
-                Check your recordings regularly in high volume for background
-                noise.
-              </li>
-              <li>
-                Make breaks regualarly and do not record more than four hours a
-                day.
-              </li>
-              <li>Record error free.</li>
-            </ul>
-
-            <span className="li-title">Happy recording :-)</span>
+            <span className="li-title">행복한 녹음 :-)</span>
           </div>
           {getName() ? this.renderWelcomeBackMsg() : this.renderInput()}
           <div className="btn_PageIntro">
@@ -134,7 +79,7 @@ class Intro extends Component {
   renderInput = () => {
     return (
       <div>
-        <p>To get started, enter your name and hit the Record button.</p>
+        <p>시작하려면 이름을 입력하고 녹음 버튼을 누르십시오.</p>
         <input
           type="text"
           id="yourname"

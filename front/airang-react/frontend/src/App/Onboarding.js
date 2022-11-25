@@ -13,12 +13,25 @@ import Page3Child from "./assets/page3-child.png";
 import Page2Bg from "./assets/page2-bg.png";
 import Narr from "./assets/narr.png";
 import Hancut from "./assets/hancut.png";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 class Onboarding extends Component {
   render() {
+    AOS.init();
+
+    const top = () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
+    window.onbeforeunload = () => {
+      window.scrollTo(0, 0);
+    };
+
     return (
       <div>
         <div id="contents">
-          <a class="top">
+          <a class="top" onClick={top}>
             <img src={Top} alt="top" />
           </a>
           <div class="page1">
