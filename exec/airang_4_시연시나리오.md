@@ -77,6 +77,18 @@
 <div width="100%">
 <img src="https://user-images.githubusercontent.com/33210124/202898688-d9bfaba8-638e-43d3-bd91-d01548198ec5.gif" width="75%">
 </div>
+<div width="100%">
+<img src="https://user-images.githubusercontent.com/33210124/204221054-60c70ea6-8e7e-4c94-bcd7-7b6acdb63ab2.gif" width="75%">
+</div>
+<div width="100%">
+<img src="https://user-images.githubusercontent.com/33210124/204221087-177008c5-1cc2-47a4-81d5-8898a58698bf.gif" width="75%">
+</div>
+<div width="100%">
+<img src="https://user-images.githubusercontent.com/33210124/204221094-6d86c544-fe2b-49bf-9528-281ff763212e.gif" width="75%">
+</div>
+<div width="100%">
+<img src="https://user-images.githubusercontent.com/33210124/204224024-69fe96f1-c895-4e82-87cf-2257da7396b5.gif" width="75%">
+</div>  
 
 ### 동화(나레이션 & 녹음)
 > TTS 사용   
