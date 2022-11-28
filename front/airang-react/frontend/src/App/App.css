@@ -4,28 +4,6 @@
   box-sizing: border-box;
 }
 
-/* @media only screen and (max-width: 400px) {
-  .page {
-    margin: 0 5% 0 5%;
-  }
-}
-
-@media only screen and (min-width: 401px) and (max-width: 960px) {
-  .page {
-    margin: 0 10% 0 10%;
-  }
-}
-
-@media only screen and (min-width: 961px) {
-  .page {
-    margin: 0 15% 0 15%;
-  }
-}
-
-.page {
-  margin-top: 20px;
-} */
-
 @font-face {
   font-family: "ONE-Mobile-POP";
   src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-POP.woff")
@@ -55,68 +33,6 @@ html {
   font-family: "ONE-Mobile-Regular";
 }
 
-body {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  font-size: 16px;
-  background-color: #fff1e6;
-  overflow: auto;
-  color: #414141;
-  transition: 0.3s ease;
-}
-
-body::-webkit-scrollbar {
-  width: 10px;
-}
-body::-webkit-scrollbar-thumb {
-  background-color: #825a3d;
-  border-radius: 10px;
-  background-clip: padding-box;
-  border: 2px solid transparent;
-}
-body::-webkit-scrollbar-track {
-  background-color: #c29876;
-  border-radius: 10px;
-  box-shadow: inset 0px 0px 5px white;
-}
-
-/* a {
-  text-decoration: none;
-}
-
-h1 {
-  display: block;
-  text-align: left;
-  padding: 0px 0px 20px 0px;
-  color: #22a7f0;
-  font-size: 2.5em;
-  font-weight: 900;
-  line-height: 1.2;
-}
-
-h2 {
-  color: #22a7f0;
-  padding: 2px 0px 10px 0px;
-  font-size: 1em;
-  font-variant: small-caps;
-  font-weight: 700;
-}
-
-p {
-  padding: 0px 0px 16px 0px;
-}
-
-i {
-  color: #bdc3c7;
-  font-size: 2.1em;
-}
-
-hr {
-  margin: 1em 0 1em 0;
-  border-top: 1px solid #f1f3f4;
-} */
 .page-intro {
   margin-bottom: 20px;
 }
@@ -132,7 +48,6 @@ hr {
 
 .logo {
   margin-right: 10px;
-  /* margin-top: 10px; */
 }
 
 .top-container {
@@ -170,36 +85,26 @@ hr {
 }
 
 .instructions {
-  /* max-width: 100%; */
   margin: 20px 0px 40px 0px;
   padding: 40px 50px 40px 50px;
   background-color: #f1f3f4;
   border-radius: 6px;
-  /* line-height: 2; */
 }
 
 .instructions2 {
-  /* max-width: 100%; */
   margin: 0px 30px 40px 0px;
   padding: 40px 50px 40px 50px;
   background-color: #f1f3f4;
   border-radius: 6px;
-  /* width: 45%; */
-  /* min-width: 340px; */
-  /* line-height: 2; */
-  /* display: inline-block; */
   flex: 1;
 }
 
 .session-info {
   margin: 0px 0px 40px 0px;
   padding: 40px 50px 30px 50px;
-  /* width: 45%; */
-  /* min-width: 340px; */
   border-radius: 6px;
   border: 4px solid;
   border-color: #f1f3f4;
-  /* background-color: lightgrey; */
   flex: 1;
 }
 
@@ -212,7 +117,6 @@ hr {
 .btn-restart {
   display: inline;
   margin: 0.8em 0 0 0;
-  /* padding: 0 0; */
 }
 
 .small-caps {
@@ -225,7 +129,6 @@ hr {
 }
 
 .hints li {
-  /* margin-bottom: 16px; */
   margin-left: 20px;
 }
 
@@ -257,36 +160,6 @@ hr {
   flex: 1;
 }
 
-/* .feedback {
-  margin: 0px 0px 40px 0px;
-  padding: 40px 50px 40px 50px;
-  background-color: #f1f3f4;
-  border-radius: 6px;
-  flex: 1;
-} */
-
-/* header/copyright link */
-
-/*
-.link {
-  text-decoration: none;
-  color: #55acee;
-  border-bottom: 2px dotted #55acee;
-  transition: 0.3s;
-  -webkit-transition: 0.3s;
-  -moz-transition: 0.3s;
-  -o-transition: 0.3s;
-  cursor: url(http://cur.cursors-4u.net/symbols/sym-1/sym46.cur), auto;
-}
-
-.link:hover {
-  color: #2ecc71;
-  border-bottom: 2px dotted #2ecc71;
-}
-*/
-
-/* start da css for da buttons */
-
 .btn_PageIntro {
   max-width: 150px;
 }
@@ -307,14 +180,11 @@ hr {
 
 .btn-next {
   border-radius: 4px;
-  /* margin: 10px 0; */
   padding: 0.75em 1.75em;
   font-size: 1em;
-  /* text-decoration: none; */
   color: #fff;
   font-weight: 500;
   font-variant: small-caps;
-  /* height: 2.7em; */
   background-color: #22a7f0;
   max-width: 150px;
   text-align: center;
@@ -348,18 +218,6 @@ hr {
 .btn-next:active {
   background-color: #0094e5;
 }
-
-/*
-.ctls {
-  width: 200px;
-}
-*/
-
-/*
-.dark_blue {
-  background-color: #fd9e66;
-}
-*/
 
 .blue {
   background-color: #55acee;
@@ -419,33 +277,10 @@ hr {
   color: #22a7f0;
 }
 
-/* Box around the "Let's Go" and "Next" buttons */
-
-/*
-.btnBox {
-  background-color: red;
-}
-*/
-
-/* For buttons */
-
 .disabled {
   background-color: red;
   pointer-events: none;
 }
-
-/* #hints {
-  margin-left: 30px;
-  color: whitesmoke;
-  font-size: 0.9em;
-  font-variant: small-caps;
-}
-
-#hints ul li {
-  margin-left: 20px;
-  color: whitesmoke;
-  font-size: 0.9em;
-} */
 
 #yourname {
   font-size: 1em;
@@ -469,11 +304,9 @@ input::placeholder {
   color: maroon;
   font-size: 1.5em;
   margin-right: 50px;
-  /* float: left; */
 }
 
 #newSession {
-  /* float: right; */
   display: block;
 }
 
@@ -487,9 +320,7 @@ input::placeholder {
   background-color: #222222;
   color: #fd9e66; /* orange */
   font-size: 2em;
-  /* margin-right: 60px; */
   padding: 100px;
-  /* border-bottom: 1px solid grey; */
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
   position: relative;
@@ -497,8 +328,6 @@ input::placeholder {
 
 .feedback-ball-red {
   background-color: rgb(228, 63, 70);
-  /* width: 100px; */
-  /* height: 30px; */
   padding: 0px 5px 0px 5px;
   border-radius: 5px;
   position: absolute;
@@ -510,7 +339,6 @@ input::placeholder {
 
 .feedback-ball-green {
   background-color: rgb(37, 162, 78);
-  /* width: 100px; */
   padding: 0px 5px 0px 5px;
   height: 30px;
   border-radius: 5px;
@@ -520,16 +348,6 @@ input::placeholder {
   font-size: large;
   color: white;
 }
-
-/* .feedback-ball-grey {
-  background-color: grey;
-  width: 100px;
-  height: 30px;
-  border-radius: 5px;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-} */
 
 .feedback-ball-red-t {
   background-color: rgb(228, 63, 70);
@@ -571,10 +389,7 @@ input::placeholder {
 /* Holds recording widgets */
 
 #container {
-  /* padding: 0;
-  margin: 0; */
   width: 100%;
-  /* height: 100%; */
 }
 
 .wave-container {
@@ -590,49 +405,23 @@ input::placeholder {
   margin-top: -30px;
 }
 
-#waveform {
-  /* margin-bottom: 35px; */
-}
 .wavedisplay {
   width: 100%;
   height: 128px;
   margin-top: -32px;
 }
 
-/* Meter/Waveform widgets */
-
 canvas {
   display: inline-block;
   background: #222222;
-  /* height: 100%; */
-  /* padding: 0px;
-  margin: 0; */
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
 }
-
-/* #table_viz {
-  padding-left: 50px;
-  padding-right: 20px;
-} */
-
-/*
-#viz {
-  justify-content: space-around;
-  align-items: center;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  height: 100%;
-}
-*/
 
 #controls {
   text-align: center;
   padding-bottom: 27px;
   margin-top: 28px;
-  /* margin-top: 2vh; */
-  /* background-color: red; */
 }
 
 .recordBox {
@@ -641,13 +430,11 @@ canvas {
 
 #record {
   height: 70px;
-  /* width: 20px; */
   padding: 0;
   margin-bottom: -28px;
   margin-right: 10px;
   margin-left: 7px;
   box-sizing: border-box;
-  /* background: url(microphone.svg) no-repeat; */
 }
 
 #record:hover {
@@ -655,32 +442,24 @@ canvas {
   cursor: hand;
 }
 
-/* #record.recording {
-  background: url(microphone.svg) no-repeat;
-} */
-
 .ibutton {
   font-size: 0.7em;
   color: #2c3e50;
   margin-right: 8px;
-  /* margin-bottom: 40px; */
 }
 
 .ibutton-next {
   font-size: 0.9em;
   color: #fff;
   margin-right: 8px;
-  /* margin-bottom: 40px; */
 }
 
 /* Tutorial Page */
 .tutorial {
-  /* max-width: 100%; */
   margin: 20px 0px 40px 0px;
   padding: 40px 50px 40px 50px;
   background-color: #f1f3f4;
   border-radius: 6px;
-  /* line-height: 2; */
 }
 
 .indicator-container {
@@ -693,21 +472,6 @@ canvas {
   justify-content: center;
   align-items: center;
   color: white;
-}
-
-@font-face {
-  font-family: "ONE-Mobile-POP";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-POP.woff")
-    format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: "ONE-Mobile-Regular";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-Regular.woff")
-    format("woff");
-  font-weight: normal;
-  font-style: normal;
 }
 
 html {
@@ -767,26 +531,6 @@ body::-webkit-scrollbar-track {
   width: 100%;
   height: 100%;
 }
-@media (max-width: 480px) {
-  .top {
-    width: 80px;
-    height: 110px;
-  }
-}
-
-@media (max-width: 768px) {
-  .top {
-    width: 80px;
-    height: 110px;
-  }
-}
-
-@media all and (min-width: 768px) and (max-width: 1024px) {
-  .top {
-    width: 100px;
-    height: 130px;
-  }
-}
 
 #contents > div > h1 {
   display: flex;
@@ -795,23 +539,6 @@ body::-webkit-scrollbar-track {
   align-content: center;
   margin: auto;
   margin-bottom: 3%;
-}
-
-@media all and (min-width: 768px) and (max-width: 1024px) {
-  #contents > div > h1 {
-    font-size: 30px;
-  }
-}
-
-@media (max-width: 768px) {
-  #contents > div > h1 {
-    font-size: 25px;
-  }
-}
-@media (max-width: 480px) {
-  #contents > div > h1 {
-    font-size: 18px;
-  }
 }
 
 #contents > div > h1 .img-box {
@@ -827,27 +554,6 @@ body::-webkit-scrollbar-track {
   height: 100%;
 }
 
-@media all and (min-width: 768px) and (max-width: 1024px) {
-  #contents > div > h1 .img-box {
-    width: 80px;
-    height: 85px;
-  }
-}
-
-@media (max-width: 768px) {
-  #contents > div > h1 .img-box {
-    width: 65px;
-    height: 70px;
-  }
-}
-
-@media (max-width: 480px) {
-  #contents > div > h1 .img-box {
-    width: 35px;
-    height: 40px;
-  }
-}
-
 #contents > div > h1 .img-box:last-of-type {
   width: 88px;
   height: 62px;
@@ -858,51 +564,12 @@ body::-webkit-scrollbar-track {
   height: 100%;
 }
 
-@media all and (min-width: 768px) and (max-width: 1024px) {
-  #contents > div > h1 .img-box:last-of-type {
-    width: 78px;
-    height: 57px;
-  }
-}
-
-@media (max-width: 768px) {
-  #contents > div > h1 .img-box:last-of-type {
-    width: 68px;
-    height: 47px;
-  }
-}
-
-@media (max-width: 480px) {
-  #contents > div > h1 .img-box:last-of-type {
-    width: 50px;
-    height: 35px;
-  }
-}
-
 #contents > div > h1 span {
   font-family: "ONE-Mobile-POP";
   font-size: 43px;
 }
 #contents > div > h1 span:last-child {
   color: #63432c;
-}
-
-@media all and (min-width: 768px) and (max-width: 1024px) {
-  #contents > div > h1 span {
-    font-size: 30px;
-  }
-}
-
-@media (max-width: 768px) {
-  #contents > div > h1 span {
-    font-size: 25px;
-  }
-}
-
-@media (max-width: 480px) {
-  #contents > div > h1 span {
-    font-size: 18px;
-  }
 }
 
 .page1 {
@@ -913,39 +580,11 @@ body::-webkit-scrollbar-track {
   height: 100vh;
 }
 
-@media (max-width: 768px) {
-  .page1 {
-    background-size: cover;
-  }
-}
-@media all and (min-width: 768px) and (max-width: 1024px) {
-  .page1 {
-    height: auto;
-    padding: 10% 0;
-  }
-}
-
 .page1 .left-box {
   width: 70%;
   display: flex;
   flex-direction: column;
   padding-left: 3%;
-}
-@media all and (min-width: 768px) and (max-width: 1024px) {
-  .page1 .left-box {
-    width: 65%;
-  }
-}
-@media (max-width: 768px) {
-  .page1 .left-box {
-    width: 60%;
-  }
-}
-
-@media (max-width: 480px) {
-  .page1 .left-box {
-    width: 50%;
-  }
 }
 
 .page1 .left-box .logo {
@@ -958,11 +597,6 @@ body::-webkit-scrollbar-track {
   margin: 5% 0 0 5%;
   display: block;
   width: 150px;
-}
-@media (max-width: 768px) {
-  .page1 .left-box .logo img {
-    width: 120px;
-  }
 }
 
 .page1 .left-box .page1-img {
@@ -982,24 +616,6 @@ body::-webkit-scrollbar-track {
   width: 30%;
   display: flex;
   flex-direction: column;
-}
-
-@media all and (min-width: 768px) and (max-width: 1024px) {
-  .page1 .right-box {
-    width: 35%;
-  }
-}
-
-@media (max-width: 768px) {
-  .page1 .right-box {
-    width: 40%;
-  }
-}
-
-@media (max-width: 480px) {
-  .page1 .right-box {
-    width: 50%;
-  }
 }
 
 .page1 .right-box .download {
@@ -1024,17 +640,6 @@ body::-webkit-scrollbar-track {
 .page1 .right-box .text span {
   font-family: "ONE-Mobile-POP";
   color: #63432c;
-}
-
-@media all and (min-width: 768px) and (max-width: 1024px) {
-  .page1 .right-box .text {
-    font-size: 25px;
-  }
-}
-@media (max-width: 768px) {
-  .page1 .right-box .text {
-    font-size: 22px;
-  }
 }
 
 .page2 {
@@ -1109,24 +714,6 @@ body::-webkit-scrollbar-track {
   font-weight: bold;
 }
 
-@media all and (min-width: 768px) and (max-width: 1024px) {
-  .page5 .one-cut-img p {
-    font-size: 20px;
-  }
-}
-
-@media (max-width: 768px) {
-  .page5 .one-cut-img p {
-    font-size: 16px;
-  }
-}
-
-@media (max-width: 480px) {
-  .page5 .one-cut-img p {
-    font-size: 14px;
-  }
-}
-
 .footer {
   padding: 2% 0;
   font-size: 15px;
@@ -1141,14 +728,115 @@ body::-webkit-scrollbar-track {
   height: 5%;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 480px) {
+  .top {
+    width: 80px;
+    height: 110px;
+  }
+  #contents > div > h1 {
+    font-size: 18px;
+  }
+  #contents > div > h1 .img-box {
+    width: 35px;
+    height: 40px;
+  }
+  #contents > div > h1 .img-box:last-of-type {
+    width: 50px;
+    height: 35px;
+  }
+  #contents > div > h1 span {
+    font-size: 18px;
+  }
+  .page1 .left-box {
+    width: 50%;
+  }
+  .page1 .right-box {
+    width: 50%;
+  }
+  .page5 .one-cut-img p {
+    font-size: 14px;
+  }
   .footer {
-    font-size: 13px;
+    font-size: 11px;
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
+  #contents > div > h1 {
+    font-size: 25px;
+  }
+  #contents > div > h1 .img-box {
+    width: 65px;
+    height: 70px;
+  }
+  #contents > div > h1 .img-box:last-of-type {
+    width: 68px;
+    height: 47px;
+  }
+  #contents > div > h1 span {
+    font-size: 25px;
+  }
+  .page1 {
+    background-size: cover;
+  }
+  .page1 .left-box {
+    width: 60%;
+  }
+  .page1 .left-box .logo img {
+    width: 120px;
+  }
+  .page1 .right-box {
+    width: 40%;
+  }
+  .page1 .right-box .text {
+    font-size: 22px;
+  }
+  .page5 .one-cut-img p {
+    font-size: 16px;
+  }
   .footer {
-    font-size: 11px;
+    font-size: 13px;
+  }
+  .top {
+    width: 80px;
+    height: 110px;
+  }
+}
+
+@media all and (min-width: 768px) and (max-width: 1024px) {
+  .top {
+    width: 100px;
+    height: 130px;
+  }
+
+  #contents > div > h1 {
+    font-size: 30px;
+  }
+  #contents > div > h1 .img-box {
+    width: 80px;
+    height: 85px;
+  }
+  #contents > div > h1 span {
+    font-size: 30px;
+  }
+  #contents > div > h1 .img-box:last-of-type {
+    width: 78px;
+    height: 57px;
+  }
+  .page1 {
+    height: auto;
+    padding: 10% 0;
+  }
+  .page1 .left-box {
+    width: 65%;
+  }
+  .page1 .right-box {
+    width: 35%;
+  }
+  .page1 .right-box .text {
+    font-size: 25px;
+  }
+  .page5 .one-cut-img p {
+    font-size: 20px;
   }
 }
