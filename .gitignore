@@ -1,7 +1,35 @@
 front/airang/.vsconfig_bk
 front/airang/Assets/Resources/Prefabs/BookPrefab_backup.prefab
 front/airang/Assets/Resources/Prefabs/BookPrefab_backup.prefab.meta
-front/airang-react/frontend/node_modules/
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+front/airang-react/node_modules
+front/airang-react/.pnp
+.pnp.js
+
+.env.local
+.env.*.local
+.env
+*.env
+
+# testing
+front/airang-react/coverage
+
+# production
+front/airang-react/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 ## Backend - ai #######
 back/ai/api/K7B305T.pem
