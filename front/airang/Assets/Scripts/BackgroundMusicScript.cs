@@ -30,7 +30,7 @@ public class BackgroundMusicScript : MonoBehaviour
         }
         else
         {
-            audioSource.volume = 0.3f;
+            audioSource.volume = 0.1f;
         }
     }
 }

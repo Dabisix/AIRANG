@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.XR.ARFoundation;
 
 public class PlayRoomUIScript : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class PlayRoomUIScript : MonoBehaviour
     public GameObject[] characterLists;
     public Canvas photoCanvas;
     private bool isFirst;
+    private bool isSelfCam;
+
+    public Canvas selfCharacterCanvas;
 
     public GameObject playRoomArScript;
 
@@ -25,7 +29,9 @@ public class PlayRoomUIScript : MonoBehaviour
         closeCharacterMenuUI();
         closeFrameMenuUI();
         photoCanvas.enabled = false;
+        selfCharacterCanvas.enabled = false;
         isFirst = true;
+        isSelfCam = false;
     }
     public void openFrameMenuUI()
     {
@@ -57,18 +63,34 @@ public class PlayRoomUIScript : MonoBehaviour
     }
     public void openCharacterMenuUI()
     {
-        characterCanvas.enabled = true;
-        if (isFirst)
+        if (!isSelfCam)
         {
-            unActiveAllCharacterPrefabs();
-            characterLists[0].SetActive(true);
-            isFirst = false;
+            characterCanvas.enabled = true;
+            if (isFirst)
+            {
+                unActiveAllCharacterPrefabs();
+                characterLists[0].SetActive(true);
+                isFirst = false;
+            }
         }
+        else
+        {
+            selfCharacterCanvas.enabled = true;
+        }
+        
     }
     public void closeCharacterMenuUI()
     {
-        characterCanvas.enabled = false;
+        if (!isSelfCam)
+        {
+            characterCanvas.enabled = false;
+        }
+        else
+        {
+            selfCharacterCanvas.enabled = false;
+        }
     }
+
     public void changeCharacterPrefabs(int menuIndex)
     {
         unActiveAllCharacterPrefabs();
@@ -79,6 +101,21 @@ public class PlayRoomUIScript : MonoBehaviour
         foreach(var obj in characterLists)
         {
             obj.SetActive(false);
+        }
+    }
+
+    public void changeCamera()
+    {
+        isSelfCam = !isSelfCam;
+        if (isSelfCam)
+        {
+            characterCanvas.enabled = false;
+            selfCharacterCanvas.enabled = true;
+        }
+        else
+        {
+            characterCanvas.enabled = true;
+            selfCharacterCanvas.enabled = false;
         }
     }
 
