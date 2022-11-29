@@ -25,8 +25,8 @@ public class PlayRecordVideo : MonoBehaviour
         tmp_title = tmp_title.Substring(0, tmp_title.Length - 8);
 
         // video info initlize
-        screenVideo.url = vm.CurVideo.ScreenUrl;
-        selfVideo.url = vm.CurVideo.SelfUrl;
+        screenVideo.url = vm.CurVideo.ScreenUrl.Substring(7);
+        selfVideo.url = vm.CurVideo.SelfUrl.Substring(7);
         title.text = tmp_title;
 
         slider.minValue = 0;
