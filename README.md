@@ -15,7 +15,6 @@
 <br>
 
 # 🌰 Overview
-
 > 아이의 상상력을 최대로! 아이랑 함께하는 AR 동화책
 ##### 📽️ 소개 영상 보러가기 [[UCC]](https://youtu.be/RatmUjSNe2Q)
 ##### 🏆 삼성 청년 SW 아카데미 7기 2학기 자율 프로젝트 대전 3반 우수상 [[발표영상]](https://youtu.be/DJtRLoUfrzs)
